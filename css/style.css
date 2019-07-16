@@ -157,7 +157,7 @@ pre {
     padding-left: 10px;
     cursor: default;
     position: absolute;
-    top: 0;
+    top: -10px;
     left: 0;
     color: #cdddf7;
 }
@@ -1161,6 +1161,7 @@ pre {
     flex-flow: row nowrap;
     align-items: center;
     position: relative;
+	cursor:pointer;
 }
 
 .title-box>h6,
