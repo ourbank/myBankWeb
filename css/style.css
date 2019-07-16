@@ -336,7 +336,7 @@ pre {
     position: absolute;
     float: left;
     top: 10px;
-    left: 0;
+	right:1.0rem;
     display: none;
     flex-flow: row nowrap;
     justify-content: space-between;
@@ -1104,6 +1104,53 @@ pre {
     line-height: 0.3rem;
 }
 
+.poptitle-box{
+	width: 13.5rem;
+    height: 0.42rem;
+    background: url(../images/box_title.png) 1px 1px no-repeat;
+    background-size: 100% 100%;
+    margin-left: 1px;
+	align-items: center;
+    display: flex;
+    flex-flow: row nowrap;
+
+    position: relative;
+}
+.poptitle-box>h2{
+	border: none;
+	position: absolute;
+	left: 1.5rem;
+   
+}
+
+.poptitle-box>button {
+    font-size: 0.18rem;
+    border: none;
+    background: transparent;
+    color: #cdddf7;
+    height: 0.42rem;
+    position: absolute;
+    right: 2.3rem;
+    display: flex;
+    flex-flow: row nowrap;
+	margin-left: 13px;
+    align-items: left;
+    cursor: pointer;
+}
+
+.poptitle-box>button:hover {
+    color: white;
+}
+.poptitle-box>.line-img {
+    position: absolute;
+    right: 1.3rem;
+}
+.poptitle-box>button>img {
+    width: 0.2rem;
+    height: 0.2rem;
+    margin-right: 5px;
+}
+
 .title-box {
     width: 4.9rem;
     height: 0.42rem;
@@ -1209,7 +1256,7 @@ pre {
     font-size: 0.3rem;
     color: white;
     padding-left: 0.2rem;
-    background: url(../images/title_line.png) center left no-repeat;
+    background: url(../images/title_line.png) 0.1px 25px no-repeat;
 }
 
 .pop-up .pie-chart {
@@ -1250,8 +1297,8 @@ pre {
 .close-pop {
     display: inline-block;
     position: absolute;
-    top: 0.3rem;
-    right: 0.5rem;
+    top: 0.018rem;
+    right: 0.7rem;
     width: 13px;
     height: 0.9rem;
     background: url(../images/close.png) center left no-repeat;
@@ -1525,6 +1572,7 @@ pre {
 }
 
 .pages-div {
+	font-size:0.18rem;
     height: 0.63rem;
     display: flex;
     flex-flow: row nowrap;
@@ -1551,6 +1599,8 @@ pre {
     width: 0.7rem;
     height: 0.4rem;
     line-height: 0.4rem;
+	padding-left:0px;
+	margin-right:0.2rem;
 }
 
 @media screen and (max-height: 670px) {
@@ -1649,4 +1699,37 @@ pre {
         height: 1.9rem;
         overflow-y: auto;
     }
+}
+
+.history-left{
+	float: left;
+	height: 85%;
+	width: 50%;
+	overflow-y:auto;
+}
+
+.history-left-top{
+	float: left;
+	height: 90%;
+	width: 100%;
+	overflow-y:auto;
+}
+
+.history-left-bottom{
+	float: left;
+	height: 10%;
+	width: 100%;
+	overflow-y:auto;
+}
+
+.history-right{
+	float: left;
+	height: 85%;
+	width: 50%;
+}
+
+#historychat{
+	height: 100%;
+	width: 90%;
+	margin:auto;
 }

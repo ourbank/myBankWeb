@@ -536,14 +536,92 @@ function chart111() {
 
 //------------业务预测数据内容---------------
     //点击筛选按钮
-    $('#fil1Btn').on('click', function () {
+    $('#anlyfilBtn').on('click', function () {
         if ($('#fil1Con').is(":hidden")) {
             $('#fil1Con').attr('style', 'display:flex');
         } else {
             $('#fil1Con').hide();
-        }
+       }
+    })
+
+	 $('#fil1Btn').on('click', function () {
+        if ($('#fil1Con').is(":hidden")) {
+            $('#fil1Con').attr('style', 'display:flex');
+        } else {
+            $('#fil1Con').hide();
+       }
     })
 	
+	function chart11() {
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('chart11'));
+        myChart.clear();
+        option = {
+            title: {
+                text: ''
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['历史','预测'],
+                textStyle:{
+                    color: '#fff'
+                },
+                top: '8%'
+            },
+            grid: {
+                top: '20%',
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            color: ['#FF4949','#FFA74D','#FFEA51','#4BF0FF','#44AFF0','#4E82FF','#584BFF','#BE4DFF','#F845F1'],
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: ['7月','8月','9月','10月','11月','12月'],
+                splitLine: {
+                    show: false
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: '#fff'
+                    }
+                }
+            },
+            yAxis: {
+                name: '张',
+                type: 'value',
+                splitLine: {
+                    show: false
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: '#fff'
+                    }
+                }
+            },
+            series: [
+                {
+                    name:'历史',
+                    type:'line',
+					smooth: true, //平滑曲线显示
+                    data:[3961.88, 4233.63, 4183.14]
+                },
+				{
+                    name:'预测',
+                    type:'line',
+					smooth: true, //平滑曲线显示
+                    data:[,,4183.14, 3633.01, 3704.47,4204.47]
+                }
+				// 此处添加
+            ]
+        };
+        myChart.setOption(option);
+    }
+chart11('');
         //点击筛选按钮end
         function chart2() {
             // 基于准备好的dom，初始化echarts实例
@@ -1332,11 +1410,71 @@ return list;
 	})
 
 	$('#tohistory').on('click', function () {
-		$('.container').attr('style', 'visibility: visible').find('.pop-up').eq(3).attr('style', 'visibility: visible').siblings().attr('style', 'visibility: hidden');
+		$('.container').attr('style', 'visibility: visible').find('.pop-up').eq(1).attr('style', 'visibility: visible').siblings().attr('style', 'visibility: hidden');
 	})
-	
+
 	$('#title1').on('click', function () {
 	    
 		$('.container').attr('style', 'visibility: visible').find('.pop-up').eq(0).attr('style', 'visibility: visible').siblings().attr('style', 'visibility: hidden');
 		
 	})
+
+// 查询历史放大图表
+var historychat = echarts.init(document.getElementById('historychat'));
+function chart_history(){
+	historychat.clear();
+	option = {
+		title : {
+			text: '统计信息',
+			x:'center'
+		},
+		tooltip : {
+			trigger: 'item',
+			formatter: "{a} <br/>{b} : {c} ({d}%)"
+		},
+		legend: {
+			x : 'center',
+			y : 'bottom',
+			data:['查询','分析','预测']
+		},
+		toolbox: {
+			show : true,
+			feature : {
+				mark : {show: true},
+				magicType : {
+					show: true, 
+					type: ['pie', 'funnel']
+				},
+				restore : {show: true},
+				saveAsImage : {show: true}
+			}
+		},
+		calculable : true,
+		series : [
+			{
+				name:'占比',
+				type:'pie',
+				radius : [30, 110],
+				//center : ['75%', 200],
+				roseType : 'area',
+				//x: '50%',               // for funnel
+				sort : 'ascending',     // for funnel
+				data:[
+					{value:10, name:'查询'},
+					{value:5, name:'分析'},
+					{value:15, name:'预测'}
+				]
+			}
+		]
+	}; 
+	historychat.setOption(option);
+}
+chart_history();
+
+$('.savehistory').on('click',function(){
+	$(".table3").table2excel({
+    exclude: ".excludeThisClass",
+    name: "查询历史",
+    filename: "history" //do not include extension
+});
+})
