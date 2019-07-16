@@ -10,6 +10,7 @@
     <script type="text/javascript" src="js/rem.js"></script>
 	<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript" src="js/jquery.transit.js"></script>
+	<script type="text/javascript" src="js/jquery.table2excel.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
     <title>ICBC个金运营管理平台</title>
 </head>
@@ -190,10 +191,52 @@
     <div class="container">
         <div class="pop-up">
             <span class="close-pop"></span>
-            <h2 class="title">当前到件量</h2>
-            <div class="pop-data-box">
-                <p>123,456,789</p>
-            </div>
+            <h2 class="title">查询历史</h2>
+            <div class="history-left">
+				<div class="history-left-top">
+				<table class="table3">
+                    <thead>
+                        <tr>
+                            <th>操作时间</th>
+                            <th>操作类型</th>
+                            <th>时间</th>
+                            <th>地点</th>
+							<th>业务</th>
+                        </tr>
+                    </thead>
+                   <tbody id="tList">
+                   <tr>
+                       <td>2019-06-19 17:52</td>
+                       <td>查询</td>
+                       <td>2019-06-15 16:00</td>
+                       <td>广州</td>
+					   <td>开卡数</td>
+                   </tr>
+				   <tr>
+                       <td>2019-06-19 17:52</td>
+                       <td>查询</td>
+                       <td>2019-06-15 16:00</td>
+                       <td>广州</td>
+					   <td>开卡数</td>
+                   </tr><tr>
+                       <td>2019-06-19 17:52</td>
+                       <td>查询</td>
+                       <td>2019-06-15 16:00</td>
+                       <td>广州</td>
+					   <td>开卡数</td>
+                   </tr>
+                   </tbody>
+                </table>	
+				</div>
+				<div class="history-left-bottom">
+			<div class="pages-div" class="mineus">
+				<button class="skip savehistory">另存为</button>
+            </div>				
+			</div>
+			</div>
+			<div class="history-right">
+				<div id="historychat"></div>
+			</div>
         </div>
 
         <div class="pop-up">

@@ -1524,6 +1524,7 @@ pre {
 }
 
 .pages-div {
+	font-size:0.18rem;
     height: 0.63rem;
     display: flex;
     flex-flow: row nowrap;
@@ -1550,6 +1551,8 @@ pre {
     width: 0.7rem;
     height: 0.4rem;
     line-height: 0.4rem;
+	padding-left:0px;
+	margin-right:0.2rem;
 }
 
 @media screen and (max-height: 670px) {
@@ -1648,4 +1651,37 @@ pre {
         height: 1.9rem;
         overflow-y: auto;
     }
+}
+
+.history-left{
+	float: left;
+	height: 85%;
+	width: 50%;
+	overflow-y:auto;
+}
+
+.history-left-top{
+	float: left;
+	height: 90%;
+	width: 100%;
+	overflow-y:auto;
+}
+
+.history-left-bottom{
+	float: left;
+	height: 10%;
+	width: 100%;
+	overflow-y:auto;
+}
+
+.history-right{
+	float: left;
+	height: 85%;
+	width: 50%;
+}
+
+#historychat{
+	height: 100%;
+	width: 90%;
+	margin:auto;
 }
