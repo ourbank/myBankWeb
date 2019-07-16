@@ -83,21 +83,7 @@
                     <button id="fil1Btn"><img src="images/select_icon.png" alt="">筛选</button>
                 </div>
                 <div class="chart-box">
-                    <div class="filter-con" id="fil1Con" data-type="1">
-                        <div class="select" tabindex="0" hidefocus="true">
-                        </div>
-                        <div class="select" tabindex="0" hidefocus="true">
-                        </div>
-                        <div class="select" tabindex="0" hidefocus="true">
-                            <div id="analyli2_1" class="select-div">预测指标</div>
-                            <ul class="select-ul">
-								<li data-value="1">开卡数</li>
-								<li data-value="2">贷款数</li>
-								<li data-value="3">存款数</li>
-                                <li data-value="4">中间收入</li>
-                            </ul>
-                        </div>
-                    </div>
+                    
 					
                     <div id="prechart" class="gd-map" style="width:100%;height: 280px;">
 					</div>
@@ -189,8 +175,32 @@
     </div>
 	
     <div class="container">
-        <div class="pop-up">
+        <div class="pop-up">         
+            <span class="close-pop"></span>
+            <div class="poptitle-box">
+                    <h2 class="title">业务预测分析1</h2>
+                    <button id="anlyfilBtn"><img src="images/select_icon.png" alt="">筛选</button>
+                </div>
+			<!--<h2 class="title">业务预测分析</h2>-->
             
+			<div class="chart-box">
+				<div class="filter-con" id="fil1Con" data-type="1">
+                        <div class="select" tabindex="0" hidefocus="true">
+                        </div>
+                        <div class="select" tabindex="0" hidefocus="true">
+                        </div>
+                        <div class="select" tabindex="0" hidefocus="true">
+                            <div id="analyli2_1" class="select-div">预测指标</div>
+                            <ul class="select-ul">
+								<li data-value="1">开卡数</li>
+								<li data-value="2">贷款数</li>
+								<li data-value="3">存款数</li>
+                                <li data-value="4">中间收入</li>
+                            </ul>
+                        </div>
+                    </div>
+				<div id="chart11" class="gd-map" style="width:100%;height: 90%;"></div>
+				</div>
         </div>
 
         <div class="pop-up">
@@ -579,31 +589,10 @@
             }
         })
 
-        $('.modal-btn>li').on('click', function () {
-            var index = $(this).index();
-            if (index <= 2) {
-                $('.container').attr('style', 'visibility: visible').find('.pop-up').eq(index).attr('style', 'visibility: visible').siblings().attr('style', 'visibility: hidden');
-            } else if (index > 2 && index < 5) {
-                $('.container').attr('style', 'visibility: visible').find('.pop-up').eq(3).attr('style', 'visibility: visible').siblings().attr('style', 'visibility: hidden');
-                if (index != 3) {
-                    $('.pop-data .ranking-box').hide();
-                } else {
-                    $('.pop-data .ranking-box').show();
-                }
-                $('.cont-div').eq(index - 3).attr('style', 'visibility: visible').siblings('.cont-div').attr('style', 'visibility: hidden');
-            } else if (index == 5) {
-                $('.container').attr('style', 'visibility: visible').find('.pop-up').eq(3).attr('style', 'visibility: visible').siblings().attr('style', 'visibility: hidden');
-                $('.pop-data .ranking-box').hide();
-                if ($('#switchBtn').find('.active').data('datatype') == "income") {
-                    $('#titles').html('收入数据');
-                    $('#totalProfits').html('123,456.5元');
-                    $('.cont-div').eq(2).attr('style', 'visibility: visible').siblings('.cont-div').attr('style', 'visibility: hidden');
-                } else if ($('#switchBtn').find('.active').data('datatype') == 'expend') {
-                    $('#titles').html('支出数据');
-                    $('#totalProfits').html('32,111.4元');
-                    $('.cont-div').eq(2).attr('style', 'visibility: visible').siblings('div').attr('style', 'visibility: hidden');
-                }
-            }
+        $('#fil1Btn').on('click', function () {
+					$('.container').attr('style', 'visibility: visible').find('.pop-up').eq(0).attr('style', 'visibility: visible').siblings().attr('style', 'visibility: hidden');
+					
+            
         })
     })
 </script>

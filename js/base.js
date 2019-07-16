@@ -278,13 +278,84 @@
 
 //------------业务预测数据内容---------------
     //点击筛选按钮
-    $('#fil1Btn').on('click', function () {
+    $('#anlyfilBtn').on('click', function () {
         if ($('#fil1Con').is(":hidden")) {
             $('#fil1Con').attr('style', 'display:flex');
         } else {
             $('#fil1Con').hide();
-        }
+       }
     })
+	
+	function chart11() {
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('chart11'));
+        myChart.clear();
+        option = {
+            title: {
+                text: ''
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['历史','预测'],
+                textStyle:{
+                    color: '#fff'
+                },
+                top: '8%'
+            },
+            grid: {
+                top: '20%',
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            color: ['#FF4949','#FFA74D','#FFEA51','#4BF0FF','#44AFF0','#4E82FF','#584BFF','#BE4DFF','#F845F1'],
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: ['7月','8月','9月','10月','11月','12月'],
+                splitLine: {
+                    show: false
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: '#fff'
+                    }
+                }
+            },
+            yAxis: {
+                name: '张',
+                type: 'value',
+                splitLine: {
+                    show: false
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: '#fff'
+                    }
+                }
+            },
+            series: [
+                {
+                    name:'历史',
+                    type:'line',
+					smooth: true, //平滑曲线显示
+                    data:[3961.88, 4233.63, 4183.14]
+                },
+				{
+                    name:'预测',
+                    type:'line',
+					smooth: true, //平滑曲线显示
+                    data:[,,4183.14, 3633.01, 3704.47,4204.47]
+                }
+				// 此处添加
+            ]
+        };
+        myChart.setOption(option);
+    }
+chart11('');
         //点击筛选按钮end
         function chart2() {
             // 基于准备好的dom，初始化echarts实例
