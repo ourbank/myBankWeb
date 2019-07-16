@@ -78,13 +78,11 @@
             </div>
             <div class="left-bottom" class="select">
                 <div class="title-box">
-                    <h6 id="title2">业务指标预测</h6>
+                    <h6 style="cursor:pointer;" id="title2">业务指标预测</h6>
                     <img class="line-img" src="images/line-blue.png" alt="">
                     <button id="fil1Btn"><img src="images/select_icon.png" alt="">筛选</button>
                 </div>
                 <div class="chart-box">
-                    
-					
                     <div id="prechart" class="gd-map" style="width:100%;height: 280px;">
 					</div>
                 </div>
@@ -178,7 +176,7 @@
         <div class="pop-up">         
             <span class="close-pop"></span>
             <div class="poptitle-box">
-                    <h2 class="title">业务预测分析1</h2>
+                    <h2 class="title">业务预测分析</h2>
                     <button id="anlyfilBtn"><img src="images/select_icon.png" alt="">筛选</button>
                 </div>
 			<!--<h2 class="title">业务预测分析</h2>-->
@@ -589,7 +587,7 @@
             }
         })
 
-        $('#fil1Btn').on('click', function () {
+        $('#title2').on('click', function () {
 					$('.container').attr('style', 'visibility: visible').find('.pop-up').eq(0).attr('style', 'visibility: visible').siblings().attr('style', 'visibility: hidden');
 					
             

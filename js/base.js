@@ -286,6 +286,14 @@
        }
     })
 	
+	 $('#fil1Btn').on('click', function () {
+        if ($('#fil1Con').is(":hidden")) {
+            $('#fil1Con').attr('style', 'display:flex');
+        } else {
+            $('#fil1Con').hide();
+       }
+    })
+	
 	function chart11() {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('chart11'));
