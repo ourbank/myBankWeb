@@ -1,4 +1,116 @@
-    function fnW(str) {
+    var analysebus = '-1';
+	var analysefac = '-1';
+	
+	//先写死业务请求的数据 分析部分
+	
+	//职业
+	   var data00 = [{
+            name: 'IT人员',
+            value: 192581,
+            percent:'30'
+        }, {
+            name: '教师',
+            value: 215635,
+            percent: '14.08',
+        }, {
+            name: '管理人员',
+            value: 224585,
+            percent: '14.67',
+        }, {
+            name: '行政',
+            value: 224585,
+            percent: '14.67',
+        }, {
+            name: '医生',
+            value: 224585,
+            percent: '14.67',
+        }];
+		//年龄
+	var data01 = [{
+            name: '高于50岁',
+            value: 192581,
+            percent:'30'
+        }, {
+            name: '30岁~50岁',
+            value: 215635,
+            percent: '14.08',
+        }, {
+            name: '20岁~30岁',
+            value: 224585,
+            percent: '14.67',
+        }, {
+            name: '低于20岁',
+            value: 224585,
+            percent: '14.67',
+        }];
+		
+		//地址
+		
+	var data02 = [{
+            name: '一线城市',
+            value: 192581,
+            percent:'30'
+        }, {
+            name: '二线城市',
+            value: 215635,
+            percent: '14.08',
+        }, {
+            name: '三线城市',
+            value: 224585,
+            percent: '14.67',
+        }, {
+            name: '其他',
+            value: 224585,
+            percent: '14.67',
+        }];
+		
+	var data03 =[{
+            name: '男性',
+            value: 192581,
+            percent:'40'
+        }, {
+            name: '女性',
+            value: 215635,
+            percent: '60',
+        }];
+	var data10 = data00;
+	var data20 = data00;
+	var data30 = data00;
+	var data11 = data01;
+	var data21 = data01;
+	var data31 = data01;
+	var data12 = data02;
+	var data22 = data02;
+	var data32 = data02;
+	var data13 = data03;
+	var data23 = data03;
+	var data33 = data03;
+	
+	//选择对应数据
+	function selectdata(num1,num2){
+	 if(num2 == '-1'){
+			//单独处理
+	 }
+	 else{
+	     if(num2 == '0'){
+			return data00;
+	     }
+		 else if(num2 == '1'){
+			return data01;
+	     }
+		  else if(num2 == '2'){
+			return data02;
+	     }
+		  else if(num2 == '3'){
+			return data03;
+	     }
+		 
+	 }
+	 
+	}
+	
+	
+	function fnW(str) {
         var num;
         str >= 10 ? num = str : num = "0" + str;
         return num;
@@ -18,6 +130,8 @@
         $('#date').html('<span>' + year + '/' + (month + 1) + '/' + data + '</span><span>' + ampm + '</span><span>周' + day + '</span>')
 
     }, 1000)
+	
+	
 
 	
 
@@ -25,8 +139,26 @@
     $('.select-ul').on('click', 'li', function () {
         $(this).addClass('active').siblings('li').removeClass('active').parent().hide().siblings('.select-div').html($(this).html());
         var parentDiv = $(this).parent().parent().parent();
+		//alert($(this).attr("data-value"));
     })
-
+	
+	//获取按钮的值  自己加了id便于检索
+	
+    $('#select_business').on('click', 'li', function () {
+		analysebus = $(this).attr("data-value");
+		chart111();
+		chart1();
+		
+    })
+	
+	$('#select_factor').on('click', 'li', function () {
+		analysefac = $(this).attr("data-value");
+        //myChart111.setOption(option);
+		chart111();
+		chart1();
+    })
+	
+	
     //鼠标滑动到按钮，按钮内容变成白色
     var imgName;
     $('.title-box').children('button').hover(function () {
@@ -86,49 +218,175 @@
 
             }
         });
+function chart111() {
 
-    function chart1() {
+		var data;
         //data 为模拟数据
-        var data = [{
-            name: 'IT人员',
-            value: 192581,
-            percent: '20.74',
-        }, {
-            name: '教师',
-            value: 215635,
-            percent: '19.26',
-        }, {
-            name: '管理人员',
-            value: 224585,
-            percent: '35.44',
-        }, {
-            name: '行政',
-            value: 224585,
-            percent: '10.56',
-        }, {
-            name: '医生',
-            value: 224585,
-            percent: '5.11',
-        }, {
-            name: '律师',
-            value: 224585,
-            percent: '3.63',
-        }, {
-            name: '农民',
-            value: 224585,
-            percent: '1.26',
-        }];
-        var myChart = echarts.init(document.getElementById('pie'));
+		if(analysefac == '-1'){
+		    data = data00;
+		}
+        else data = selectdata(analysebus,analysefac);
+        var myChart111 = echarts.init(document.getElementById('chart111'));
         window.addEventListener('resize', function () {
             myChart.resize();
         });
 
         var str = '';
         for (var i = 0; i < data.length; i++) {
+		//这句可以删除百分数
+		 //str += '<p><span><i class="legend" style="background:' + startColor[i] + '"></i></span>' + data[i].name + '<span class="pie-number" style="color:' + startColor[i] + '">' + ""+ '</span></p>';
             str += '<p><span><i class="legend" style="background:' + startColor[i] + '"></i></span>' + data[i].name + '<span class="pie-number" style="color:' + startColor[i] + '">' + ""+ '</span>' + Number(data[i].percent).toFixed(2) + '%</p>';
         }
+		
+        $('.pie-data').html(str);
 
-        $('.pie-data').append(str);
+
+        function deepCopy(obj) {
+            if (typeof obj !== 'object') {
+                return obj;
+            }
+            var newobj = {};
+            for (var attr in obj) {
+                newobj[attr] = obj[attr];
+            }
+            return newobj;
+        }
+
+        var RealData = [];
+        var borderData = [];
+		RealData.splice(0,RealData.length); 
+		borderData.splice(0,borderData.length); 
+        data.map((item, index) => {
+            var newobj = deepCopy(item);
+            var newobj1 = deepCopy(item);
+            RealData.push(newobj);
+            borderData.push(newobj1);
+        });
+        RealData.map((item, index) => {
+            item.itemStyle = {
+                normal: {
+                    color: {
+                        type: 'linear',
+                        x: 0,
+                        y: 0,
+                        x2: 0,
+                        y2: 1,
+                        colorStops: [{
+                            offset: 0,
+                            color: startColor[index] // 0% 处的颜色
+                        }, {
+                            offset: 1,
+                            color: startColor[index] // 100% 处的颜色
+                        }],
+                        globalCoord: false // 缺省为 false
+                    },
+                }
+            }
+        });
+        borderData.map((item, index) => {
+            item.itemStyle = {
+                normal: {
+                    color: {
+                        type: 'linear',
+                        x: 0,
+                        y: 0,
+                        x2: 0,
+                        y2: 1,
+                        colorStops: [{
+                            offset: 0,
+                            color: borderStartColor[index] // 0% 处的颜色
+                        }, {
+                            offset: 1,
+                            color: borderStartColor[index] // 100% 处的颜色
+                        }],
+                        globalCoord: false // 缺省为 false
+                    },
+                }
+            }
+        });
+        var option = {
+            tooltip: {
+                trigger: 'item',
+                //            position: ['30%', '50%'],
+                confine: true,
+                formatter: "{a} <br/>{b}: {c} ({d}%)"
+            },
+            series: [
+            // 主要展示层的
+            {
+                radius: ['50%', '85%'],
+                center: ['50%', '50%'],
+                type: 'pie',
+                label: {
+                    normal: {
+                        show: false
+                    },
+                    emphasis: {
+                        show: false
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    },
+                    emphasis: {
+                        show: false
+                    }
+                },
+                name: "占比为:",
+                data: RealData
+            },
+            // 边框的设置
+            {
+                radius: ['45%', '50%'],
+                center: ['50%', '50%'],
+                type: 'pie',
+                label: {
+                    normal: {
+                        show: false
+                    },
+                    emphasis: {
+                        show: false
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    },
+                    emphasis: {
+                        show: false
+                    }
+                },
+                animation: false,
+                tooltip: {
+                    show: false
+                },
+                data: borderData
+            }
+            ]
+        };
+		myChart111.clear();
+        myChart111.setOption(option);
+    }
+   
+        //点击筛选按钮end
+  chart111()
+  
+  
+    function chart1() {
+        //data 为模拟数据
+         var data;
+        //data 为模拟数据
+		if(analysefac == '-1'){
+		    data = data00;
+		}
+        else data = selectdata(analysebus,analysefac);
+        var myChart = echarts.init(document.getElementById('pie'));
+        window.addEventListener('resize', function () {
+            myChart.resize();
+        });
+
+
 
 
         function deepCopy(obj) {
@@ -228,7 +486,7 @@
                         show: false
                     }
                 },
-                name: "银行指标分析占比内容",
+                name: "占比为:",
                 data: RealData
             },
             // 边框的设置
@@ -260,7 +518,7 @@
             }
             ]
         };
-
+         myChart.clear();
         myChart.setOption(option);
     }
     $('#filBtn').on('click', function () {
@@ -285,6 +543,7 @@
             $('#fil1Con').hide();
         }
     })
+	
         //点击筛选按钮end
         function chart2() {
             // 基于准备好的dom，初始化echarts实例
@@ -1074,4 +1333,10 @@ return list;
 
 	$('#tohistory').on('click', function () {
 		$('.container').attr('style', 'visibility: visible').find('.pop-up').eq(3).attr('style', 'visibility: visible').siblings().attr('style', 'visibility: hidden');
+	})
+	
+	$('#title1').on('click', function () {
+	    
+		$('.container').attr('style', 'visibility: visible').find('.pop-up').eq(0).attr('style', 'visibility: visible').siblings().attr('style', 'visibility: hidden');
+		
 	})

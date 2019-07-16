@@ -37,7 +37,7 @@
             </div>
             <div class="left-center">
                 <div class="title-box">
-                    <h6 id="title1">业务指标分析</h6>
+                    <h6 id="title1" >业务指标分析</h6>
 					<img class="line-img" src="images/line-blue.png" alt="">
                     <button id="filBtn"><img src="images/select_icon.png" alt="">定制</button>
                 </div>
@@ -48,7 +48,7 @@
                         </div>
 						<div class="select" tabindex="0" hidefocus="true">
                             <div id="analyli1_1" class="select-div">业务指标</div>
-                            <ul  class="select-ul">
+                            <ul  class="select-ul" id="select_business">
 								<li data-value="0">开卡数</li>
 								<li data-value="1">贷款数</li>
 								<li data-value="2">存款数</li>
@@ -57,11 +57,11 @@
                         </div>
                         <div class="select" tabindex="0" hidefocus="true">
                             <div id="analyli1_2" class="select-div">分析指标</div>
-                            <ul class="select-ul">
-                                <li data-value="1">职业</li>
-                                <li data-value="2">年龄</li>
-                                <li data-value="3">住址</li>
-                                <li data-value="4">性别</li>
+                            <ul class="select-ul" id="select_factor">
+                                <li data-value="0">职业</li>
+                                <li data-value="1">年龄</li>
+                                <li data-value="2">住址</li>
+                                <li data-value="3">性别</li>
                             </ul>
                         </div>
                     </div>
@@ -188,6 +188,21 @@
     </div>
 	
     <div class="container">
+	
+	<div class="pop-up">
+	   <div id="chart111" class="close-pop" style="width:60%;height: 80%; right:500px;
+	   top:50px"></div>
+			<h2 class="title">业务指标分析</h2>
+            <span class="close-pop"></span>
+            <div class="chart-box pie-chart" >
+                <div id="pie" ></div>
+                <div>
+                    <div class="pie-data" style="width:60%;height: 80%;">
+                    </div>
+                </div>
+            </div>
+        </div>
+		</div>
         <div class="pop-up">
             <span class="close-pop"></span>
             <h2 class="title">当前到件量</h2>
@@ -196,17 +211,7 @@
             </div>
         </div>
 
-        <div class="pop-up">
-            <span class="close-pop"></span>
-            <h2 class="title">派件入库量占比</h2>
-            <div class="chart-box pie-chart">
-                <div id="pie1"></div>
-                <div>
-                    <div class="pie-data">
-                    </div>
-                </div>
-            </div>
-        </div>
+        
 
         <div class="pop-up">
             <span class="close-pop"></span>
