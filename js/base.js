@@ -1073,7 +1073,7 @@ return list;
 	})
 
 	$('#tohistory').on('click', function () {
-		$('.container').attr('style', 'visibility: visible').find('.pop-up').eq(0).attr('style', 'visibility: visible').siblings().attr('style', 'visibility: hidden');
+		$('.container').attr('style', 'visibility: visible').find('.pop-up').eq(1).attr('style', 'visibility: visible').siblings().attr('style', 'visibility: hidden');
 	})
 
 
