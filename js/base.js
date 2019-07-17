@@ -1,8 +1,120 @@
-    function fnW(str) {
-        var num;
-        str >= 10 ? num = str : num = "0" + str;
-        return num;
-    }
+    var analysebus = '-1';
+    var analysefac = '-1';
+
+	//先写死业务请求的数据 分析部分
+	
+	//职业
+    var data00 = [{
+        name: 'IT人员',
+        value: 192581,
+        percent:'30'
+    }, {
+        name: '教师',
+        value: 215635,
+        percent: '14.08',
+    }, {
+        name: '管理人员',
+        value: 224585,
+        percent: '14.67',
+    }, {
+        name: '行政',
+        value: 224585,
+        percent: '14.67',
+    }, {
+        name: '医生',
+        value: 224585,
+        percent: '14.67',
+    }];
+		//年龄
+     var data01 = [{
+        name: '高于50岁',
+        value: 192581,
+        percent:'30'
+    }, {
+        name: '30岁~50岁',
+        value: 215635,
+        percent: '14.08',
+    }, {
+        name: '20岁~30岁',
+        value: 224585,
+        percent: '14.67',
+    }, {
+        name: '低于20岁',
+        value: 224585,
+        percent: '14.67',
+    }];
+
+		//地址
+		
+     var data02 = [{
+        name: '一线城市',
+        value: 192581,
+        percent:'30'
+    }, {
+        name: '二线城市',
+        value: 215635,
+        percent: '14.08',
+    }, {
+        name: '三线城市',
+        value: 224585,
+        percent: '14.67',
+    }, {
+        name: '其他',
+        value: 224585,
+        percent: '14.67',
+    }];
+
+    var data03 =[{
+        name: '男性',
+        value: 192581,
+        percent:'40'
+    }, {
+        name: '女性',
+        value: 215635,
+        percent: '60',
+    }];
+    var data10 = data00;
+    var data20 = data00;
+    var data30 = data00;
+    var data11 = data01;
+    var data21 = data01;
+    var data31 = data01;
+    var data12 = data02;
+    var data22 = data02;
+    var data32 = data02;
+    var data13 = data03;
+    var data23 = data03;
+    var data33 = data03;
+
+	//选择对应数据
+	function selectdata(num1,num2){
+      if(num2 == '-1'){
+			//单独处理
+      }
+      else{
+          if(num2 == '0'){
+           return data00;
+       }
+       else if(num2 == '1'){
+           return data01;
+       }
+       else if(num2 == '2'){
+           return data02;
+       }
+       else if(num2 == '3'){
+           return data03;
+       }
+
+   }
+
+}
+
+
+function fnW(str) {
+    var num;
+    str >= 10 ? num = str : num = "0" + str;
+    return num;
+}
     //获取当前时间
     var timer = setInterval(function () {
         var date = new Date();
@@ -19,51 +131,36 @@
 
     }, 1000)
 
-	
 
-	/*按钮点击方法*/
+
+
+	var title1_1; //标题1：分析 的第一个选择参数
+    var title1_2; //标题1：分析 的第二个选择参数
+    var title2_1; //标题2：预测 的第一个选择参数
+    /*按钮点击方法*/
     $('.select-ul').on('click', 'li', function () {
         $(this).addClass('active').siblings('li').removeClass('active').parent().hide().siblings('.select-div').html($(this).html());
         var parentDiv = $(this).parent().parent().parent();
+		//alert($(this).attr("data-value"));
     })
 
-    //鼠标滑动到按钮，按钮内容变成白色
-    var imgName;
-    $('.title-box').children('button').hover(function () {
-        imgName = $(this).children('img').attr('src').split('.png')[0];
-        $(this).children('img').attr('src', imgName + '_on.png');
-    }, function () {
-        $(this).children('img').attr('src', imgName + '.png');
+	//获取按钮的值  自己加了id便于检索
+	
+    $('#select_business').on('click', 'li', function () {
+      analysebus = $(this).attr("data-value");
+      chart111();
+      chart1();
 
-    });
+  })
+
+    $('#select_factor').on('click', 'li', function () {
+      analysefac = $(this).attr("data-value");
+        //myChart111.setOption(option);
+        chart111();
+        chart1();
+    })
 
 
-    var startColor = ['#0e94eb', '#c440ef', '#efb013', '#2fda07', '#d8ef13', '#2e4af8', '#0eebc4', '#f129b1', '#17defc', '#f86363'];
-    var borderStartColor = ['#0077c5', '#a819d7', '#c99002', '#24bc00', '#b6cb04', '#112ee2', '#00bd9c', '#ce078f', '#00b2cd', '#ec3c3c'];
-
-
-	$('.select').on('blur', function () {
-			$(this).find('.select-ul').hide();
-		})
-		//下拉框点击出现下拉框内容
-	$('.select-div').on('click', function () {
-		if ($(this).siblings('.select-ul').is(":hidden")) {
-			$(this).siblings('.select-ul').show();
-		} else {
-			$(this).siblings('.select-ul').hide();
-		}
-	})
-	$('.select-ul').on('click', 'li', function () {
-		$(this).addClass('active').siblings('li').removeClass('active').parent().hide().siblings('.select-div').html($(this).html());
-		var parentDiv = $(this).parent().parent().parent();
-	})
-
-    //银行指标分析占比，带边框效果的饼图
-
-    // 点击其他位置收起选择框
-    var title1_1; //标题1：分析 的第一个选择参数
-    var title1_2; //标题1：分析 的第二个选择参数
-    var title2_1; //标题2：预测 的第一个选择参数
     $('.box-center').on('click', function () {
         if (!$('#filCon').is(":hidden")) {
             $('#filCon').hide();
@@ -86,88 +183,97 @@
 
             }
         });
+		
+    //鼠标滑动到按钮，按钮内容变成白色
+    var imgName;
+    $('.title-box').children('button').hover(function () {
+        imgName = $(this).children('img').attr('src').split('.png')[0];
+        $(this).children('img').attr('src', imgName + '_on.png');
+    }, function () {
+        $(this).children('img').attr('src', imgName + '.png');
 
-    function chart1() {
+    });
+
+
+    var startColor = ['#0e94eb', '#c440ef', '#efb013', '#2fda07', '#d8ef13', '#2e4af8', '#0eebc4', '#f129b1', '#17defc', '#f86363'];
+    var borderStartColor = ['#0077c5', '#a819d7', '#c99002', '#24bc00', '#b6cb04', '#112ee2', '#00bd9c', '#ce078f', '#00b2cd', '#ec3c3c'];
+
+
+    $('.select').on('blur', function () {
+       $(this).find('.select-ul').hide();
+   })
+		//下拉框点击出现下拉框内容
+     $('.select-div').on('click', function () {
+      if ($(this).siblings('.select-ul').is(":hidden")) {
+       $(this).siblings('.select-ul').show();
+   } else {
+       $(this).siblings('.select-ul').hide();
+   }
+})
+     $('.select-ul').on('click', 'li', function () {
+      $(this).addClass('active').siblings('li').removeClass('active').parent().hide().siblings('.select-div').html($(this).html());
+      var parentDiv = $(this).parent().parent().parent();
+  })
+
+    //银行指标分析占比，带边框效果的饼图
+
+    // 点击其他位置收起选择框
+   
+    function chart111() {
+
+      var data;
         //data 为模拟数据
-        var data = [{
-            name: 'IT人员',
-            value: 192581,
-            percent: '20.74',
-        }, {
-            name: '教师',
-            value: 215635,
-            percent: '19.26',
-        }, {
-            name: '管理人员',
-            value: 224585,
-            percent: '35.44',
-        }, {
-            name: '行政',
-            value: 224585,
-            percent: '10.56',
-        }, {
-            name: '医生',
-            value: 224585,
-            percent: '5.11',
-        }, {
-            name: '律师',
-            value: 224585,
-            percent: '3.63',
-        }, {
-            name: '农民',
-            value: 224585,
-            percent: '1.26',
-        }];
-        var myChart = echarts.init(document.getElementById('pie'));
-        window.addEventListener('resize', function () {
-            myChart.resize();
-        });
+        if(analysefac == '-1'){
+          data = data00;
+      }
+      else data = selectdata(analysebus,analysefac);
+      var myChart111 = echarts.init(document.getElementById('chart111'));
+      window.addEventListener('resize', function () {
+        myChart.resize();
+    });
 
-        var str = '';
-        for (var i = 0; i < data.length; i++) {
-            str += '<p><span><i class="legend" style="background:' + startColor[i] + '"></i></span>' + data[i].name + '<span class="pie-number" style="color:' + startColor[i] + '">' + ""+ '</span>' + Number(data[i].percent).toFixed(2) + '%</p>';
+      var str = '';
+      for (var i = 0; i < data.length; i++) {
+		//这句可以删除百分数
+		 //str += '<p><span><i class="legend" style="background:' + startColor[i] + '"></i></span>' + data[i].name + '<span class="pie-number" style="color:' + startColor[i] + '">' + ""+ '</span></p>';
+        str += '<p><span><i class="legend" style="background:' + startColor[i] + '"></i></span>' + data[i].name + '<span class="pie-number" style="color:' + startColor[i] + '">' + ""+ '</span>' + Number(data[i].percent).toFixed(2) + '%</p>';
+    }
+
+    $('.pie-data').html(str);
+
+
+    function deepCopy(obj) {
+        if (typeof obj !== 'object') {
+            return obj;
         }
-
-        $('.pie-data').append(str);
-
-
-        function deepCopy(obj) {
-            if (typeof obj !== 'object') {
-                return obj;
-            }
-            var newobj = {};
-            for (var attr in obj) {
-                newobj[attr] = obj[attr];
-            }
-            return newobj;
+        var newobj = {};
+        for (var attr in obj) {
+            newobj[attr] = obj[attr];
         }
-        var xData = [],
-        yData = [];
-        data.map((a, b) => {
-            xData.push(a.name);
-            yData.push(a.value);
-        });
+        return newobj;
+    }
 
-
-        var RealData = [];
-        var borderData = [];
-        data.map((item, index) => {
-            var newobj = deepCopy(item);
-            var newobj1 = deepCopy(item);
-            RealData.push(newobj);
-            borderData.push(newobj1);
-        });
-        RealData.map((item, index) => {
-            item.itemStyle = {
-                normal: {
-                    color: {
-                        type: 'linear',
-                        x: 0,
-                        y: 0,
-                        x2: 0,
-                        y2: 1,
-                        colorStops: [{
-                            offset: 0,
+    var RealData = [];
+    var borderData = [];
+    RealData.splice(0,RealData.length); 
+    borderData.splice(0,borderData.length); 
+    data.map((item, index) => {
+        var newobj = deepCopy(item);
+        var newobj1 = deepCopy(item);
+        RealData.push(newobj);
+        borderData.push(newobj1);
+    });
+    RealData.map((item, index) => {
+        item.itemStyle = {
+            normal: {
+                color: {
+                    type: 'linear',
+                    x: 0,
+                    y: 0,
+                    x2: 0,
+                    y2: 1,
+                    colorStops: [{
+                        offset: 0,
                             color: startColor[index] // 0% 处的颜色
                         }, {
                             offset: 1,
@@ -178,17 +284,17 @@
                 }
             }
         });
-        borderData.map((item, index) => {
-            item.itemStyle = {
-                normal: {
-                    color: {
-                        type: 'linear',
-                        x: 0,
-                        y: 0,
-                        x2: 0,
-                        y2: 1,
-                        colorStops: [{
-                            offset: 0,
+    borderData.map((item, index) => {
+        item.itemStyle = {
+            normal: {
+                color: {
+                    type: 'linear',
+                    x: 0,
+                    y: 0,
+                    x2: 0,
+                    y2: 1,
+                    colorStops: [{
+                        offset: 0,
                             color: borderStartColor[index] // 0% 处的颜色
                         }, {
                             offset: 1,
@@ -199,9 +305,9 @@
                 }
             }
         });
-        var option = {
-            tooltip: {
-                trigger: 'item',
+    var option = {
+        tooltip: {
+            trigger: 'item',
                 //            position: ['30%', '50%'],
                 confine: true,
                 formatter: "{a} <br/>{b}: {c} ({d}%)"
@@ -228,7 +334,7 @@
                         show: false
                     }
                 },
-                name: "银行指标分析占比内容",
+                name: "占比为:",
                 data: RealData
             },
             // 边框的设置
@@ -260,7 +366,160 @@
             }
             ]
         };
+        myChart111.clear();
+        myChart111.setOption(option);
+    }
 
+        //点击筛选按钮end
+        chart111()
+
+
+        function chart1() {
+        //data 为模拟数据
+        var data;
+        //data 为模拟数据
+        if(analysefac == '-1'){
+          data = data00;
+      }
+      else data = selectdata(analysebus,analysefac);
+      var myChart = echarts.init(document.getElementById('pie'));
+      window.addEventListener('resize', function () {
+        myChart.resize();
+    });
+
+
+
+
+      function deepCopy(obj) {
+        if (typeof obj !== 'object') {
+            return obj;
+        }
+        var newobj = {};
+        for (var attr in obj) {
+            newobj[attr] = obj[attr];
+        }
+        return newobj;
+    }
+    var xData = [],
+    yData = [];
+    data.map((a, b) => {
+        xData.push(a.name);
+        yData.push(a.value);
+    });
+
+
+    var RealData = [];
+    var borderData = [];
+    data.map((item, index) => {
+        var newobj = deepCopy(item);
+        var newobj1 = deepCopy(item);
+        RealData.push(newobj);
+        borderData.push(newobj1);
+    });
+    RealData.map((item, index) => {
+        item.itemStyle = {
+            normal: {
+                color: {
+                    type: 'linear',
+                    x: 0,
+                    y: 0,
+                    x2: 0,
+                    y2: 1,
+                    colorStops: [{
+                        offset: 0,
+                            color: startColor[index] // 0% 处的颜色
+                        }, {
+                            offset: 1,
+                            color: startColor[index] // 100% 处的颜色
+                        }],
+                        globalCoord: false // 缺省为 false
+                    },
+                }
+            }
+        });
+    borderData.map((item, index) => {
+        item.itemStyle = {
+            normal: {
+                color: {
+                    type: 'linear',
+                    x: 0,
+                    y: 0,
+                    x2: 0,
+                    y2: 1,
+                    colorStops: [{
+                        offset: 0,
+                            color: borderStartColor[index] // 0% 处的颜色
+                        }, {
+                            offset: 1,
+                            color: borderStartColor[index] // 100% 处的颜色
+                        }],
+                        globalCoord: false // 缺省为 false
+                    },
+                }
+            }
+        });
+    var option = {
+        tooltip: {
+            trigger: 'item',
+                //            position: ['30%', '50%'],
+                confine: true,
+                formatter: "{a} <br/>{b}: {c} ({d}%)"
+            },
+            series: [
+            // 主要展示层的
+            {
+                radius: ['50%', '85%'],
+                center: ['50%', '50%'],
+                type: 'pie',
+                label: {
+                    normal: {
+                        show: false
+                    },
+                    emphasis: {
+                        show: false
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    },
+                    emphasis: {
+                        show: false
+                    }
+                },
+                name: "占比为:",
+                data: RealData
+            },
+            // 边框的设置
+            {
+                radius: ['45%', '50%'],
+                center: ['50%', '50%'],
+                type: 'pie',
+                label: {
+                    normal: {
+                        show: false
+                    },
+                    emphasis: {
+                        show: false
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    },
+                    emphasis: {
+                        show: false
+                    }
+                },
+                animation: false,
+                tooltip: {
+                    show: false
+                },
+                data: borderData
+            }
+            ]
+        };
+        myChart.clear();
         myChart.setOption(option);
     }
     $('#filBtn').on('click', function () {
@@ -279,34 +538,64 @@
 //------------业务预测数据内容---------------
     //点击筛选按钮
     $('#anlyfilBtn').on('click', function () {
+        if ($('#fil2Con').is(":hidden")) {
+            $('#fil2Con').attr('style', 'display:flex');
+        } else {
+            $('#fil2Con').hide();
+        }
+    })
+
+    $('#fil1Btn').on('click', function () {
         if ($('#fil1Con').is(":hidden")) {
             $('#fil1Con').attr('style', 'display:flex');
         } else {
             $('#fil1Con').hide();
-       }
+        }
     })
-	
-	 $('#fil1Btn').on('click', function () {
-        if ($('#fil1Con').is(":hidden")) {
-            $('#fil1Con').attr('style', 'display:flex');
-        } else {
-            $('#fil1Con').hide();
-       }
-    })
-	
-	function chart11() {
+
+
+    var myChartPre = echarts.init(document.getElementById('chart11'));
+    function chart11() {
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('chart11'));
-        myChart.clear();
+        myChartPre.clear();
         option = {
-            title: {
+            toolbox: {
+			show : true,
+			feature : {
+            mark : {show: true},
+            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+			}
+		},
+			title: {
                 text: ''
             },
             tooltip: {
-                trigger: 'axis'
+                trigger: 'axis',
+				formatter: function(params){
+					// 自定义悬浮框，用于展示增量百分比
+					if(params.length > 1 && params[0].seriesName.indexOf('预测')!=-1){
+						return params[0].name + "<br/>"
+					+ params[0].seriesName + "："+ params[0].value + "<br/>"
+                    + params[1].seriesName + "："+ params[1].value + "<br/>"
+					+ "业务理论增量：" + (((params[1].value-params[0].value)/params[0].value)*100)+ "%";
+					}
+					if(params.length > 1 && params[0].seriesName.indexOf('历史')!=-1){
+						return params[0].name + "<br/>"
+					+ params[0].seriesName + "："+ params[0].value + "<br/>";
+					}
+					if(params.length = 1 && params[0].seriesName.indexOf('预测')!=-1){
+						return params[0].name + "<br/>"
+					+ params[0].seriesName + "："+ params[0].value + "<br/>";
+					}
+					return  params[0].name + "<br/>"
+					+ params[0].seriesName + "："+ params[0].value + "<br/>"
+                    + params[1].seriesName + "："+ params[1].value + "<br/>";
+				}
             },
             legend: {
-                data:['历史','预测'],
+                data:['历史','预测','计划'],
                 textStyle:{
                     color: '#fff'
                 },
@@ -346,24 +635,59 @@
                 }
             },
             series: [
-                {
-                    name:'历史',
-                    type:'line',
+            {
+                name:'历史',
+                type:'line',
 					smooth: true, //平滑曲线显示
                     data:[3961.88, 4233.63, 4183.14]
                 },
-				{
+                {
                     name:'预测',
                     type:'line',
 					smooth: true, //平滑曲线显示
                     data:[,,4183.14, 3633.01, 3704.47,4204.47]
                 }
 				// 此处添加
-            ]
-        };
-        myChart.setOption(option);
-    }
-chart11('');
+                ]
+            };
+            myChartPre.setOption(option);
+        }
+        chart11('');
+		
+	// 预测界面中  目标分析
+	$("#pre_ana_btn").on('click',function(){
+		var options = myChartPre.getOption();
+		var out = [options.series[0],options.series[1]];
+		var target = $("#target").val();
+		var pre = options.series[1].data;
+		var plan = getplan(pre,target);
+		var out_data = {name:'计划',type:'line',smooth:true,data:plan}
+		out.push(out_data);
+		options.series = out;
+		myChartPre.clear();
+		myChartPre.setOption(options);
+	})
+		
+	// 目标分析函数	
+	function getplan(pre,target){
+		console.log(target);
+		var out = [];
+		var i;
+		for( i = 0;i < pre.length; i++){
+			out.push(pre[i]);
+			if(pre[i] != null) break;
+		}
+		var now = out[i];
+		var gap = (target - now)/(pre.length - i - 1);
+				console.log(gap);
+
+		for( i = i + 1;i < pre.length; i++){
+			now = now + gap;
+			out.push(now);
+		}
+		console.log(out);
+		return out;
+	}
         //点击筛选按钮end
         function chart2() {
             // 基于准备好的dom，初始化echarts实例
@@ -596,138 +920,138 @@ chart11('');
             }
             chart3('');
 
-/* =========================地图模块图表节结束============================*/
+            /* =========================地图模块图表节结束============================*/
 
-/* =========================业务选择============================*/
+            /* =========================业务选择============================*/
 
     //业务选择 按钮动态展示
-	var mouseleaveable_1 = true;
-	var mouseleaveable_2 = true;
-	var mouseleaveable_3 = true;
-	var mouseleaveable_4 = true;
+    var mouseleaveable_1 = true;
+    var mouseleaveable_2 = true;
+    var mouseleaveable_3 = true;
+    var mouseleaveable_4 = true;
     $('#Jcardnum').css({y:-20}).transition({
       opacity: 1,
       y:0
-	},1000, 'linear');
-	$('#Jcardnum').on('mouseover',function(){
-	  $('#Jcardnum').css({background:'#9400D3'})
-	});
-	$('#Jcardnum').on('mouseleave',function(){
-		if(mouseleaveable_1)
-			$('#Jcardnum').css({background:'#4169E1'})
-	});
-	$('#Jcardnum').on('click',function(){
-	  mouseleaveable_1 = false;
-	  mouseleaveable_2 = true;
-	  mouseleaveable_3 = true;
-	  mouseleaveable_4 = true;
-	  $('#Jcardnum').css({background:'#9400D3'});
-	  $('#Jloan').css({background:'#4169E1'});
-	  $('#Jcash').css({background:'#4169E1'});
-	  $('#Jmiddle').css({background:'#4169E1'});
-	});
-  
+  },1000, 'linear');
+    $('#Jcardnum').on('mouseover',function(){
+       $('#Jcardnum').css({background:'#9400D3'})
+   });
+    $('#Jcardnum').on('mouseleave',function(){
+      if(mouseleaveable_1)
+       $('#Jcardnum').css({background:'#4169E1'})
+});
+    $('#Jcardnum').on('click',function(){
+       mouseleaveable_1 = false;
+       mouseleaveable_2 = true;
+       mouseleaveable_3 = true;
+       mouseleaveable_4 = true;
+       $('#Jcardnum').css({background:'#9400D3'});
+       $('#Jloan').css({background:'#4169E1'});
+       $('#Jcash').css({background:'#4169E1'});
+       $('#Jmiddle').css({background:'#4169E1'});
+   });
+
     $('#Jloan').css({y:-20}).transition({
       opacity: 1,
       y:0,
       delay:250
-	},1000, 'linear');
-	$('#Jloan').on('mouseover',function(){
-	  $('#Jloan').css({background:'#9400D3'})
-	});
-	$('#Jloan').on('mouseleave',function(){
-		if(mouseleaveable_2)
-			$('#Jloan').css({background:'#4169E1'})
-	});
-	$('#Jloan').on('click',function(){
-	  mouseleaveable_1 = true;
-	  mouseleaveable_2 = false;
-	  mouseleaveable_3 = true;
-	  mouseleaveable_4 = true;
-	  $('#Jcardnum').css({background:'#4169E1'});
-	  $('#Jloan').css({background:'#9400D3'});
-	  $('#Jcash').css({background:'#4169E1'});
-	  $('#Jmiddle').css({background:'#4169E1'});
-	});
-  
+  },1000, 'linear');
+    $('#Jloan').on('mouseover',function(){
+       $('#Jloan').css({background:'#9400D3'})
+   });
+    $('#Jloan').on('mouseleave',function(){
+      if(mouseleaveable_2)
+       $('#Jloan').css({background:'#4169E1'})
+});
+    $('#Jloan').on('click',function(){
+       mouseleaveable_1 = true;
+       mouseleaveable_2 = false;
+       mouseleaveable_3 = true;
+       mouseleaveable_4 = true;
+       $('#Jcardnum').css({background:'#4169E1'});
+       $('#Jloan').css({background:'#9400D3'});
+       $('#Jcash').css({background:'#4169E1'});
+       $('#Jmiddle').css({background:'#4169E1'});
+   });
+
     $('#Jcash').css({y:-20}).transition({
       opacity: 1,
       y:0,
       delay:500
-	},1000, 'linear');
-	$('#Jcash').on('mouseover',function(){
-			$('#Jcash').css({background:'#9400D3'})
-	});
-	$('#Jcash').on('mouseleave',function(){
-		if(mouseleaveable_3)
-			$('#Jcash').css({background:'#4169E1'})
-	});
-	$('#Jcash').on('click',function(){
-	  mouseleaveable_1 = true;
-	  mouseleaveable_2 = true;
-	  mouseleaveable_3 = false;
-	  mouseleaveable_4 = true;
-	  $('#Jcardnum').css({background:'#4169E1'});
-	  $('#Jloan').css({background:'#4169E1'});
-	  $('#Jcash').css({background:'#9400D3'});
-	  $('#Jmiddle').css({background:'#4169E1'});
-	});
-	
+  },1000, 'linear');
+    $('#Jcash').on('mouseover',function(){
+       $('#Jcash').css({background:'#9400D3'})
+   });
+    $('#Jcash').on('mouseleave',function(){
+      if(mouseleaveable_3)
+       $('#Jcash').css({background:'#4169E1'})
+});
+    $('#Jcash').on('click',function(){
+       mouseleaveable_1 = true;
+       mouseleaveable_2 = true;
+       mouseleaveable_3 = false;
+       mouseleaveable_4 = true;
+       $('#Jcardnum').css({background:'#4169E1'});
+       $('#Jloan').css({background:'#4169E1'});
+       $('#Jcash').css({background:'#9400D3'});
+       $('#Jmiddle').css({background:'#4169E1'});
+   });
+
     $('#Jmiddle').css({y:-20}).transition({
       opacity: 1,
       y:0,
       delay:750
-	},1000, 'linear');
-	$('#Jmiddle').on('mouseover',function(){
-	  $('#Jmiddle').css({background:'#9400D3'})
-	});
-	$('#Jmiddle').on('mouseleave',function(){
-		if(mouseleaveable_4)
-			$('#Jmiddle').css({background:'#4169E1'})
-	});
-	$('#Jmiddle').on('click',function(){
-	  mouseleaveable_1 = true;
-	  mouseleaveable_2 = true;
-	  mouseleaveable_3 = true;
-	  mouseleaveable_4 = false;
-	  $('#Jcardnum').css({background:'#4169E1'});
-	  $('#Jloan').css({background:'#4169E1'});
-	  $('#Jcash').css({background:'#4169E1'});
-	  $('#Jmiddle').css({background:'#9400D3'});
-	});
-  
-  
+  },1000, 'linear');
+    $('#Jmiddle').on('mouseover',function(){
+       $('#Jmiddle').css({background:'#9400D3'})
+   });
+    $('#Jmiddle').on('mouseleave',function(){
+      if(mouseleaveable_4)
+       $('#Jmiddle').css({background:'#4169E1'})
+});
+    $('#Jmiddle').on('click',function(){
+       mouseleaveable_1 = true;
+       mouseleaveable_2 = true;
+       mouseleaveable_3 = true;
+       mouseleaveable_4 = false;
+       $('#Jcardnum').css({background:'#4169E1'});
+       $('#Jloan').css({background:'#4169E1'});
+       $('#Jcash').css({background:'#4169E1'});
+       $('#Jmiddle').css({background:'#9400D3'});
+   });
+
+
     $('#gdMap').css({opacity: 0,scale:0.2}).transition({
       opacity: 1,
       scale:1
   },1000, 'linear');
-  
-  
-/* =========================业务选择结束============================*/
 
-/* =========================历史查询============================*/
+
+    /* =========================业务选择结束============================*/
+
+    /* =========================历史查询============================*/
 // 新增查询的时候，会自动更新，会进行存储，默认只显示前4条
-    $('').on('click',function(){
-    	var data1 = $('#historydata1').text();
-    	var data2 = $('#historydata2').text();
-    	$('.historydata').transition({
-         opacity: 0
-     },500);
-    	$('.historydata').transition({
-    		opacity: 1
-    	},500);
-    	setTimeout(function(){$('#historydata1').text(data2)},500);
-    });
+$('').on('click',function(){
+ var data1 = $('#historydata1').text();
+ var data2 = $('#historydata2').text();
+ $('.historydata').transition({
+     opacity: 0
+ },500);
+ $('.historydata').transition({
+  opacity: 1
+},500);
+ setTimeout(function(){$('#historydata1').text(data2)},500);
+});
 /* =========================历史查询结束============================*/
 
 
 /* =========================时间选择器============================*/
-    var startV = '';
-    var endV = '';
-    laydate.skin('danlan');
-    var startTime = {
-        elem: '#startTime',
-        format: 'YYYY-MM-DD',
+var startV = '';
+var endV = '';
+laydate.skin('danlan');
+var startTime = {
+    elem: '#startTime',
+    format: 'YYYY-MM-DD',
         min: '1997-01-01', //设定最小日期为当前日期
         max: laydate.now(), //最大日期
         istime: true,
@@ -814,9 +1138,9 @@ chart11('');
 
         $('#laydate_box').attr('style', cssStr);
     }
-/* =========================时间选择器结束============================*/
+    /* =========================时间选择器结束============================*/
 
-/* =========================核心查询图表============================*/
+    /* =========================核心查询图表============================*/
     var myChart4 = echarts.init(document.getElementById('chart4'));
     function chart4() {
             // 基于准备好的dom，初始化echarts实例
@@ -1011,7 +1335,7 @@ return list;
     	out = gettestdata(23);//1997-2019
     	return out;
     }
-/*===========================数据获取结束============================*/
+    /*===========================数据获取结束============================*/
     /*滑动监听事件*/
     myChart4.on('datazoom',function(params){
     	var options = myChart4.getOption();
@@ -1094,14 +1418,14 @@ return list;
                     for(var i = 0; i < selectedCity.length;i ++){
                         options.series[i].data = getmonthsdata();
                     }
-    				options.dataZoom[0].start = 0;
-    				options.dataZoom[0].end = 100;
-    				myChart4.clear();
-    				myChart4.setOption(options)
-    			}
-    		}
+                    options.dataZoom[0].start = 0;
+                    options.dataZoom[0].end = 100;
+                    myChart4.clear();
+                    myChart4.setOption(options)
+                }
+            }
 
-    	}
+        }
     });
 
     /*获取选择的地点，并赋予到查询表的图例中*/
@@ -1145,16 +1469,23 @@ return list;
     	myChart4.clear();
     	myChart4.setOption(options);
     });
-	
-// 放大方法
-	$('.close-pop').on('click', function () {
-		$(this).parent().parent().hide().find('.cont-div').attr('style', 'visibility: hidden');
-	})
 
-	$('#tohistory').on('click', function () {
-		$('.container').attr('style', 'visibility: visible').find('.pop-up').eq(1).attr('style', 'visibility: visible').siblings().attr('style', 'visibility: hidden');
-	})
-
+    /*点击方法区域*/
+    $('.close-pop').on('click', function () {
+      $(this).parent().parent().hide().find('.cont-div').attr('style', 'visibility: hidden');
+  })
+    // 查询历史标题 点击放大
+    $('#tohistory').on('click', function () {
+      $('.container').attr('style', 'visibility: visible').find('.pop-up').eq(2).attr('style', 'visibility: visible').siblings().attr('style', 'visibility: hidden');
+  })
+    // 分析界面标题 点击放大
+    $('#title1').on('click', function () {
+      $('.container').attr('style', 'visibility: visible').find('.pop-up').eq(0).attr('style', 'visibility: visible').siblings().attr('style', 'visibility: hidden');
+  })
+    // 预测界面标题点击放大
+    $('#title2').on('click', function () {
+        $('.container').attr('style', 'visibility: visible').find('.pop-up').eq(1).attr('style', 'visibility: visible').siblings().attr('style', 'visibility: hidden');
+    })
 
 // 查询历史放大图表
 var historychat = echarts.init(document.getElementById('historychat'));
@@ -1188,30 +1519,33 @@ function chart_history(){
 		},
 		calculable : true,
 		series : [
-			{
-				name:'占比',
-				type:'pie',
-				radius : [30, 110],
+       {
+        name:'占比',
+        type:'pie',
+        radius : [30, 110],
 				//center : ['75%', 200],
 				roseType : 'area',
 				//x: '50%',               // for funnel
 				sort : 'ascending',     // for funnel
 				data:[
-					{value:10, name:'查询'},
-					{value:5, name:'分析'},
-					{value:15, name:'预测'}
-				]
-			}
-		]
-	}; 
-	historychat.setOption(option);
-}
-chart_history();
+             {value:10, name:'查询'},
+             {value:5, name:'分析'},
+             {value:15, name:'预测'}
+             ]
+         }
+         ]
+     }; 
+     historychat.setOption(option);
+ }
+ chart_history();
 
-$('.savehistory').on('click',function(){
-	$(".table3").table2excel({
-    exclude: ".excludeThisClass",
-    name: "查询历史",
+ $('.savehistory').on('click',function(){
+     $(".table3").table2excel({
+        exclude: ".excludeThisClass",
+        name: "查询历史",
     filename: "history" //do not include extension
 });
-})
+ })
+ 
+ 
+ 
