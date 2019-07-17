@@ -115,6 +115,7 @@ function fnW(str) {
     str >= 10 ? num = str : num = "0" + str;
     return num;
 }
+
     //获取当前时间
     var timer = setInterval(function () {
         var date = new Date();
@@ -130,6 +131,8 @@ function fnW(str) {
         $('#date').html('<span>' + year + '/' + (month + 1) + '/' + data + '</span><span>' + ampm + '</span><span>周' + day + '</span>')
 
     }, 1000)
+	
+	
 
 
 
@@ -240,7 +243,6 @@ function fnW(str) {
     }
 
     $('.pie-data').html(str);
-
 
     function deepCopy(obj) {
         if (typeof obj !== 'object') {
@@ -520,6 +522,7 @@ function fnW(str) {
             ]
         };
         myChart.clear();
+
         myChart.setOption(option);
     }
     $('#filBtn').on('click', function () {
@@ -1487,6 +1490,7 @@ return list;
         $('.container').attr('style', 'visibility: visible').find('.pop-up').eq(1).attr('style', 'visibility: visible').siblings().attr('style', 'visibility: hidden');
     })
 
+
 // 查询历史放大图表
 var historychat = echarts.init(document.getElementById('historychat'));
 function chart_history(){
@@ -1546,6 +1550,4 @@ function chart_history(){
     filename: "history" //do not include extension
 });
  })
- 
- 
  
