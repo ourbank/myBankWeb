@@ -12,6 +12,9 @@
     <script type="text/javascript" src="js/jquery.transit.js"></script>
     <script type="text/javascript" src="js/jquery.table2excel.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="js/stomp.min.js"></script>
+    <script type="text/javascript" src="js/sockjs.min.js"></script>
+
     <link rel="stylesheet" href="css/style.css">
     <title>ICBC个金运营管理平台</title>
 </head>
@@ -294,6 +297,7 @@
 <script type="text/javascript" src="js/data/guangdong.js"></script>
 <script type="text/javascript" src="js/base.js"></script>
 <script type="text/javascript">
+
     $('document').ready(function () {
         $("body").css('visibility', 'visible');
         var localData = [$('#teacher').val(), $('#start').val() + '/' + $('#end').val(), $('#leader').val()]
@@ -308,6 +312,21 @@
                 $('#lea_a').html(arr[2]);
             }
         })
+		
+		// 默认加载ajax请求，测试用
+        /*
+		$.ajax({
+            type: 'post',
+            contentType: "application/x-www-form-urlencoded",
+			dataType:'json',
+            url: 'http://localhost/proxy/getdata',
+            data: {bankname:'广州分行'},
+            success: function(res){
+				console.log(res);
+			}
+        });
+        */
+		
     });
 
 
