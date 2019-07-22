@@ -1527,17 +1527,32 @@ var flag = '0' //判断arealist中是否有刚刚点击的地点数据的标志
 
 //发送post请求的方法
 function sendpost(){
+	var temp;
+    effectIndex = ++effectIndex % effect.length;
+    myChart4.showLoading({
+        effect:'dynamicLine',
+        text:'loading...',
+        textStyle : {
+            fontSize : 20,
+        }
+    });
 	$.ajax({
-		url:"http://localhost:8080/getdata",
-		data:JSON.stringify({"bankname":area}),
+		url:"http://localhost/proxy/getdata",
+		async:false,
+		data:{"bankname":area},
 		dataType:'json',
 		type:'post',
-		contentType:'application/json',
+		//contentType:'application/json',
 		success:function(res){
-			arealist.push(res)
+			//console.log(res);
+
+			temp = res;
+            myChart4.hideLoading();
 		}
-		
 	})
+	//console.log(temp)
+	arealist.push(temp)
+
 }
 //得到某一年，某个月，日的集合  city：**分行
 function getmonthcount(city,year,month){ //year：2009  month：6
@@ -1613,6 +1628,7 @@ function parsearea(name){
 
 //返回bankname为area的整个list
 function cachicatch(city){
+	
 	for(var i=0;i<arealist.length;i++){
 			if(arealist[i].bankname == city){
 				return arealist[i];
@@ -1623,27 +1639,29 @@ function cachicatch(city){
 
 /*获取选择的地点，并赋予到查询表的图例中*/
 myChart3.on('mapselectchanged', function (params) {
+
     selectedCity = []; // 清空数组  被选中的城市集合
 	//赋上地点变量
 	area = params.batch[0].name;
 	area = parsearea(area);
-	
+
 	if(arealist.length == 0){
 		sendpost();
 	}
 	else{
+		console.log(arealist.length);
 	    //判断area是不是在arealist中
 		for(var i=0;i<arealist.length;i++){
-		console.log(arealist[i].bankname);
+			
 			if(arealist[i].bankname == area){
 				flag='1'
 				break;
 			}
-		}
+		}	
 		if(flag == '0'){
 			sendpost();
 		}
-		console.log(flag);
+		//console.log(flag);
 		flag='0';//重置
 	}
 	
@@ -1689,10 +1707,7 @@ myChart3.on('mapselectchanged', function (params) {
             options.series.push({name: '', type: '', data: ''});
             options.series[i].name = selectedCity[i];
             options.series[i].type = 'bar';
-			
             options.series[i].data = getyear(selectedCity[i].slice(0,selectedCity[i].length-1)+'分行');
-
-			
         }
     }
     myChart4.clear();
@@ -1784,7 +1799,7 @@ $('.savehistory').on('click', function () {
     });
 })
  
- 
+// websocket 相关代码
  
  
  
