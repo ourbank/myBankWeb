@@ -1521,6 +1521,13 @@ pre {
     padding-left: 0.1rem;
 }
 
+.pre_citybox > input {
+    width: 0.8rem;
+    height: 0.4rem;
+    border: 1px solid #0E94EA;
+    background: rgba(14, 148, 235, 0.2);
+    color: white;
+}
 .set-box > .input-edit {
     width: 4.3rem;
 }
@@ -1528,6 +1535,10 @@ pre {
 .pages-div > input {
     background: transparent;
     margin: 0 0.2rem;
+}
+
+.pre_citybox > input{
+    background: transparent;
 }
 
 .set-box > input:nth-child(2n+1) {
@@ -1647,8 +1658,31 @@ pre {
     margin: 0 0.1rem;
 }
 
+
+.pre_citybox{
+    width: 33%;
+    height: 10%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.18rem;
+}
+
+.pre_citybox p{
+    color: white;
+    margin: 0 0.1rem;
+}
 .pages-div > .skip {
     width: 0.7rem;
+    height: 0.4rem;
+    line-height: 0.4rem;
+    padding-left: 0px;
+    margin-right: 0.2rem;
+}
+
+.pages-div > .skip2 {
+    width: 1.5rem;
     height: 0.4rem;
     line-height: 0.4rem;
     padding-left: 0px;
@@ -1793,16 +1827,51 @@ pre {
     margin: auto;
 }
 
-
-.pre_top {
-    height: 10%;
-    width: 90%;
-    margin: auto;
+.pre-left {
+    float:left;
+    height:90%;
+    width: 60%;
+    margin:auto;
 }
 
-.pre_bottom {
+.pre-right1 {
+    visibility: hidden;
+    position: absolute;
+    height: 80%;
+    width: 38%;
+    margin:auto;
+    right:2%;
+}
+
+.city-container{
     height: 90%;
-    width: 90%;
+    width: 100%;
+    margin:auto;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.pre-right2{
+    visibility: hidden;
+    position: absolute;
+    height: 80%;
+    width: 38%;
+    margin:auto;
+    right:2%;
+}
+
+.pre-left-top {
+    position:absolute;
+    height: 10%;
+    width: 10%;
+    margin: auto;
+    z-index: 999;
+}
+
+.pre-left-bottom {
+    float:left;
+    height: 100%;
+    width: 100%;
     margin: auto;
 }
 
