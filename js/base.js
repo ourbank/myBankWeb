@@ -992,22 +992,20 @@ $('.select-ul').on('click', 'li', function () {
 
 $('#select_business').on('click', 'li', function () {
     analysebus = $(this).attr("data-value");
-    chart111();
+   
     chart1();
 
 })
 
 $('#select_factor').on('click', 'li', function () {
     analysefac = $(this).attr("data-value");
-    //myChart111.setOption(option);
-    chart111();
+    //mybigchart1.setOption(option);
     chart1();
 })
 
 
-$('.box-center').on('click', function () {
-    if (!$('#filCon').is(":hidden")) {
-        $('#filCon').hide();
+$('#select_business').on('click', function () {
+    
         //var ul = document.getElementById("analyli1_1").getElementsByTagName("ul")[0].getElementsByTagName("li");
         title1_1 = $("#analyli1_1").text();
         title1_2 = $("#analyli1_2").text();
@@ -1015,17 +1013,32 @@ $('.box-center').on('click', function () {
         if (title1_1 != '业务指标' && title1_2 != '分析指标') {
             $("#title1").text(title1 + ": " + title1_1 + " - " + title1_2);
         }
-
-    }
-    if (!$('#fil1Con').is(":hidden")) {
-        $('#fil1Con').hide();
         title2_1 = $("#analyli2_1").text();
         title2 = '业务指标预测';
         if (title2_1 != '预测指标') {
             $("#title2").text(title2 + ": " + title2_1);
         }
 
-    }
+    
+});
+
+$('#select_factor').on('click', function () {
+  
+        //var ul = document.getElementById("analyli1_1").getElementsByTagName("ul")[0].getElementsByTagName("li");
+        title1_1 = $("#analyli1_1").text();
+        title1_2 = $("#analyli1_2").text();
+        title1 = '业务指标分析';
+		console.log(title1_1+'00'+title1_2)
+        if (title1_1 != '业务指标' && title1_2 != '分析指标') {
+            $("#title1").text(title1 + ": " + title1_1 + " - " + title1_2);
+        }        
+        title2_1 = $("#analyli2_1").text();
+        title2 = '业务指标预测';
+        if (title2_1 != '预测指标') {
+            $("#title2").text(title2 + ": " + title2_1);
+        }
+
+    
 });
 
 //鼠标滑动到按钮，按钮内容变成白色
@@ -1063,16 +1076,14 @@ $('.select-ul').on('click', 'li', function () {
 
 // 点击其他位置收起选择框
 
-function chart111() {
+function bigchart1() {
 
     var data;
     //data 为模拟数据
-    if (analysefac == '-1') {
-        data = data00;
-    } else data = selectdata(analysebus, analysefac);
-    var myChart111 = echarts.init(document.getElementById('chart111'));
+    data = data00
+    var mybigchart1 = echarts.init(document.getElementById('bigchart1'));
     window.addEventListener('resize', function () {
-        myChart111.resize();
+        mybigchart1.resize();
     });
 
     var str = '';
@@ -1081,9 +1092,9 @@ function chart111() {
         //str += '<p><span><i class="legend" style="background:' + startColor[i] + '"></i></span>' + data[i].name + '<span class="pie-number" style="color:' + startColor[i] + '">' + ""+ '</span></p>';
         str += '<p><span><i class="legend" style="background:' + startColor[i] + '"></i></span>' + data[i].name + '<span class="pie-number" style="color:' + startColor[i] + '">' + "" + '</span>' + Number(data[i].percent).toFixed(2) + '%</p>';
     }
-
-    $('.pie-data').html(str);
-
+    $('#pie1').html(str);
+    
+	
     function deepCopy(obj) {
         if (typeof obj !== 'object') {
             return obj;
@@ -1208,21 +1219,475 @@ function chart111() {
             }
         ]
     };
-    myChart111.clear();
-    myChart111.setOption(option);
+    mybigchart1.clear();
+    mybigchart1.setOption(option);
 }
 
 //点击筛选按钮end
-chart111()
+bigchart1()
+
+function bigchart2() {
+
+    var data;
+    //data 为模拟数据
+    data = data01
+    var mybigchart2 = echarts.init(document.getElementById('bigchart2'));
+    window.addEventListener('resize', function () {
+        mybigchart2.resize();
+    });
+
+    var str = '';
+    for (var i = 0; i < data.length; i++) {
+        //这句可以删除百分数
+        //str += '<p><span><i class="legend" style="background:' + startColor[i] + '"></i></span>' + data[i].name + '<span class="pie-number" style="color:' + startColor[i] + '">' + ""+ '</span></p>';
+        str += '<p><span><i class="legend" style="background:' + startColor[i] + '"></i></span>' + data[i].name + '<span class="pie-number" style="color:' + startColor[i] + '">' + "" + '</span>' + Number(data[i].percent).toFixed(2) + '%</p>';
+    }
+    $('#pie2').html(str);
+	
+    function deepCopy(obj) {
+        if (typeof obj !== 'object') {
+            return obj;
+        }
+        var newobj = {};
+        for (var attr in obj) {
+            newobj[attr] = obj[attr];
+        }
+        return newobj;
+    }
+
+    var RealData = [];
+    var borderData = [];
+    RealData.splice(0, RealData.length);
+    borderData.splice(0, borderData.length);
+    data.map((item, index) => {
+        var newobj = deepCopy(item);
+        var newobj1 = deepCopy(item);
+        RealData.push(newobj);
+        borderData.push(newobj1);
+    });
+    RealData.map((item, index) => {
+        item.itemStyle = {
+            normal: {
+                color: {
+                    type: 'linear',
+                    x: 0,
+                    y: 0,
+                    x2: 0,
+                    y2: 1,
+                    colorStops: [{
+                        offset: 0,
+                        color: startColor[index] // 0% 处的颜色
+                    }, {
+                        offset: 1,
+                        color: startColor[index] // 100% 处的颜色
+                    }],
+                    globalCoord: false // 缺省为 false
+                },
+            }
+        }
+    });
+    borderData.map((item, index) => {
+        item.itemStyle = {
+            normal: {
+                color: {
+                    type: 'linear',
+                    x: 0,
+                    y: 0,
+                    x2: 0,
+                    y2: 1,
+                    colorStops: [{
+                        offset: 0,
+                        color: borderStartColor[index] // 0% 处的颜色
+                    }, {
+                        offset: 1,
+                        color: borderStartColor[index] // 100% 处的颜色
+                    }],
+                    globalCoord: false // 缺省为 false
+                },
+            }
+        }
+    });
+    var option = {
+        tooltip: {
+            trigger: 'item',
+            //            position: ['30%', '50%'],
+            confine: true,
+            formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        series: [
+            // 主要展示层的
+            {
+                radius: ['50%', '85%'],
+                center: ['50%', '50%'],
+                type: 'pie',
+                label: {
+                    normal: {
+                        show: false
+                    },
+                    emphasis: {
+                        show: false
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    },
+                    emphasis: {
+                        show: false
+                    }
+                },
+                name: "占比为:",
+                data: RealData
+            },
+            // 边框的设置
+            {
+                radius: ['45%', '50%'],
+                center: ['50%', '50%'],
+                type: 'pie',
+                label: {
+                    normal: {
+                        show: false
+                    },
+                    emphasis: {
+                        show: false
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    },
+                    emphasis: {
+                        show: false
+                    }
+                },
+                animation: false,
+                tooltip: {
+                    show: false
+                },
+                data: borderData
+            }
+        ]
+    };
+    mybigchart2.clear();
+    mybigchart2.setOption(option);
+}
+
+//点击筛选按钮end
+bigchart2()
 
 
+function bigchart3() {
+
+    var data;
+    //data 为模拟数据
+    data = data02
+    var mybigchart3 = echarts.init(document.getElementById('bigchart3'));
+    window.addEventListener('resize', function () {
+        mybigchart3.resize();
+    });
+
+    var str = '';
+    for (var i = 0; i < data.length; i++) {
+        //这句可以删除百分数
+        //str += '<p><span><i class="legend" style="background:' + startColor[i] + '"></i></span>' + data[i].name + '<span class="pie-number" style="color:' + startColor[i] + '">' + ""+ '</span></p>';
+        str += '<p><span><i class="legend" style="background:' + startColor[i] + '"></i></span>' + data[i].name + '<span class="pie-number" style="color:' + startColor[i] + '">' + "" + '</span>' + Number(data[i].percent).toFixed(2) + '%</p>';
+    }
+    $('#pie3').html(str);
+	
+    function deepCopy(obj) {
+        if (typeof obj !== 'object') {
+            return obj;
+        }
+        var newobj = {};
+        for (var attr in obj) {
+            newobj[attr] = obj[attr];
+        }
+        return newobj;
+    }
+
+    var RealData = [];
+    var borderData = [];
+    RealData.splice(0, RealData.length);
+    borderData.splice(0, borderData.length);
+    data.map((item, index) => {
+        var newobj = deepCopy(item);
+        var newobj1 = deepCopy(item);
+        RealData.push(newobj);
+        borderData.push(newobj1);
+    });
+    RealData.map((item, index) => {
+        item.itemStyle = {
+            normal: {
+                color: {
+                    type: 'linear',
+                    x: 0,
+                    y: 0,
+                    x2: 0,
+                    y2: 1,
+                    colorStops: [{
+                        offset: 0,
+                        color: startColor[index] // 0% 处的颜色
+                    }, {
+                        offset: 1,
+                        color: startColor[index] // 100% 处的颜色
+                    }],
+                    globalCoord: false // 缺省为 false
+                },
+            }
+        }
+    });
+    borderData.map((item, index) => {
+        item.itemStyle = {
+            normal: {
+                color: {
+                    type: 'linear',
+                    x: 0,
+                    y: 0,
+                    x2: 0,
+                    y2: 1,
+                    colorStops: [{
+                        offset: 0,
+                        color: borderStartColor[index] // 0% 处的颜色
+                    }, {
+                        offset: 1,
+                        color: borderStartColor[index] // 100% 处的颜色
+                    }],
+                    globalCoord: false // 缺省为 false
+                },
+            }
+        }
+    });
+    var option = {
+        tooltip: {
+            trigger: 'item',
+            //            position: ['30%', '50%'],
+            confine: true,
+            formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        series: [
+            // 主要展示层的
+            {
+                radius: ['50%', '85%'],
+                center: ['50%', '50%'],
+                type: 'pie',
+                label: {
+                    normal: {
+                        show: false
+                    },
+                    emphasis: {
+                        show: false
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    },
+                    emphasis: {
+                        show: false
+                    }
+                },
+                name: "占比为:",
+                data: RealData
+            },
+            // 边框的设置
+            {
+                radius: ['45%', '50%'],
+                center: ['50%', '50%'],
+                type: 'pie',
+                label: {
+                    normal: {
+                        show: false
+                    },
+                    emphasis: {
+                        show: false
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    },
+                    emphasis: {
+                        show: false
+                    }
+                },
+                animation: false,
+                tooltip: {
+                    show: false
+                },
+                data: borderData
+            }
+        ]
+    };
+    mybigchart3.clear();
+    mybigchart3.setOption(option);
+}
+
+//点击筛选按钮end
+bigchart3()
+
+
+function bigchart4() {
+
+    var data;
+    //data 为模拟数据
+    data = data03
+    var mybigchart4 = echarts.init(document.getElementById('bigchart4'));
+    window.addEventListener('resize', function () {
+        mybigchart4.resize();
+    });
+
+    var str = '';
+    for (var i = 0; i < data.length; i++) {
+        //这句可以删除百分数
+        //str += '<p><span><i class="legend" style="background:' + startColor[i] + '"></i></span>' + data[i].name + '<span class="pie-number" style="color:' + startColor[i] + '">' + ""+ '</span></p>';
+        str += '<p><span><i class="legend" style="background:' + startColor[i] + '"></i></span>' + data[i].name + '<span class="pie-number" style="color:' + startColor[i] + '">' + "" + '</span>' + Number(data[i].percent).toFixed(2) + '%</p>';
+    }
+    $('#pie4').html(str);
+	
+    function deepCopy(obj) {
+        if (typeof obj !== 'object') {
+            return obj;
+        }
+        var newobj = {};
+        for (var attr in obj) {
+            newobj[attr] = obj[attr];
+        }
+        return newobj;
+    }
+
+    var RealData = [];
+    var borderData = [];
+    RealData.splice(0, RealData.length);
+    borderData.splice(0, borderData.length);
+    data.map((item, index) => {
+        var newobj = deepCopy(item);
+        var newobj1 = deepCopy(item);
+        RealData.push(newobj);
+        borderData.push(newobj1);
+    });
+    RealData.map((item, index) => {
+        item.itemStyle = {
+            normal: {
+                color: {
+                    type: 'linear',
+                    x: 0,
+                    y: 0,
+                    x2: 0,
+                    y2: 1,
+                    colorStops: [{
+                        offset: 0,
+                        color: startColor[index] // 0% 处的颜色
+                    }, {
+                        offset: 1,
+                        color: startColor[index] // 100% 处的颜色
+                    }],
+                    globalCoord: false // 缺省为 false
+                },
+            }
+        }
+    });
+    borderData.map((item, index) => {
+        item.itemStyle = {
+            normal: {
+                color: {
+                    type: 'linear',
+                    x: 0,
+                    y: 0,
+                    x2: 0,
+                    y2: 1,
+                    colorStops: [{
+                        offset: 0,
+                        color: borderStartColor[index] // 0% 处的颜色
+                    }, {
+                        offset: 1,
+                        color: borderStartColor[index] // 100% 处的颜色
+                    }],
+                    globalCoord: false // 缺省为 false
+                },
+            }
+        }
+    });
+    var option = {
+        tooltip: {
+            trigger: 'item',
+            //            position: ['30%', '50%'],
+            confine: true,
+            formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        series: [
+            // 主要展示层的
+            {
+                radius: ['50%', '85%'],
+                center: ['50%', '50%'],
+                type: 'pie',
+                label: {
+                    normal: {
+                        show: false
+                    },
+                    emphasis: {
+                        show: false
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    },
+                    emphasis: {
+                        show: false
+                    }
+                },
+                name: "占比为:",
+                data: RealData
+            },
+            // 边框的设置
+            {
+                radius: ['45%', '50%'],
+                center: ['50%', '50%'],
+                type: 'pie',
+                label: {
+                    normal: {
+                        show: false
+                    },
+                    emphasis: {
+                        show: false
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    },
+                    emphasis: {
+                        show: false
+                    }
+                },
+                animation: false,
+                tooltip: {
+                    show: false
+                },
+                data: borderData
+            }
+        ]
+    };
+    mybigchart4.clear();
+    mybigchart4.setOption(option);
+}
+
+//点击筛选按钮end
+bigchart4()
+
+
+
+
+
+var data;
 function chart1() {
     //data 为模拟数据
-    var data;
+    
     //data 为模拟数据
     if (analysefac == '-1') {
         data = data00;
     } else data = selectdata(analysebus, analysefac);
+	
     var myChart = echarts.init(document.getElementById('pie'));
     window.addEventListener('resize', function () {
         myChart.resize();
@@ -1359,6 +1824,14 @@ function chart1() {
             }
         ]
     };
+	
+	var str = '';
+    for (var i = 0; i < data.length; i++) {
+        //这句可以删除百分数
+        //str += '<p><span><i class="legend" style="background:' + startColor[i] + '"></i></span>' + data[i].name + '<span class="pie-number" style="color:' + startColor[i] + '">' + ""+ '</span></p>';
+        str += '<p><span><i class="legend" style="background:' + startColor[i] + '"></i></span>' + data[i].name + '<span class="pie-number" style="color:' + startColor[i] + '">' + "" + '</span>' + Number(data[i].percent).toFixed(2) + '%</p>';
+    }
+    $('.pie-data').html(str);
     myChart.clear();
 
     myChart.setOption(option);
@@ -2464,6 +2937,7 @@ function sendpost() {
             arealist.push(res)
         }
     })
+
 }
 
 //得到某一年，某个月，日的集合  city：**分行
@@ -2636,8 +3110,10 @@ $('#tohistory').on('click', function () {
 })
 // 分析界面标题 点击放大
 $('#title1').on('click', function () {
-
     $('.container').attr('style', 'visibility: visible').find('.pop-up').eq(0).attr('style', 'visibility: visible').siblings().attr('style', 'visibility: hidden');
+	
+        $('#filCon').hide();
+    
 })
 // 预测界面标题点击放大
 $('#title2').on('click', function () {
