@@ -1184,7 +1184,7 @@ $('').on('click', function () {
 var startV = '';
 var endV = '';
 laydate.skin('danlan');
-var mystarTime = '';
+var mystartTime = '';
 var startTime = {
     elem: '#startTime',
     format: 'YYYY-MM-DD',
@@ -1215,6 +1215,42 @@ var endTime = {
 		myendTime = datas;
 		alert(myendTime);
 		//
+
+		if(citylist.length != 0 && JList.length !=0 &&mystartTime != ''){
+			alert("开始发送ajax");
+			console.log(JSON.stringify(citylist));
+			console.log(JSON.stringify(JList));
+			console.log(mystartTime);
+			console.log(myendTime);
+			$.ajax({
+            //提交数据的类型 POST GET
+            type:"POST",
+			
+			
+            // dataType:'json',
+            // contentType:"application/json", 
+
+            //提交的网址
+            url:"http://localhost:8080/card/pr",
+            //提交的数据
+            data:{
+            	 "cityList":JSON.stringify(citylist),
+            	 "JList":JSON.stringify(JList),
+            	 "startTime":mystartTime,
+            	 "endTime":myendTime
+			},
+            async:false,
+            timeout:5000000,
+            success: function(){
+                alert("success");
+            },
+            error: function(){
+            	alert("ffff");
+            },
+
+            //调用出错执行的函数
+         });
+		}
     }
 };
 
@@ -1567,14 +1603,14 @@ var citylist = [];//暂存城市名
 //发送post请求的方法
 function sendpost(){
 	var temp;
-    effectIndex = ++effectIndex % effect.length;
-    myChart4.showLoading({
-        effect:'dynamicLine',
-        text:'loading...',
-        textStyle : {
-            fontSize : 20,
-        }
-    });
+    // effectIndex = ++effectIndex % effect.length;
+    // myChart4.showLoading({
+    //     effect:'dynamicLine',
+    //     text:'loading...',
+    //     textStyle : {
+    //         fontSize : 20,
+    //     }
+    // });
 	$.ajax({
 		url:"http://localhost/proxy/getdata",
 		async:false,
