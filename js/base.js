@@ -1082,9 +1082,7 @@ function bigchart1() {
     //data 为模拟数据
     data = data00
     var mybigchart1 = echarts.init(document.getElementById('bigchart1'));
-    window.addEventListener('resize', function () {
-        mybigchart1.resize();
-    });
+    
 
     var str = '';
     for (var i = 0; i < data.length; i++) {
@@ -1232,9 +1230,7 @@ function bigchart2() {
     //data 为模拟数据
     data = data01
     var mybigchart2 = echarts.init(document.getElementById('bigchart2'));
-    window.addEventListener('resize', function () {
-        mybigchart2.resize();
-    });
+
 
     var str = '';
     for (var i = 0; i < data.length; i++) {
@@ -1382,9 +1378,7 @@ function bigchart3() {
     //data 为模拟数据
     data = data02
     var mybigchart3 = echarts.init(document.getElementById('bigchart3'));
-    window.addEventListener('resize', function () {
-        mybigchart3.resize();
-    });
+    
 
     var str = '';
     for (var i = 0; i < data.length; i++) {
@@ -1532,9 +1526,7 @@ function bigchart4() {
     //data 为模拟数据
     data = data03
     var mybigchart4 = echarts.init(document.getElementById('bigchart4'));
-    window.addEventListener('resize', function () {
-        mybigchart4.resize();
-    });
+   
 
     var str = '';
     for (var i = 0; i < data.length; i++) {
