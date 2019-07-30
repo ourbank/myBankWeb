@@ -3451,6 +3451,7 @@ var gd_city = [
 //变色
 var pre_unit_choose;
 var pre_city_choose;
+<<<<<<< HEAD
 $('#1mon').on('click', function () {
     pre_unit_choose = 0;
     $('#1mon').attr("style", "background-color: #b104ff;")
@@ -3479,16 +3480,50 @@ function getmon(i) {
 }
 
 function getyear() {
+=======
+$('#1mon').on('click',function(){
+    pre_unit_choose = 0;
+    $('#1mon').attr("style","background-color: #b104ff;")
+    $('#3mon').attr("style","")
+    $('#12mon').attr("style","")
+})
+$('#3mon').on('click',function(){
+    pre_unit_choose = 1;
+    $('#1mon').attr("style","")
+    $('#3mon').attr("style","background-color: #b104ff;")
+    $('#12mon').attr("style","")
+})
+$('#12mon').on('click',function(){
+    pre_unit_choose = 2;
+    $('#1mon').attr("style","")
+    $('#3mon').attr("style","")
+    $('#12mon').attr("style","background-color: #b104ff;")
+})
+
+function getmon(i){
+    var date = new Date();
+    var year = date.getFullYear();
+    var mon = date.getMonth();
+    return parseInt(year + (mon + i) / 12 ) + '年 '+ (((mon + i )%12)+1) +'月';;
+}
+
+function getyear(){
+>>>>>>> f0d631ec1b1940a4cf3908492ad97e7ed903338c
     var date = new Date();
     var year = date.getFullYear();
     return year;
 }
 
+<<<<<<< HEAD
 function getseason(i) {
+=======
+function getseason(i){
+>>>>>>> f0d631ec1b1940a4cf3908492ad97e7ed903338c
     var date = new Date();
     var year = date.getFullYear();
     var mon = date.getMonth();
     var season;
+<<<<<<< HEAD
     if (mon == 1 || mon == 2 || mon == 3) {
         season = 1;
     } else if (mon == 4 || mon == 5 || mon == 6) {
@@ -3522,12 +3557,53 @@ function draw_config() {
             $('.detail-container').append('<div style="width:100%" class="pre_citybox">\n' +
                 '                    <p ><span>' + (getyear() + i) + '年：</span></p>\n' +
                 '                    <input id="' + pre_city_choose + (getyear() + i) + '_input">\n' +
+=======
+    if(mon == 1 || mon == 2 || mon ==3){
+        season = 1;
+    }else if(mon == 4 || mon == 5 || mon ==6){
+        season = 2;
+    }else if(mon == 7 || mon == 8 || mon ==9){
+        season = 3;
+    }else{
+        season = 4;
+    }
+    return parseInt(year + (season + i) / 4 ) + '年 '+ (((season + i )%4)+1) +'季度';
+}
+
+function draw_config(){
+    $('.detail-container').empty();
+    if(pre_unit_choose == 0 ){
+        for (var i = 1; i <= $('#pre_period').val(); i++){
+            $('.detail-container').append('<div style="width:100%" class="pre_citybox">\n' +
+                '                    <p ><span>' + getmon(i) + '：</span></p>\n' +
+                '                    <input id="'+pre_city_choose+ getmon(i) +'_input">\n' +
+                '                </div>')
+        }
+    }else if (pre_unit_choose == 1){
+        for (var i = 1; i <= $('#pre_period').val(); i++){
+            $('.detail-container').append('<div style="width:100%" class="pre_citybox">\n' +
+                '                    <p ><span>' + getseason(i) + '：</span></p>\n' +
+                '                    <input id="'+pre_city_choose+ getseason(i) +'_input">\n' +
+                '                </div>')
+        }
+    }else{
+        for (var i = 1; i <= $('#pre_period').val(); i++){
+            $('.detail-container').append('<div style="width:100%" class="pre_citybox">\n' +
+                '                    <p ><span>' + (getyear()+i) + '年：</span></p>\n' +
+                '                    <input id="'+pre_city_choose+ getyear() +'_input">\n' +
+>>>>>>> f0d631ec1b1940a4cf3908492ad97e7ed903338c
                 '                </div>')
         }
     }
 }
 
+<<<<<<< HEAD
 
+=======
+$('#pre_period').on('click',function(){
+    draw_config();
+})
+>>>>>>> f0d631ec1b1940a4cf3908492ad97e7ed903338c
 // 动态添加
 $('#gz_click').on('click', function () {
     $('#pages-div').attr('style', 'visibility: visible');
@@ -3562,8 +3638,13 @@ $('#pre_all_btn').on('click', function () {
             $('#' + gd_city[i].name + '_p').on('click', function (res) {
                 $('#pages-div').attr('style', 'visibility: hidden');
                 $('.container2').attr('style', 'visibility: visible').find('.pop-up1').eq(0).attr('style', 'visibility: visible');
+<<<<<<< HEAD
                 $('.pop-up1').find('h2').eq(0).text(res.currentTarget.innerText.slice(0, -2) + '分行计划配置');
                 pre_city_choose = res.currentTarget.innerText.slice(0, -1);
+=======
+                $('.pop-up1').find('h2').eq(0).text(res.currentTarget.innerText.slice(0,-2)+'分行计划配置');
+                pre_city_choose = res.currentTarget.innerText.slice(0,-1);
+>>>>>>> f0d631ec1b1940a4cf3908492ad97e7ed903338c
                 draw_config();
             })
         }

@@ -329,7 +329,11 @@
                 <button id="1mon" class="skip">月</button>
                 <button id="3mon" class="skip">季度</button>
                 <button id="12mon" class="skip">年</button>
+<<<<<<< HEAD
                 <p><span style = "cursor:pointer" id="gz_click">广州市：</span></p>
+=======
+                <p><span>广州市：</span></p>
+>>>>>>> f0d631ec1b1940a4cf3908492ad97e7ed903338c
                 <input id="广州target">
                 <button id="pre_all_btn" class="skip2">智能分配</button>
                 <button id="pre_ana_btn" class="skip2">分析</button>
@@ -342,7 +346,15 @@
         <div class="pop-up1">
             <span class="close-pop"></span>
             <h2 class="title">计划配置</h2>
+<<<<<<< HEAD
             <div id="pages-div" class="pages-div" class="mineus"></div>
+=======
+            <div class="pages-div" class="mineus">
+                <p><span>预测时长：</span></p>
+                <input id="pre_period" type="number" max = "6" min = "1">
+                <button id="" class="skip" style="position:absolute;right: 0;">修改</button>
+            </div>
+>>>>>>> f0d631ec1b1940a4cf3908492ad97e7ed903338c
             <div class="detail-container">
             </div>
         </div>
@@ -358,7 +370,6 @@
 <script type="text/javascript" src="js/data/guangdong.js"></script>
 <script type="text/javascript" src="js/base.js"></script>
 <script type="text/javascript">
-
     $('document').ready(function () {
         $("body").css('visibility', 'visible');
         var localData = [$('#teacher').val(), $('#start').val() + '/' + $('#end').val(), $('#leader').val()]
@@ -374,27 +385,7 @@
             }
         })
 
-
-        // 默认加载ajax请求，测试用
-        // myChart4.showLoading({
-        //     text : '',
-        // });
-        // $.ajax({
-        //     type: 'post',
-        //     contentType: "application/x-www-form-urlencoded",
-        // 	dataType:'json',
-        //     url: 'http://localhost:8080/getdata',
-        //     data: {bankname:'广州分行'},
-        //     success: function(res){
-        //         myChart4.hideLoading();
-        //         console.log(res);
-        // 	}
-        // });
-
-
     });
-
-
 </script>
 
 
