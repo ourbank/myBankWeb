@@ -3501,6 +3501,7 @@ function getseason(i) {
     return parseInt(year + (season + i) / 4) + '年 ' + (((season + i) % 4) + 1) + '季度';
 }
 
+// 动态添加 时间配置
 function draw_config() {
     $('.detail-container').empty();
     if (pre_unit_choose == 0) {
@@ -3530,27 +3531,33 @@ function draw_config() {
 
 // 动态添加
 $('#gz_click').on('click', function () {
-    $('#pages-div').attr('style', 'visibility: visible');
-    if ($('#pages-div').html() == "") {
-        $('#pages-div').append('<p><span>预测时长：</span></p>\n' +
-            '                <input id="pre_period" type="number" max = "6" min = "1">\n' +
-            '                <button id="" class="skip" style="position:absolute;right: 0;">修改</button>');
-    }
-    $('#pre_period').on('click', function () {
-        draw_config();
-    })
+    if (pre_unit_choose != 0 && pre_unit_choose != 1 && pre_unit_choose != 2) {
+        alert("请选择预测单位");
+    } else {
+        $('#pages-div').attr('style', 'visibility: visible');
+        if ($('#pages-div').html() == "") {
+            $('#pages-div').append('<p><span>预测时长：</span></p>\n' +
+                '                <input id="pre_period" type="number" max = "6" min = "1">\n' +
+                '                <button id="" class="skip" style="position:absolute;right: 0;">修改</button>');
+        }
+        $('#pre_period').on('click', function () {
+            draw_config();
+        })
 
-    $('.container2').attr('style', 'visibility: visible').find('.pop-up1').eq(0).attr('style', 'visibility: visible');
-    $('.pop-up1').find('h2').eq(0).text('广州计划配置');
-    pre_city_choose = '广州';
-    draw_config();
+        $('.container2').attr('style', 'visibility: visible').find('.pop-up1').eq(0).attr('style', 'visibility: visible');
+        $('.pop-up1').find('h2').eq(0).text('广州计划配置');
+        pre_city_choose = '广州';
+        draw_config();
+    }
 })
 
 
-
+// 动态添加 城市配置
 $('#pre_all_btn').on('click', function () {
     if ($('#广州target').val() == '') {
         alert("智能分配根据省会计划进行同比分配，请添加省会计划");
+    } else if (pre_unit_choose != 0 && pre_unit_choose != 1 && pre_unit_choose != 2) {
+        alert("请选择预测单位");
     } else {
         $('.city-container').empty();
         for (var i = 1; i < gd_city.length; i++) {
