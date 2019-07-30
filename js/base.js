@@ -2464,10 +2464,6 @@ var mouseleaveable_1 = true;
 var mouseleaveable_2 = true;
 var mouseleaveable_3 = true;
 var mouseleaveable_4 = true;
-var mouseHadClick_1 = false;
-var mouseHadClick_2 = false;
-var mouseHadClick_3 = false;
-var mouseHadClick_4 = false;
 $('#Jcardnum').css({y: -20}).transition({
     opacity: 1,
     y: 0
@@ -2479,31 +2475,15 @@ $('#Jcardnum').on('mouseleave', function () {
     if (mouseleaveable_1)
         $('#Jcardnum').css({background: '#4169E1'})
 });
-var JList = [];//业务指标列表
 $('#Jcardnum').on('click', function () {
-	var Jtext=$('#Jcardnum').children("span").eq(0).text();
-	if(!mouseHadClick_1){
-		JList.push(Jtext);//业务指标列表加入该业务指标
-	   //alert(JList);
-	   mouseHadClick_1 = true;
-	   mouseleaveable_1 = false;
-	   $('#Jcardnum').css({background: '#9400D3'});
-	   
-   }else{
-	   for(var i=0;i<JList.length;i++){//取消选择的时候，把该指标从业务指标列表中删除
-		if(JList[i]==Jtext){
-			JList.splice(i,1);
-		}
-	   }
-	   //alert(JList);
-	   mouseHadClick_1 = false;;
-	   mouseleaveable_1 = true;
-	   $('#Jcardnum').css({background: '#4169E1'});
-   }
-   
-  // var Jtext=$('#Jloan').children("span").eq(0).text();
-	//JList.push(Jtext);
-
+    mouseleaveable_1 = false;
+    mouseleaveable_2 = true;
+    mouseleaveable_3 = true;
+    mouseleaveable_4 = true;
+    $('#Jcardnum').css({background: '#9400D3'});
+    $('#Jloan').css({background: '#4169E1'});
+    $('#Jcash').css({background: '#4169E1'});
+    $('#Jmiddle').css({background: '#4169E1'});
 });
 
 $('#Jloan').css({y: -20}).transition({
@@ -2519,30 +2499,14 @@ $('#Jloan').on('mouseleave', function () {
         $('#Jloan').css({background: '#4169E1'})
 });
 $('#Jloan').on('click', function () {
-	var Jtext=$('#Jloan').children("span").eq(0).text();
-	if(!mouseHadClick_2){
-		JList.push(Jtext);//业务指标列表加入该业务指标
-	   //alert(JList);
-	   mouseHadClick_2 = true;
-	   mouseleaveable_2 = false;
-	   $('#Jloan').css({background: '#9400D3'});
-	   
-   }else{
-	   for(var i=0;i<JList.length;i++){//取消选择的时候，把该指标从业务指标列表中删除
-		if(JList[i]==Jtext){
-			JList.splice(i,1);
-		}
-	   }
-	   //alert(JList);
-	   mouseHadClick_2 = false;;
-	   mouseleaveable_2 = true;
-	   $('#Jloan').css({background: '#4169E1'});
-   }
-   
-   
-	//var Jtext=$('#Jloan').children("span").eq(0).text();
-	//JList.push(Jtext);
-
+    mouseleaveable_1 = true;
+    mouseleaveable_2 = false;
+    mouseleaveable_3 = true;
+    mouseleaveable_4 = true;
+    $('#Jcardnum').css({background: '#4169E1'});
+    $('#Jloan').css({background: '#9400D3'});
+    $('#Jcash').css({background: '#4169E1'});
+    $('#Jmiddle').css({background: '#4169E1'});
 });
 
 $('#Jcash').css({y: -20}).transition({
@@ -2557,29 +2521,15 @@ $('#Jcash').on('mouseleave', function () {
     if (mouseleaveable_3)
         $('#Jcash').css({background: '#4169E1'})
 });
-$('#Jcash').on('click', function () {	
-	var Jtext=$('#Jcash').children("span").eq(0).text();
-	if(!mouseHadClick_3){
-		JList.push(Jtext);
-		//alert(JList);
-	   mouseHadClick_3 = true;
-	   mouseleaveable_3 = false;
-	   $('#Jcash').css({background: '#9400D3'});
-	   
-   }else{
-	   for(var i=0;i<JList.length;i++){//取消选择的时候，把该指标从业务指标列表中删除
-		if(JList[i]==Jtext){
-			JList.splice(i,1);
-		}
-	   }
-	   //alert(JList);
-	   mouseHadClick_3 = false;
-	   mouseleaveable_3 = true;
-	   $('#Jcash').css({background: '#4169E1'});
-   }
-   
-   //var Jtext=$('#Jcash').children("span").eq(0).text();
-	
+$('#Jcash').on('click', function () {
+    mouseleaveable_1 = true;
+    mouseleaveable_2 = true;
+    mouseleaveable_3 = false;
+    mouseleaveable_4 = true;
+    $('#Jcardnum').css({background: '#4169E1'});
+    $('#Jloan').css({background: '#4169E1'});
+    $('#Jcash').css({background: '#9400D3'});
+    $('#Jmiddle').css({background: '#4169E1'});
 });
 
 $('#Jmiddle').css({y: -20}).transition({
@@ -2595,27 +2545,14 @@ $('#Jmiddle').on('mouseleave', function () {
         $('#Jmiddle').css({background: '#4169E1'})
 });
 $('#Jmiddle').on('click', function () {
-	var Jtext=$('#Jmiddle').children("span").eq(0).text();
-   if(!mouseHadClick_4){
-	   JList.push(Jtext);
-	   //alert(JList);
-	   mouseHadClick_4 = true;
-	   mouseleaveable_4 = false;
-	   $('#Jmiddle').css({background: '#9400D3'});
-	   
-   }else{
-	    for(var i=0;i<JList.length;i++){//取消选择的时候，把该指标从业务指标列表中删除
-		if(JList[i]==Jtext){
-			JList.splice(i,1);
-		}
-	   }
-	   //alert(JList);
-	   mouseHadClick_4 = false;;
-	   mouseleaveable_4 = true;
-	   $('#Jmiddle').css({background: '#4169E1'});
-   }
-   //var Jtext=$('#Jcash').children("span").eq(0).text();
-	//
+    mouseleaveable_1 = true;
+    mouseleaveable_2 = true;
+    mouseleaveable_3 = true;
+    mouseleaveable_4 = false;
+    $('#Jcardnum').css({background: '#4169E1'});
+    $('#Jloan').css({background: '#4169E1'});
+    $('#Jcash').css({background: '#4169E1'});
+    $('#Jmiddle').css({background: '#9400D3'});
 });
 
 
@@ -2649,7 +2586,6 @@ $('').on('click', function () {
 var startV = '';
 var endV = '';
 laydate.skin('danlan');
-var mystartTime = '';
 var startTime = {
     elem: '#startTime',
     format: 'YYYY-MM-DD',
@@ -2661,11 +2597,8 @@ var startTime = {
     choose: function (datas) {
         startV = datas;
         endTime.min = datas; //开始日选好后，重置结束日的最小日期
-		mystartTime = datas;
-		alert(mystartTime);
     }
 };
-var myendTime = '';
 var endTime = {
     elem: '#endTime',
     format: 'YYYY-MM-DD',
@@ -2677,45 +2610,6 @@ var endTime = {
     choose: function (datas) {
         //        startTime.max = datas; //结束日选好后，重置开始日的最大日期
         endV = datas;
-		myendTime = datas;
-		alert(myendTime);
-		//
-
-		if(citylist.length != 0 && JList.length !=0 &&mystartTime != ''){
-			alert("开始发送ajax");
-			console.log(JSON.stringify(citylist));
-			console.log(JSON.stringify(JList));
-			console.log(mystartTime);
-			console.log(myendTime);
-			$.ajax({
-            //提交数据的类型 POST GET
-            type:"POST",
-			
-			
-            // dataType:'json',
-            // contentType:"application/json", 
-
-            //提交的网址
-            url:"http://localhost:8080/card/pr",
-            //提交的数据
-            data:{
-            	 "cityList":JSON.stringify(citylist),
-            	 "JList":JSON.stringify(JList),
-            	 "startTime":mystartTime,
-            	 "endTime":myendTime
-			},
-            async:false,
-            timeout:5000000,
-            success: function(){
-                alert("success");
-            },
-            error: function(){
-            	alert("ffff");
-            },
-
-            //调用出错执行的函数
-         });
-		}
     }
 };
 
@@ -2792,74 +2686,106 @@ function chart4() {
     // 基于准备好的dom，初始化echarts实例
     myChart4.clear();
     option = {
-    tooltip : {
-        trigger: 'axis',
-        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-        }
-    },
-    legend: {
-        data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
-    },
-    grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-    },
-    xAxis : [
-        {
-            type : 'category',
-            data : ['周一','周二','周三','周四','周五','周六','周日']
-        }
-    ],
-    yAxis : [
-        {
-            type : 'value'
-        }
-    ],
-    series : [
-        {
-            name:'直接访问',
-            type:'bar',
-            data:[320, 332, 301, 334, 390, 330, 320]
+        tooltip: {
+            trigger: 'axis'
         },
-        {
-            name:'邮件营销',
-            type:'bar',
-            stack: '广告',
-            data:[120, 132, 101, 134, 90, 230, 210]
+        toolbox: {
+            show: true,
+            feature: {
+                mark: {show: true},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
         },
-        {
-            name:'联盟广告',
-            type:'bar',
-            stack: '广告',
-            data:[220, 182, 191, 234, 290, 330, 310]
+        dataZoom: {
+            zoomOnMouseWheel: true,
+            moveOnMouseMove: true,
+            type: 'slider',
+            //type:'inside',
+            xAxisIndex: 0,
+            filterMode: 'weakFilter',
+            height: 20,
+            bottom: 0,
+            start: 0,
+            end: 26,
+            handleIcon: 'M10.7,11.9H9.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+            handleSize: '80%',
+            show: true,
+            realtime: true,
+            y: '90%',
+            height: 20,
+            //backgroundColor: '#5F9EA0',
+            dataBackgroundColor: 'rgb(0,0,0,0)',
+            //fillerColor: '#00008B',
+            //handleColor: '#00008B',
+            textStyle: {
+                color: '#fff',
+            },
+            start: 0,
+            end: 100
         },
-        {
-            name:'视频广告',
-            type:'bar',
-            stack: '广告',
-            data:[150, 232, 201, 154, 190, 330, 410]
+        color: ['#00008B', '#4169E1', '#5F9EA0', '#8A2BE2', '#44AFF0', '#4E82FF', '#584BFF', '#BE4DFF', '#F845F1'],
+        calculable: true,
+        legend: {
+            data: ['开卡数', '贷款数', '存款数'],
+            textStyle: {
+                color: '#fff'
+            },
         },
-        {
-            name:'搜索引擎',
-            type:'bar',
-            data:[862, 1018, 964, 1026, 1679, 1600, 1570],
-            markLine : {
-                lineStyle: {
-                    normal: {
-                        type: 'dashed'
+        xAxis: [
+            {
+                axisLine: {
+                    lineStyle: {
+                        color: '#fff'
                     }
                 },
-                data : [
-                    [{type : 'min'}, {type : 'max'}]
-                ]
+                splitLine: {
+                    show: false
+                },
+                type: 'category',
+                data: ['2009年', '2010年', '2011年', '2012年', '2013年', '2014年', '2015年', '2016年', '2017年', '2018年', '2019年']
             }
-        }
-    ]
-};
+        ],
+        yAxis: [
+            {
 
+                splitLine: {
+                    show: false,
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: '#fff'
+                    }
+                },
+                type: 'value',
+                name: '张',
+                axisLabel: {}
+            }
+        ],
+        series: [
+            /*
+            {
+
+                name:'广州市',
+                type:'bar',
+                data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
+                itemStyle: {
+                    normal: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: "#00FFE3"
+                        },
+                        {
+                            offset: 1,
+                            color: "#4693EC"
+                        }
+                        ])
+                    }
+                },
+            } */
+        ]
+    };
     myChart4.setOption(option);
 }
 
@@ -3148,9 +3074,8 @@ var arealist = [];//用来存放地点list 的array
 //测试用
 //arealist.push(testdata);
 //arealist.push(testdata2);
-var area = '';//发送post请求时候的地点参数t_mbox
+var area = '';//发送post请求时候的地点参数
 var flag = '0' //判断arealist中是否有刚刚点击的地点数据的标志
-var citylist = [];//暂存城市名
 
 //发送post请求的方法
 function sendpost() {
@@ -3254,51 +3179,33 @@ function cachicatch(city) {
     }
 }
 
-
 /*获取选择的地点，并赋予到查询表的图例中*/
 myChart3.on('mapselectchanged', function (params) {
     selectedCity = []; // 清空数组  被选中的城市集合
-	//赋上地点变量
-	area = params.batch[0].name;
-	area = parsearea(area);
+    //赋上地点变量
+    area = params.batch[0].name;
+    area = parsearea(area);
 
-//-----------------发送给后台的城市列表-----------------
-	//获取已选取城市列表
-	 var ffff = "true";
-	 console.log(area);
-	 for(var i=0;i<citylist.length;i++){
-	   
-	  if(citylist[i] == area){
-	   citylist.splice(i,1);
-	   ffff = "false"
-	   break;
-	  }
-	 }
-	 if(ffff == "true"){
-	  citylist.push(area);
-	 }
-	 ffff = "true";
-	 console.log(citylist);
-//---------------发送给后台的城市列表end--------------
-	if(arealist.length == 0){
-		sendpost();
-	}
-	else{
-		console.log(arealist.length);
-	    //判断area是不是在arealist中
-		for(var i=0;i<arealist.length;i++){
-			
-			if(arealist[i].bankname == area){
-				flag='1'
-				break;
-			}
-		}	
-		if(flag == '0'){
-			sendpost();
-		}
-		//console.log(flag);
-		flag='0';//重置
-	}
+    if (arealist.length == 0) {
+        sendpost();
+    } else {
+        console.log(arealist.length);
+        //判断area是不是在arealist中
+        for (var i = 0; i < arealist.length; i++) {
+
+            if (arealist[i].bankname == area) {
+                flag = '1'
+                break;
+            }
+        }
+        if (flag == '0') {
+            sendpost();
+        }
+        //console.log(flag);
+        flag = '0';//重置
+    }
+
+
     var citys = params.batch[0].selected;//全部城市:true/false
     var keys = Object.keys(citys);//全部城市名
     for (var i = 0; i < keys.length; i++) {
