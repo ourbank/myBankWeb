@@ -3448,6 +3448,87 @@ var gd_city = [
         value: 0.0
     }]
 
+//变色
+var pre_unit_choose;
+var pre_city_choose;
+$('#1mon').on('click',function(){
+    pre_unit_choose = 0;
+    $('#1mon').attr("style","background-color: #b104ff;")
+    $('#3mon').attr("style","")
+    $('#12mon').attr("style","")
+})
+$('#3mon').on('click',function(){
+    pre_unit_choose = 1;
+    $('#1mon').attr("style","")
+    $('#3mon').attr("style","background-color: #b104ff;")
+    $('#12mon').attr("style","")
+})
+$('#12mon').on('click',function(){
+    pre_unit_choose = 2;
+    $('#1mon').attr("style","")
+    $('#3mon').attr("style","")
+    $('#12mon').attr("style","background-color: #b104ff;")
+})
+
+function getmon(i){
+    var date = new Date();
+    var year = date.getFullYear();
+    var mon = date.getMonth();
+    return parseInt(year + (mon + i) / 12 ) + '年 '+ (((mon + i )%12)+1) +'月';;
+}
+
+function getyear(){
+    var date = new Date();
+    var year = date.getFullYear();
+    return year;
+}
+
+function getseason(i){
+    var date = new Date();
+    var year = date.getFullYear();
+    var mon = date.getMonth();
+    var season;
+    if(mon == 1 || mon == 2 || mon ==3){
+        season = 1;
+    }else if(mon == 4 || mon == 5 || mon ==6){
+        season = 2;
+    }else if(mon == 7 || mon == 8 || mon ==9){
+        season = 3;
+    }else{
+        season = 4;
+    }
+    return parseInt(year + (season + i) / 4 ) + '年 '+ (((season + i )%4)+1) +'季度';
+}
+
+function draw_config(){
+    $('.detail-container').empty();
+    if(pre_unit_choose == 0 ){
+        for (var i = 1; i <= $('#pre_period').val(); i++){
+            $('.detail-container').append('<div style="width:100%" class="pre_citybox">\n' +
+                '                    <p ><span>' + getmon(i) + '：</span></p>\n' +
+                '                    <input id="'+pre_city_choose+ getmon(i) +'_input">\n' +
+                '                </div>')
+        }
+    }else if (pre_unit_choose == 1){
+        for (var i = 1; i <= $('#pre_period').val(); i++){
+            $('.detail-container').append('<div style="width:100%" class="pre_citybox">\n' +
+                '                    <p ><span>' + getseason(i) + '：</span></p>\n' +
+                '                    <input id="'+pre_city_choose+ getseason(i) +'_input">\n' +
+                '                </div>')
+        }
+    }else{
+        for (var i = 1; i <= $('#pre_period').val(); i++){
+            $('.detail-container').append('<div style="width:100%" class="pre_citybox">\n' +
+                '                    <p ><span>' + (getyear()+i) + '年：</span></p>\n' +
+                '                    <input id="'+pre_city_choose+ getyear() +'_input">\n' +
+                '                </div>')
+        }
+    }
+}
+
+$('#pre_period').on('click',function(){
+    draw_config();
+})
 // 动态添加
 $('#pre_all_btn').on('click', function () {
     if ($('#广州target').val() == '') {
@@ -3464,21 +3545,13 @@ $('#pre_all_btn').on('click', function () {
                 //console.log(res.currentTarget.innerText.slice(0,-1))
                 $('.container2').attr('style', 'visibility: visible').find('.pop-up1').eq(0).attr('style', 'visibility: visible');
                 $('.pop-up1').find('h2').eq(0).text(res.currentTarget.innerText.slice(0,-2)+'分行计划配置');
+                pre_city_choose = res.currentTarget.innerText.slice(0,-1);
+                draw_config();
             })
         }
 
     }
 })
-
-
-//变色
-$('#1mon').on('click',function(){
-    $('#1mon').attr("style","background-color: #b104ff;")
-    $('#3mon').attr("style","")
-    $('#12mon').attr("style","")
-})
-
-
 
 
 // websocket 相关代码
