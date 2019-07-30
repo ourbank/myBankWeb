@@ -2436,8 +2436,8 @@ function chart_alert(chartType) {
                     show: false
                 },
                 emphasis: {
-                    itemStyle:{
-                        areaColor:'#c1ac13'
+                    itemStyle: {
+                        areaColor: '#c1ac13'
                     },
                     label: {
                         show: true,
@@ -3451,85 +3451,103 @@ var gd_city = [
 //变色
 var pre_unit_choose;
 var pre_city_choose;
-$('#1mon').on('click',function(){
+$('#1mon').on('click', function () {
     pre_unit_choose = 0;
-    $('#1mon').attr("style","background-color: #b104ff;")
-    $('#3mon').attr("style","")
-    $('#12mon').attr("style","")
+    $('#1mon').attr("style", "background-color: #b104ff;")
+    $('#3mon').attr("style", "")
+    $('#12mon').attr("style", "")
 })
-$('#3mon').on('click',function(){
+$('#3mon').on('click', function () {
     pre_unit_choose = 1;
-    $('#1mon').attr("style","")
-    $('#3mon').attr("style","background-color: #b104ff;")
-    $('#12mon').attr("style","")
+    $('#1mon').attr("style", "")
+    $('#3mon').attr("style", "background-color: #b104ff;")
+    $('#12mon').attr("style", "")
 })
-$('#12mon').on('click',function(){
+$('#12mon').on('click', function () {
     pre_unit_choose = 2;
-    $('#1mon').attr("style","")
-    $('#3mon').attr("style","")
-    $('#12mon').attr("style","background-color: #b104ff;")
+    $('#1mon').attr("style", "")
+    $('#3mon').attr("style", "")
+    $('#12mon').attr("style", "background-color: #b104ff;")
 })
 
-function getmon(i){
+function getmon(i) {
     var date = new Date();
     var year = date.getFullYear();
     var mon = date.getMonth();
-    return parseInt(year + (mon + i) / 12 ) + '年 '+ (((mon + i )%12)+1) +'月';;
+    return parseInt(year + (mon + i) / 12) + '年 ' + (((mon + i) % 12) + 1) + '月';
+    ;
 }
 
-function getyear(){
+function getyear() {
     var date = new Date();
     var year = date.getFullYear();
     return year;
 }
 
-function getseason(i){
+function getseason(i) {
     var date = new Date();
     var year = date.getFullYear();
     var mon = date.getMonth();
     var season;
-    if(mon == 1 || mon == 2 || mon ==3){
+    if (mon == 1 || mon == 2 || mon == 3) {
         season = 1;
-    }else if(mon == 4 || mon == 5 || mon ==6){
+    } else if (mon == 4 || mon == 5 || mon == 6) {
         season = 2;
-    }else if(mon == 7 || mon == 8 || mon ==9){
+    } else if (mon == 7 || mon == 8 || mon == 9) {
         season = 3;
-    }else{
+    } else {
         season = 4;
     }
-    return parseInt(year + (season + i) / 4 ) + '年 '+ (((season + i )%4)+1) +'季度';
+    return parseInt(year + (season + i) / 4) + '年 ' + (((season + i) % 4) + 1) + '季度';
 }
 
-function draw_config(){
+function draw_config() {
     $('.detail-container').empty();
-    if(pre_unit_choose == 0 ){
-        for (var i = 1; i <= $('#pre_period').val(); i++){
+    if (pre_unit_choose == 0) {
+        for (var i = 1; i <= $('#pre_period').val(); i++) {
             $('.detail-container').append('<div style="width:100%" class="pre_citybox">\n' +
                 '                    <p ><span>' + getmon(i) + '：</span></p>\n' +
-                '                    <input id="'+pre_city_choose+ getmon(i) +'_input">\n' +
+                '                    <input id="' + pre_city_choose + getmon(i) + '_input">\n' +
                 '                </div>')
         }
-    }else if (pre_unit_choose == 1){
-        for (var i = 1; i <= $('#pre_period').val(); i++){
+    } else if (pre_unit_choose == 1) {
+        for (var i = 1; i <= $('#pre_period').val(); i++) {
             $('.detail-container').append('<div style="width:100%" class="pre_citybox">\n' +
                 '                    <p ><span>' + getseason(i) + '：</span></p>\n' +
-                '                    <input id="'+pre_city_choose+ getseason(i) +'_input">\n' +
+                '                    <input id="' + pre_city_choose + getseason(i) + '_input">\n' +
                 '                </div>')
         }
-    }else{
-        for (var i = 1; i <= $('#pre_period').val(); i++){
+    } else {
+        for (var i = 1; i <= $('#pre_period').val(); i++) {
             $('.detail-container').append('<div style="width:100%" class="pre_citybox">\n' +
-                '                    <p ><span>' + (getyear()+i) + '年：</span></p>\n' +
-                '                    <input id="'+pre_city_choose+ getyear() +'_input">\n' +
+                '                    <p ><span>' + (getyear() + i) + '年：</span></p>\n' +
+                '                    <input id="' + pre_city_choose + (getyear() + i) + '_input">\n' +
                 '                </div>')
         }
     }
 }
 
-$('#pre_period').on('click',function(){
+
+// 动态添加
+$('#gz_click').on('click', function () {
+    $('#pages-div').attr('style', 'visibility: visible');
+    if ($('#pages-div').html() == "") {
+        $('#pages-div').append('<p><span>预测时长：</span></p>\n' +
+            '                <input id="pre_period" type="number" max = "6" min = "1">\n' +
+            '                <button id="" class="skip" style="position:absolute;right: 0;">修改</button>');
+    }
+    $('#pre_period').on('click', function () {
+        draw_config();
+    })
+
+    $('.container2').attr('style', 'visibility: visible').find('.pop-up1').eq(0).attr('style', 'visibility: visible');
+    $('.pop-up1').find('h2').eq(0).text('广州计划配置');
+    pre_city_choose = '广州';
     draw_config();
 })
-// 动态添加
+
+
+
 $('#pre_all_btn').on('click', function () {
     if ($('#广州target').val() == '') {
         alert("智能分配根据省会计划进行同比分配，请添加省会计划");
@@ -3537,19 +3555,18 @@ $('#pre_all_btn').on('click', function () {
         $('.city-container').empty();
         for (var i = 1; i < gd_city.length; i++) {
             $('.city-container').append('<div class="pre_citybox">\n' +
-                '                    <p style="cursor: pointer" id="'+gd_city[i].name+'_p"><span>' + gd_city[i].name + '：</span></p>\n' +
-                '                    <input id="'+gd_city[i].name+'_input">\n' +
+                '                    <p style="cursor: pointer" id="' + gd_city[i].name + '_p"><span>' + gd_city[i].name + '：</span></p>\n' +
+                '                    <input id="' + gd_city[i].name + '_input">\n' +
                 '                </div>')
             // 添加点击事件
-            $('#'+gd_city[i].name+'_p').on('click',function(res){
-                //console.log(res.currentTarget.innerText.slice(0,-1))
+            $('#' + gd_city[i].name + '_p').on('click', function (res) {
+                $('#pages-div').attr('style', 'visibility: hidden');
                 $('.container2').attr('style', 'visibility: visible').find('.pop-up1').eq(0).attr('style', 'visibility: visible');
-                $('.pop-up1').find('h2').eq(0).text(res.currentTarget.innerText.slice(0,-2)+'分行计划配置');
-                pre_city_choose = res.currentTarget.innerText.slice(0,-1);
+                $('.pop-up1').find('h2').eq(0).text(res.currentTarget.innerText.slice(0, -2) + '分行计划配置');
+                pre_city_choose = res.currentTarget.innerText.slice(0, -1);
                 draw_config();
             })
         }
-
     }
 })
 
