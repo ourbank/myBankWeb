@@ -992,7 +992,7 @@ $('.select-ul').on('click', 'li', function () {
 
 $('#select_business').on('click', 'li', function () {
     analysebus = $(this).attr("data-value");
-   
+
     chart1();
 
 })
@@ -1005,40 +1005,40 @@ $('#select_factor').on('click', 'li', function () {
 
 
 $('#select_business').on('click', function () {
-    
-        //var ul = document.getElementById("analyli1_1").getElementsByTagName("ul")[0].getElementsByTagName("li");
-        title1_1 = $("#analyli1_1").text();
-        title1_2 = $("#analyli1_2").text();
-        title1 = '业务指标分析';
-        if (title1_1 != '业务指标' && title1_2 != '分析指标') {
-            $("#title1").text(title1 + ": " + title1_1 + " - " + title1_2);
-        }
-        title2_1 = $("#analyli2_1").text();
-        title2 = '业务指标预测';
-        if (title2_1 != '预测指标') {
-            $("#title2").text(title2 + ": " + title2_1);
-        }
 
-    
+    //var ul = document.getElementById("analyli1_1").getElementsByTagName("ul")[0].getElementsByTagName("li");
+    title1_1 = $("#analyli1_1").text();
+    title1_2 = $("#analyli1_2").text();
+    title1 = '业务指标分析';
+    if (title1_1 != '业务指标' && title1_2 != '分析指标') {
+        $("#title1").text(title1 + ": " + title1_1 + " - " + title1_2);
+    }
+    title2_1 = $("#analyli2_1").text();
+    title2 = '业务指标预测';
+    if (title2_1 != '预测指标') {
+        $("#title2").text(title2 + ": " + title2_1);
+    }
+
+
 });
 
 $('#select_factor').on('click', function () {
-  
-        //var ul = document.getElementById("analyli1_1").getElementsByTagName("ul")[0].getElementsByTagName("li");
-        title1_1 = $("#analyli1_1").text();
-        title1_2 = $("#analyli1_2").text();
-        title1 = '业务指标分析';
-		console.log(title1_1+'00'+title1_2)
-        if (title1_1 != '业务指标' && title1_2 != '分析指标') {
-            $("#title1").text(title1 + ": " + title1_1 + " - " + title1_2);
-        }        
-        title2_1 = $("#analyli2_1").text();
-        title2 = '业务指标预测';
-        if (title2_1 != '预测指标') {
-            $("#title2").text(title2 + ": " + title2_1);
-        }
 
-    
+    //var ul = document.getElementById("analyli1_1").getElementsByTagName("ul")[0].getElementsByTagName("li");
+    title1_1 = $("#analyli1_1").text();
+    title1_2 = $("#analyli1_2").text();
+    title1 = '业务指标分析';
+    console.log(title1_1 + '00' + title1_2)
+    if (title1_1 != '业务指标' && title1_2 != '分析指标') {
+        $("#title1").text(title1 + ": " + title1_1 + " - " + title1_2);
+    }
+    title2_1 = $("#analyli2_1").text();
+    title2 = '业务指标预测';
+    if (title2_1 != '预测指标') {
+        $("#title2").text(title2 + ": " + title2_1);
+    }
+
+
 });
 
 //鼠标滑动到按钮，按钮内容变成白色
@@ -1093,8 +1093,8 @@ function bigchart1() {
         str += '<p><span><i class="legend" style="background:' + startColor[i] + '"></i></span>' + data[i].name + '<span class="pie-number" style="color:' + startColor[i] + '">' + "" + '</span>' + Number(data[i].percent).toFixed(2) + '%</p>';
     }
     $('#pie1').html(str);
-    
-	
+
+
     function deepCopy(obj) {
         if (typeof obj !== 'object') {
             return obj;
@@ -1243,7 +1243,7 @@ function bigchart2() {
         str += '<p><span><i class="legend" style="background:' + startColor[i] + '"></i></span>' + data[i].name + '<span class="pie-number" style="color:' + startColor[i] + '">' + "" + '</span>' + Number(data[i].percent).toFixed(2) + '%</p>';
     }
     $('#pie2').html(str);
-	
+
     function deepCopy(obj) {
         if (typeof obj !== 'object') {
             return obj;
@@ -1393,7 +1393,7 @@ function bigchart3() {
         str += '<p><span><i class="legend" style="background:' + startColor[i] + '"></i></span>' + data[i].name + '<span class="pie-number" style="color:' + startColor[i] + '">' + "" + '</span>' + Number(data[i].percent).toFixed(2) + '%</p>';
     }
     $('#pie3').html(str);
-	
+
     function deepCopy(obj) {
         if (typeof obj !== 'object') {
             return obj;
@@ -1543,7 +1543,7 @@ function bigchart4() {
         str += '<p><span><i class="legend" style="background:' + startColor[i] + '"></i></span>' + data[i].name + '<span class="pie-number" style="color:' + startColor[i] + '">' + "" + '</span>' + Number(data[i].percent).toFixed(2) + '%</p>';
     }
     $('#pie4').html(str);
-	
+
     function deepCopy(obj) {
         if (typeof obj !== 'object') {
             return obj;
@@ -1676,18 +1676,16 @@ function bigchart4() {
 bigchart4()
 
 
-
-
-
 var data;
+
 function chart1() {
     //data 为模拟数据
-    
+
     //data 为模拟数据
     if (analysefac == '-1') {
         data = data00;
     } else data = selectdata(analysebus, analysefac);
-	
+
     var myChart = echarts.init(document.getElementById('pie'));
     window.addEventListener('resize', function () {
         myChart.resize();
@@ -1824,8 +1822,8 @@ function chart1() {
             }
         ]
     };
-	
-	var str = '';
+
+    var str = '';
     for (var i = 0; i < data.length; i++) {
         //这句可以删除百分数
         //str += '<p><span><i class="legend" style="background:' + startColor[i] + '"></i></span>' + data[i].name + '<span class="pie-number" style="color:' + startColor[i] + '">' + ""+ '</span></p>';
@@ -2083,92 +2081,93 @@ chart2('');
 //地图地点选择
 var myChart3 = echarts.init(document.getElementById('gdMap'));
 var myChart33 = echarts.init(document.getElementById('gdMap_big'));
+var myChart_gdmap_alert = echarts.init(document.getElementById('gdMap_alert'));
 
 function chart3(chartType) {
     var data = [
         {
             name: '广州市',
-            value: 120057.34
+            value: 0.0
         },
         {
             name: '韶关市',
-            value: 15477.48
+            value: 0.0
         },
         {
             name: '深圳市',
-            value: 131686.1
+            value: 0.0
         },
         {
             name: '珠海市',
-            value: 6992.6
+            value: 0.0
         },
         {
             name: '汕头市',
-            value: 44045.49
+            value: 0.0
         },
         {
             name: '佛山市',
-            value: 40689.64
+            value: 0.0
         },
         {
             name: '江门市',
-            value: 37659.78
+            value: 0.0
         },
         {
             name: '湛江市',
-            value: 45180.97
+            value: 0.0
         },
         {
             name: '茂名市',
-            value: 5204.26
+            value: 0.0
         },
         {
             name: '肇庆市',
-            value: 21900.9
+            value: 0.0
         },
         {
             name: '惠州市',
-            value: 4918.26
+            value: 0.0
         },
         {
             name: '梅州市',
-            value: 5881.84
+            value: 0.0
         },
         {
             name: '汕尾市',
-            value: 4178.01
+            value: 0.0
         },
         {
             name: '河源市',
-            value: 2227.92
+            value: 0.0
         },
         {
             name: '阳江市',
-            value: 2180.98
+            value: 0.0
         },
         {
             name: '清远市',
-            value: 9172.94
+            value: 0.0
         },
         {
             name: '东莞市',
-            value: 3368
+            value: 0
         },
         {
             name: '中山市',
-            value: 306.98
+            value: 0.0
         },
         {
             name: '潮州市',
-            value: 810.66
+            value: 0.0
         },
         {
             name: '揭阳市',
-            value: 542.2
+            value: 0.0
         },
         {
             name: '云浮市',
-            value: 256.38
+            value: 0.0
         }]
 
     window.addEventListener('resize', function () {
@@ -2181,7 +2180,6 @@ function chart3(chartType) {
             yMax = data[j].value;
         }
     }
-    myChart3.hideLoading();
     var option = {
         animation: true,
         tooltip: {
@@ -2300,6 +2298,162 @@ function chart3(chartType) {
 
 chart3('');
 
+// 警报界面地图
+function chart_alert(chartType) {
+    var data = [
+        {
+            name: '广州市',
+            value: 5
+        },
+        {
+            name: '韶关市',
+            value: 4
+        },
+        {
+            name: '深圳市',
+            value: 1
+        },
+        {
+            name: '珠海市',
+            value: 21
+        },
+        {
+            name: '汕头市',
+            value: 19
+        },
+        {
+            name: '佛山市',
+            value: 17
+        },
+        {
+            name: '江门市',
+            value: 3
+        },
+        {
+            name: '湛江市',
+            value: 17
+        },
+        {
+            name: '茂名市',
+            value: 6
+        },
+        {
+            name: '肇庆市',
+            value: 26
+        },
+        {
+            name: '惠州市',
+            value: 14
+        },
+        {
+            name: '梅州市',
+            value: 19
+        },
+        {
+            name: '汕尾市',
+            value: 18
+        },
+        {
+            name: '河源市',
+            value: 24.4
+        },
+        {
+            name: '阳江市',
+            value: 7.6
+        },
+        {
+            name: '清远市',
+            value: 2.1
+        },
+        {
+            name: '东莞市',
+            value: 11.2
+        },
+        {
+            name: '中山市',
+            value: 12.4
+        },
+        {
+            name: '潮州市',
+            value: 15.6
+        },
+        {
+            name: '揭阳市',
+            value: 16.7
+        },
+        {
+            name: '云浮市',
+            value: 17.9
+        }]
+
+    window.addEventListener('resize', function () {
+        myChart_gdmap_alert.resize();
+    });
+    var yMax = 0;
+    for (var j = 0; j < data.length; j++) {
+        if (yMax < data[j].value) {
+            yMax = data[j].value;
+        }
+    }
+    var option = {
+        animation: true,
+        tooltip: {
+            show: true
+        },
+        visualMap: {
+            show: false,
+            min: 0,
+            max: yMax,
+            text: ['高', '低'],
+            orient: 'horizontal',
+            itemWidth: 15,
+            itemHeight: 200,
+            right: 0,
+            bottom: 30,
+            inRange: {
+                color: ['#fff3f4', '#eb0a0a']
+            },
+            textStyle: {
+                color: 'white'
+            }
+        },
+        series: [
+            {
+                name: '数据名称',
+                type: 'map',
+                mapType: '广东',
+                selectedMode: 'multiple',
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{b}<br/>{c}'
+                },
+                itemStyle: {
+
+                    borderWidth: 1,
+                    borderColor: '#eb696f'
+                },
+                label: {
+                    show: false
+                },
+                emphasis: {
+                    itemStyle:{
+                        areaColor:'#c1ac13'
+                    },
+                    label: {
+                        show: true,
+                        textStyle: {
+                            color: '#fff'
+                        }
+                    }
+                },
+                data: data,
+            }
+        ]
+    };
+    myChart_gdmap_alert.setOption(option);
+}
+
+chart_alert();
 
 /* =========================地图模块图表节结束============================*/
 
@@ -3195,28 +3349,30 @@ myChart3.on('mapselectchanged', function (params) {
 
 /*点击方法区域*/
 $('.close-pop').on('click', function () {
-    $(this).parent().parent().hide().find('.cont-div').attr('style', 'visibility: hidden');
-})
-// 查询历史标题 点击放大
-$('#tohistory').on('click', function () {
-    $('.container').attr('style', 'visibility: visible').find('.pop-up').eq(2).attr('style', 'visibility: visible').siblings().attr('style', 'visibility: hidden');
-})
+    $(this).parent().parent().hide();
+    $('.pop-up1').attr('style', 'visibility: hidden')
+
+});
 // 分析界面标题 点击放大
 $('#title1').on('click', function () {
     $('.container').attr('style', 'visibility: visible').find('.pop-up').eq(0).attr('style', 'visibility: visible').siblings().attr('style', 'visibility: hidden');
-	
-        $('#filCon').hide();
-    
-})
+    $('#filCon').hide();
+});
 // 预测界面标题点击放大
 $('#title2').on('click', function () {
     $('.container').attr('style', 'visibility: visible').find('.pop-up').eq(1).attr('style', 'visibility: visible').siblings().attr('style', 'visibility: hidden');
-})
-
+});
+// 查询历史标题 点击放大
+$('#tohistory').on('click', function () {
+    $('.container').attr('style', 'visibility: visible').find('.pop-up').eq(2).attr('style', 'visibility: visible').siblings().attr('style', 'visibility: hidden');
+});
+// 地图界面放大
 $("#tobigmap").on('click', function () {
     $('.container').attr('style', 'visibility: visible').find('.pop-up').eq(3).attr('style', 'visibility: visible').siblings().attr('style', 'visibility: hidden');
-})
-
+});
+$('#pre_plan_btn').on('click', function () {
+    $('.container').attr('style', 'visibility: visible').find('.pop-up').eq(4).attr('style', 'visibility: visible').siblings().attr('style', 'visibility: hidden');
+});
 
 // 查询历史放大图表
 var historychat = echarts.init(document.getElementById('historychat'));
@@ -3283,21 +3439,21 @@ $('.savehistory').on('click', function () {
 
 // 业务预测放大界面
 // 计划指定按钮
-$('#pre_plan_btn').on('click', function () {
-    $('.pre-right1').attr('style', 'visibility: visible');
-    $('#pre_plan_btn').attr('style', 'visibility: hidden');
-    $('.pre-right1').attr('style', 'visibility: visible');
-    $('.pre-right2').attr('style', 'visibility: hidden');
-})
-
-
-$('#pre_ana_btn').on('click', function () {
-    $('.pre-right1').attr('style', 'visibility: hidden');
-    $('.pre-right2').attr('style', 'visibility: visible');
-    $('#pre_ana_btn').attr('style', 'visibility: hidden');
-    $('#pre_plan_btn').attr('style', 'visibility: visible');
-
-})
+// $('#pre_plan_btn').on('click', function () {
+//     $('.pre-right1').attr('style', 'visibility: visible');
+//     $('#pre_plan_btn').attr('style', 'visibility: hidden');
+//     $('.pre-right1').attr('style', 'visibility: visible');
+//     $('.pre-right2').attr('style', 'visibility: hidden');
+// })
+//
+//
+// $('#pre_ana_btn').on('click', function () {
+//     $('.pre-right1').attr('style', 'visibility: hidden');
+//     $('.pre-right2').attr('style', 'visibility: visible');
+//     $('#pre_ana_btn').attr('style', 'visibility: hidden');
+//     $('#pre_plan_btn').attr('style', 'visibility: visible');
+//
+// })
 
 var gd_city = [
     {
@@ -3385,23 +3541,38 @@ var gd_city = [
         value: 0.0
     }]
 
-
+// 动态添加
 $('#pre_all_btn').on('click', function () {
     if ($('#广州target').val() == '') {
         alert("智能分配根据省会计划进行同比分配，请添加省会计划");
     } else {
-        $('#pre_ana_btn').attr('style', 'visibility: visible');
         $('.city-container').empty();
         for (var i = 1; i < gd_city.length; i++) {
             $('.city-container').append('<div class="pre_citybox">\n' +
-                '                    <p><span>' + gd_city[i].name + '：</span></p>\n' +
-                '                    <input id="1">\n' +
+                '                    <p style="cursor: pointer" id="'+gd_city[i].name+'_p"><span>' + gd_city[i].name + '：</span></p>\n' +
+                '                    <input id="'+gd_city[i].name+'_input">\n' +
                 '                </div>')
+            // 添加点击事件
+            $('#'+gd_city[i].name+'_p').on('click',function(res){
+                //console.log(res.currentTarget.innerText.slice(0,-1))
+                $('.container2').attr('style', 'visibility: visible').find('.pop-up1').eq(0).attr('style', 'visibility: visible');
+                $('.pop-up1').find('h2').eq(0).text(res.currentTarget.innerText.slice(0,-2)+'分行计划配置');
+            })
         }
+
     }
-
-
 })
+
+
+//变色
+$('#1mon').on('click',function(){
+    $('#1mon').attr("style","background-color: #b104ff;")
+    $('#3mon').attr("style","")
+    $('#12mon').attr("style","")
+})
+
+
+
 
 // websocket 相关代码
 // 默认加载websocket服务
