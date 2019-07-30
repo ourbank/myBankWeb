@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aff2d326-5603-4e08-8bef-643b83606324" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/base.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/base.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,8 +16,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="515">
-              <caret line="352" column="42" lean-forward="true" selection-start-line="352" selection-start-column="42" selection-end-line="352" selection-end-column="42" />
+            <state relative-caret-position="514">
+              <caret line="344" column="71" lean-forward="true" selection-start-line="344" selection-start-column="71" selection-end-line="344" selection-end-column="71" />
               <folding>
                 <element signature="n#style#0;n#div#1;n#div#1;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -38,7 +39,7 @@
                 <element signature="n#style#0;n#div#6;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#1;n#div#7;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#button#0;n#div#0;n#div#0;n#div#5;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#p#0;n#div#0;n#div#0;n#div#4;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -47,8 +48,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/base.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="464">
-              <caret line="3670" column="36" lean-forward="true" selection-start-line="3670" selection-start-column="36" selection-end-line="3670" selection-end-column="36" />
+            <state relative-caret-position="507">
+              <caret line="3525" column="9" lean-forward="true" selection-start-line="3525" selection-start-column="9" selection-end-line="3525" selection-end-column="9" />
               <folding>
                 <element signature="n#style#0;n#i#0;n#span#0;n#p#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#span#1;n#p#0;n#!!top" expanded="true" />
@@ -63,6 +64,7 @@
                 <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#button#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#p#0;n#div#0;n#!!top" expanded="true" />
               </folding>
             </state>
@@ -110,8 +112,8 @@
       <find>pre_citybox</find>
       <find>detail</find>
       <find>pop-up1</find>
-      <find>chart4</find>
       <find>detail-container</find>
+      <find>chart4</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -121,8 +123,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/test.html" />
-        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/css/style.css" />
+        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/js/base.js" />
       </list>
     </option>
@@ -133,7 +135,7 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-10" />
     <option name="y" value="-10" />
     <option name="width" value="1940" />
@@ -176,6 +178,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../personalfinancial" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RunDashboard">
@@ -211,7 +214,7 @@
       <workItem from="1564019869408" duration="555000" />
       <workItem from="1564020743188" duration="21777000" />
       <workItem from="1564363826020" duration="21513000" />
-      <workItem from="1564447360937" duration="10351000" />
+      <workItem from="1564447360937" duration="14421000" />
     </task>
     <task id="LOCAL-00001" summary="test success">
       <created>1563806441086</created>
@@ -224,7 +227,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="66408000" />
+    <option name="totallyTimeSpent" value="70478000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="848" extended-state="6" />
@@ -275,10 +278,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="1888" column="14" selection-start-line="1888" selection-start-column="14" selection-end-line="1888" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="515">
-          <caret line="352" column="42" lean-forward="true" selection-start-line="352" selection-start-column="42" selection-end-line="352" selection-end-column="42" />
+        <state relative-caret-position="514">
+          <caret line="344" column="71" lean-forward="true" selection-start-line="344" selection-start-column="71" selection-end-line="344" selection-end-column="71" />
           <folding>
             <element signature="n#style#0;n#div#1;n#div#1;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -300,22 +310,15 @@
             <element signature="n#style#0;n#div#6;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#1;n#div#7;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#0;n#div#0;n#div#0;n#div#5;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#p#0;n#div#0;n#div#0;n#div#4;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="1888" column="14" selection-start-line="1888" selection-start-column="14" selection-end-line="1888" selection-end-column="14" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/base.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="464">
-          <caret line="3670" column="36" lean-forward="true" selection-start-line="3670" selection-start-column="36" selection-end-line="3670" selection-end-column="36" />
+        <state relative-caret-position="507">
+          <caret line="3525" column="9" lean-forward="true" selection-start-line="3525" selection-start-column="9" selection-end-line="3525" selection-end-column="9" />
           <folding>
             <element signature="n#style#0;n#i#0;n#span#0;n#p#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#span#1;n#p#0;n#!!top" expanded="true" />
@@ -330,6 +333,7 @@
             <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#p#0;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>

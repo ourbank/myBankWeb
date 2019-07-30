@@ -190,10 +190,10 @@
 
 <div class="container">
     <div class="pop-up">
+        <span class="close-pop"></span>
+        <h2 class="title">业务指标分析</h2>
         <div id="bigchart1" class="analy-pop" style="width:30%;height:40%; 
         right:70%;top:10%  "></div>
-        <h2 class="title">业务指标分析</h2>
-        <span class="close-pop"></span>
         <div class="chart-box pie-chart">
             <div id="pie"></div>
             <div>
@@ -205,7 +205,6 @@
 
         <div id="bigchart2" class="analy-pop" style="width:30%;height:40%;
         right:25%;top:10%  "></div>
-        <span class="close-pop"></span>
         <div class="chart-box pie-chart">
             <div id="pie"></div>
             <div>
@@ -217,7 +216,6 @@
 
         <div id="bigchart3" class="analy-pop" style="width:30%;height:40%;
         right:70%;top:50%  "></div>
-        <span class="close-pop"></span>
         <div class="chart-box pie-chart">
             <div id="pie"></div>
             <div>
@@ -229,7 +227,6 @@
 
         <div id="bigchart4" class="analy-pop" style="width:30%;height:40%;
         right:25%;top:50%  "></div>
-        <span class="close-pop"></span>
         <div class="chart-box pie-chart">
             <div id="pie"></div>
             <div>
@@ -332,7 +329,7 @@
                 <button id="1mon" class="skip">月</button>
                 <button id="3mon" class="skip">季度</button>
                 <button id="12mon" class="skip">年</button>
-                <p><span>广州市：</span></p>
+                <p><span style = "cursor:pointer" id="gz_click">广州市：</span></p>
                 <input id="广州target">
                 <button id="pre_all_btn" class="skip2">智能分配</button>
                 <button id="pre_ana_btn" class="skip2">分析</button>
@@ -345,11 +342,7 @@
         <div class="pop-up1">
             <span class="close-pop"></span>
             <h2 class="title">计划配置</h2>
-            <div class="pages-div" class="mineus">
-                <p><span>预测时长：</span></p>
-                <input id="pre_period" type="number" max = "6" min = "1">
-                <button id="" class="skip" style="position:absolute;right: 0;">修改</button>
-            </div>
+            <div id="pages-div" class="pages-div" class="mineus"></div>
             <div class="detail-container">
             </div>
         </div>
