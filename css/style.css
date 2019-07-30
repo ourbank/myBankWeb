@@ -1280,6 +1280,19 @@ pre {
     align-items: center;
 }
 
+.container2 {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .7);
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    visibility: hidden;
+    justify-content: center;
+    align-items: center;
+}
+
 .pop-up {
     width: 70%;
     height: 80%;
@@ -1288,6 +1301,26 @@ pre {
     position: absolute;
     padding: 0.2rem 0.5rem;
     visibility: hidden;
+}
+
+.pop-up1 {
+    width: 20%;
+    height: 80%;
+    background: url(../images/popUP_bg.png) top left no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    padding: 0.2rem 0.5rem;
+    visibility: hidden;
+}
+
+.pop-up1 .title {
+    width: 100%;
+    height: 0.9rem;
+    line-height: 0.9rem;
+    font-size: 0.3rem;
+    color: white;
+    padding-left: 0.2rem;
+    background: url(../images/title_line.png) 0.1px 25px no-repeat;
 }
 
 .pop-up .title {
@@ -1338,15 +1371,14 @@ pre {
 .close-pop {
     display: inline-block;
     position: absolute;
-    top: 0.018rem;
     right: 0.7rem;
     width: 13px;
     height: 0.9rem;
     background: url(../images/close.png) center left no-repeat;
     background-size: 13px 13px;
     cursor: pointer;
-    z-index: 99;
 }
+
 
 .analy-pop{
     display: inline-block;
@@ -1660,7 +1692,7 @@ pre {
 
 
 .pre_citybox{
-    width: 33%;
+    width: 20%;
     height: 10%;
     display: flex;
     flex-flow: row nowrap;
@@ -1673,6 +1705,11 @@ pre {
     color: white;
     margin: 0 0.1rem;
 }
+
+.pre-right1 > .pages-div > .skip:hover{
+    background-color: #b104ff;
+}
+
 .pages-div > .skip {
     width: 0.7rem;
     height: 0.4rem;
@@ -1835,12 +1872,9 @@ pre {
 }
 
 .pre-right1 {
-    visibility: hidden;
-    position: absolute;
-    height: 80%;
-    width: 38%;
+    height: 90%;
+    width: 100%;
     margin:auto;
-    right:2%;
 }
 
 .city-container{
@@ -1851,8 +1885,15 @@ pre {
     flex-flow: row wrap;
 }
 
+.detail-container{
+    height: 90%;
+    width: 100%;
+    margin:auto;
+    display: flex;
+    flex-flow: row wrap;
+}
+
 .pre-right2{
-    visibility: hidden;
     position: absolute;
     height: 80%;
     width: 38%;
@@ -1890,3 +1931,4 @@ pre {
 	width:90%;
 	margin:auto;
 }
+
