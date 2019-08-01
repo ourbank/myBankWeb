@@ -1385,7 +1385,6 @@ function bigchart3() {
     window.addEventListener('resize', function () {
         mybigchart3.resize();
     });
-
     var str = '';
     for (var i = 0; i < data.length; i++) {
         //这句可以删除百分数
@@ -3047,6 +3046,7 @@ myChart4.getZr().on('click', params => {
                         selectedCity[i].slice(0, selectedCity[i].length - 1) + '分行',
                         curyear);
                 }
+                console.log(options.series);
                 options.dataZoom[0].start = 0;
                 options.dataZoom[0].end = 100;
                 myChart4.clear();
@@ -3066,11 +3066,9 @@ myChart3.dispatchAction({
     selected: Object|Array
 });
 */
-
+var arealist = [];//用来存放地点list 的array
 //--------------------------------------------------------------------------------------------------
 //点击地图中的一个地方，发送第一次发送一个post请求，
-
-var arealist = [];//用来存放地点list 的array
 //测试用
 //arealist.push(testdata);
 //arealist.push(testdata2);
@@ -3078,21 +3076,21 @@ var area = '';//发送post请求时候的地点参数
 var flag = '0' //判断arealist中是否有刚刚点击的地点数据的标志
 
 //发送post请求的方法
-function sendpost() {
+var wait = function () {
+    var defer = $.Deferred();
     $.ajax({
-        // nginx 的url http://localhost/proxy/getdata
-        url: "http://localhost:8080/getdata",
-        async: false,
-        data: {"bankname": area},
-        dataType: 'json',
         type: 'post',
-        //contentType:'application/json',
+        contentType: "application/x-www-form-urlencoded",
+        dataType: 'json',
+        url: 'http://localhost:8080/getdata',
+        data: {bankname: area},
         success: function (res) {
-            arealist.push(res)
+            defer.resolve(res);
         }
-    })
+    });
+    return defer.promise();
+};
 
-}
 
 //得到某一年，某个月，日的集合  city：**分行
 function getmonthcount(city, year, month) { //year：2009  month：6
@@ -3185,73 +3183,70 @@ myChart3.on('mapselectchanged', function (params) {
     //赋上地点变量
     area = params.batch[0].name;
     area = parsearea(area);
+    console.log(area);
+    $.when(wait()).done(function (res) {
+        if (arealist.length == 0) {
+            arealist.push(res);
 
-    if (arealist.length == 0) {
-        sendpost();
-    } else {
-        console.log(arealist.length);
-        //判断area是不是在arealist中
-        for (var i = 0; i < arealist.length; i++) {
+        } else {
+            //判断area是不是在arealist中
+            for (var i = 0; i < arealist.length; i++) {
+                if (arealist[i].bankname == area) {
+                    flag = '1'
+                    break;
+                }
+            }
+            if (flag == '0') {
+                arealist.push(res);
+            }
+            flag = '0';//重置
+        }
 
-            if (arealist[i].bankname == area) {
-                flag = '1'
-                break;
+        var citys = params.batch[0].selected;//全部城市:true/false
+        var keys = Object.keys(citys);//全部城市名
+        for (var i = 0; i < keys.length; i++) {
+            if (citys[keys[i]] == true) {
+                selectedCity.push(keys[i]);//被选中的城市集合
             }
         }
-        if (flag == '0') {
-            sendpost();
-        }
-        //console.log(flag);
-        flag = '0';//重置
-    }
+        //clickMonth
+        var options = myChart4.getOption();
+        options.legend[0].data = selectedCity;
+        // 加载数据
+        var dataIndex = options.xAxis[0].data;
+        options.series = []; // 先清空
+        if (dataIndex[0].indexOf('号') != -1) {
+            //点进来在日里面
+            for (var i = 0; i < selectedCity.length; i++) {
+                options.series.push({name: '', type: '', data: ''});
+                options.series[i].name = selectedCity[i];
+                options.series[i].type = 'bar';
+                options.series[i].data = getmonthcount(
+                    selectedCity[i].slice(0, selectedCity[i].length - 1) + '分行',
+                    curyear, clickMonth);
+            }
+            //点进来在月里面
+        } else if (dataIndex[0].indexOf('月') != -1) {
+            for (var i = 0; i < selectedCity.length; i++) {
+                options.series.push({name: '', type: '', data: ''});
+                options.series[i].name = selectedCity[i];
+                options.series[i].type = 'bar';
 
-
-    var citys = params.batch[0].selected;//全部城市:true/false
-    var keys = Object.keys(citys);//全部城市名
-    for (var i = 0; i < keys.length; i++) {
-        if (citys[keys[i]] == true) {
-            selectedCity.push(keys[i]);//被选中的城市集合
+                options.series[i].data = getmonth(
+                    selectedCity[i].slice(0, selectedCity[i].length - 1) + '分行',
+                    curyear);
+            }
+        } else {//点进来在年里面
+            for (var i = 0; i < selectedCity.length; i++) {
+                options.series.push({name: '', type: '', data: ''});
+                options.series[i].name = selectedCity[i];
+                options.series[i].type = 'bar';
+                options.series[i].data = getyear(selectedCity[i].slice(0, selectedCity[i].length - 1) + '分行');
+            }
         }
-    }
-    //clickMonth
-    var options = myChart4.getOption();
-
-    options.legend[0].data = selectedCity;
-    // 加载数据
-    var dataIndex = options.xAxis[0].data;
-    options.series = []; // 先清空
-    if (dataIndex[0].indexOf('号') != -1) {
-        //点进来在日里面
-        for (var i = 0; i < selectedCity.length; i++) {
-            options.series.push({name: '', type: '', data: ''});
-            options.series[i].name = selectedCity[i];
-            options.series[i].type = 'bar';
-
-            options.series[i].data = getmonthcount(
-                selectedCity[i].slice(0, selectedCity[i].length - 1) + '分行',
-                curyear, clickMonth);
-        }
-        //点进来在月里面
-    } else if (dataIndex[0].indexOf('月') != -1) {
-        for (var i = 0; i < selectedCity.length; i++) {
-            options.series.push({name: '', type: '', data: ''});
-            options.series[i].name = selectedCity[i];
-            options.series[i].type = 'bar';
-
-            options.series[i].data = getmonth(
-                selectedCity[i].slice(0, selectedCity[i].length - 1) + '分行',
-                curyear);
-        }
-    } else {//点进来在年里面
-        for (var i = 0; i < selectedCity.length; i++) {
-            options.series.push({name: '', type: '', data: ''});
-            options.series[i].name = selectedCity[i];
-            options.series[i].type = 'bar';
-            options.series[i].data = getyear(selectedCity[i].slice(0, selectedCity[i].length - 1) + '分行');
-        }
-    }
-    myChart4.clear();
-    myChart4.setOption(options);
+        myChart4.clear();
+        myChart4.setOption(options);
+    });
 });
 
 /*点击方法区域*/
@@ -3526,13 +3521,13 @@ function draw_config() {
                 '                </div>')
         }
     }
-    $('.detail-container').find("input").eq($('#pre_period').val()-1).attr('readonly','readonly');
+    $('.detail-container').find("input").eq($('#pre_period').val() - 1).attr('readonly', 'readonly');
 }
 
 function get_gd_city_data(id) {
     var temp = [];
     for (var i = 0; i < gd_city.length; i++) {
-        if(gd_city[i].name == id){
+        if (gd_city[i].name == id) {
             temp = gd_city[i].value;
         }
     }
