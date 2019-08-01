@@ -329,7 +329,7 @@
                 <button id="1mon" class="skip">月</button>
                 <button id="3mon" class="skip">季度</button>
                 <button id="12mon" class="skip">年</button>
-                <p><span style = "cursor:pointer" id="gz_click">广州市：</span></p>
+                <p><span style="cursor:pointer" id="gz_click">广州市：</span></p>
                 <input id="广州target">
                 <button id="pre_all_btn" class="skip2">智能分配</button>
                 <button id="pre_ana_btn" class="skip2">分析</button>
@@ -342,7 +342,10 @@
         <div class="pop-up1">
             <span class="close-pop"></span>
             <h2 class="title">计划配置</h2>
-            <div id="pages-div" class="pages-div" class="mineus"></div>
+            <div id="pages-div" class="pages-div" class="mineus">
+                <p><span>预测时长：</span></p>
+                <input id="pre_period" type="number" max="6" min="1">
+            </div>
             <div class="detail-container">
             </div>
         </div>
@@ -372,28 +375,39 @@
                 $('#date_a').html(arr[1]);
                 $('#lea_a').html(arr[2]);
             }
-        })
+        });
 
 
         // 默认加载ajax请求，测试用
         // myChart4.showLoading({
         //     text : '',
         // });
-        // $.ajax({
-        //     type: 'post',
-        //     contentType: "application/x-www-form-urlencoded",
-        // 	dataType:'json',
-        //     url: 'http://localhost:8080/getdata',
-        //     data: {bankname:'广州分行'},
-        //     success: function(res){
-        //         myChart4.hideLoading();
-        //         console.log(res);
-        // 	}
-        // });
 
-
+        // var wait = function () {
+        //     var defer = $.Deferred();
+        //     $.ajax({
+        //         type: 'post',
+        //         contentType: "application/x-www-form-urlencoded",
+        //         dataType: 'json',
+        //         url: 'http://localhost:8080/getdata',
+        //         data: {bankname: '广州分行'},
+        //         success: function (res) {
+        //             defer.resolve(res);
+        //         }
+        //     });
+        //     return defer.promise();
+        // };
+        //
+        //
+        // var myTotalprice = function(){
+        //     //当getWordCount() 执行完成后，执行done()以下操作。就跟同步效果一样。
+        //     $.when(wait()).done(function(dataStr){
+        //         console.log(dataStr);
+        //     });
+        // }
+        //
+        // myTotalprice();
     });
-
 
 </script>
 

@@ -1385,7 +1385,6 @@ function bigchart3() {
     window.addEventListener('resize', function () {
         mybigchart3.resize();
     });
-
     var str = '';
     for (var i = 0; i < data.length; i++) {
         //这句可以删除百分数
@@ -3047,6 +3046,7 @@ myChart4.getZr().on('click', params => {
                         selectedCity[i].slice(0, selectedCity[i].length - 1) + '分行',
                         curyear);
                 }
+                console.log(options.series);
                 options.dataZoom[0].start = 0;
                 options.dataZoom[0].end = 100;
                 myChart4.clear();
@@ -3066,11 +3066,9 @@ myChart3.dispatchAction({
     selected: Object|Array
 });
 */
-
+var arealist = [];//用来存放地点list 的array
 //--------------------------------------------------------------------------------------------------
 //点击地图中的一个地方，发送第一次发送一个post请求，
-
-var arealist = [];//用来存放地点list 的array
 //测试用
 //arealist.push(testdata);
 //arealist.push(testdata2);
@@ -3078,21 +3076,21 @@ var area = '';//发送post请求时候的地点参数
 var flag = '0' //判断arealist中是否有刚刚点击的地点数据的标志
 
 //发送post请求的方法
-function sendpost() {
+var wait = function () {
+    var defer = $.Deferred();
     $.ajax({
-        // nginx 的url http://localhost/proxy/getdata
-        url: "http://localhost:8080/getdata",
-        async: false,
-        data: {"bankname": area},
-        dataType: 'json',
         type: 'post',
-        //contentType:'application/json',
+        contentType: "application/x-www-form-urlencoded",
+        dataType: 'json',
+        url: 'http://localhost:8080/getdata',
+        data: {bankname: area},
         success: function (res) {
-            arealist.push(res)
+            defer.resolve(res);
         }
-    })
+    });
+    return defer.promise();
+};
 
-}
 
 //得到某一年，某个月，日的集合  city：**分行
 function getmonthcount(city, year, month) { //year：2009  month：6
@@ -3185,80 +3183,77 @@ myChart3.on('mapselectchanged', function (params) {
     //赋上地点变量
     area = params.batch[0].name;
     area = parsearea(area);
+    console.log(area);
+    $.when(wait()).done(function (res) {
+        if (arealist.length == 0) {
+            arealist.push(res);
 
-    if (arealist.length == 0) {
-        sendpost();
-    } else {
-        console.log(arealist.length);
-        //判断area是不是在arealist中
-        for (var i = 0; i < arealist.length; i++) {
+        } else {
+            //判断area是不是在arealist中
+            for (var i = 0; i < arealist.length; i++) {
+                if (arealist[i].bankname == area) {
+                    flag = '1'
+                    break;
+                }
+            }
+            if (flag == '0') {
+                arealist.push(res);
+            }
+            flag = '0';//重置
+        }
 
-            if (arealist[i].bankname == area) {
-                flag = '1'
-                break;
+        var citys = params.batch[0].selected;//全部城市:true/false
+        var keys = Object.keys(citys);//全部城市名
+        for (var i = 0; i < keys.length; i++) {
+            if (citys[keys[i]] == true) {
+                selectedCity.push(keys[i]);//被选中的城市集合
             }
         }
-        if (flag == '0') {
-            sendpost();
-        }
-        //console.log(flag);
-        flag = '0';//重置
-    }
+        //clickMonth
+        var options = myChart4.getOption();
+        options.legend[0].data = selectedCity;
+        // 加载数据
+        var dataIndex = options.xAxis[0].data;
+        options.series = []; // 先清空
+        if (dataIndex[0].indexOf('号') != -1) {
+            //点进来在日里面
+            for (var i = 0; i < selectedCity.length; i++) {
+                options.series.push({name: '', type: '', data: ''});
+                options.series[i].name = selectedCity[i];
+                options.series[i].type = 'bar';
+                options.series[i].data = getmonthcount(
+                    selectedCity[i].slice(0, selectedCity[i].length - 1) + '分行',
+                    curyear, clickMonth);
+            }
+            //点进来在月里面
+        } else if (dataIndex[0].indexOf('月') != -1) {
+            for (var i = 0; i < selectedCity.length; i++) {
+                options.series.push({name: '', type: '', data: ''});
+                options.series[i].name = selectedCity[i];
+                options.series[i].type = 'bar';
 
-
-    var citys = params.batch[0].selected;//全部城市:true/false
-    var keys = Object.keys(citys);//全部城市名
-    for (var i = 0; i < keys.length; i++) {
-        if (citys[keys[i]] == true) {
-            selectedCity.push(keys[i]);//被选中的城市集合
+                options.series[i].data = getmonth(
+                    selectedCity[i].slice(0, selectedCity[i].length - 1) + '分行',
+                    curyear);
+            }
+        } else {//点进来在年里面
+            for (var i = 0; i < selectedCity.length; i++) {
+                options.series.push({name: '', type: '', data: ''});
+                options.series[i].name = selectedCity[i];
+                options.series[i].type = 'bar';
+                options.series[i].data = getyear(selectedCity[i].slice(0, selectedCity[i].length - 1) + '分行');
+            }
         }
-    }
-    //clickMonth
-    var options = myChart4.getOption();
-
-    options.legend[0].data = selectedCity;
-    // 加载数据
-    var dataIndex = options.xAxis[0].data;
-    options.series = []; // 先清空
-    if (dataIndex[0].indexOf('号') != -1) {
-        //点进来在日里面
-        for (var i = 0; i < selectedCity.length; i++) {
-            options.series.push({name: '', type: '', data: ''});
-            options.series[i].name = selectedCity[i];
-            options.series[i].type = 'bar';
-
-            options.series[i].data = getmonthcount(
-                selectedCity[i].slice(0, selectedCity[i].length - 1) + '分行',
-                curyear, clickMonth);
-        }
-        //点进来在月里面
-    } else if (dataIndex[0].indexOf('月') != -1) {
-        for (var i = 0; i < selectedCity.length; i++) {
-            options.series.push({name: '', type: '', data: ''});
-            options.series[i].name = selectedCity[i];
-            options.series[i].type = 'bar';
-
-            options.series[i].data = getmonth(
-                selectedCity[i].slice(0, selectedCity[i].length - 1) + '分行',
-                curyear);
-        }
-    } else {//点进来在年里面
-        for (var i = 0; i < selectedCity.length; i++) {
-            options.series.push({name: '', type: '', data: ''});
-            options.series[i].name = selectedCity[i];
-            options.series[i].type = 'bar';
-            options.series[i].data = getyear(selectedCity[i].slice(0, selectedCity[i].length - 1) + '分行');
-        }
-    }
-    myChart4.clear();
-    myChart4.setOption(options);
+        myChart4.clear();
+        myChart4.setOption(options);
+    });
 });
 
 /*点击方法区域*/
 $('.close-pop').on('click', function () {
     $(this).parent().parent().hide();
-    $('.pop-up1').attr('style', 'visibility: hidden')
-
+    $('.pop-up1').attr('style', 'visibility: hidden');
+    $('#pages-div').attr('style', 'visibility: hidden');
 });
 // 分析界面标题 点击放大
 $('#title1').on('click', function () {
@@ -3373,7 +3368,7 @@ var gd_city = [
     },
     {
         name: '深圳市',
-        value: 0.0
+        value: 0
     },
     {
         name: '珠海市',
@@ -3470,7 +3465,7 @@ $('#12mon').on('click', function () {
     $('#12mon').attr("style", "background-color: #b104ff;")
 })
 
-function getmon(i) {
+function plan_getmon(i) {
     var date = new Date();
     var year = date.getFullYear();
     var mon = date.getMonth();
@@ -3478,13 +3473,13 @@ function getmon(i) {
     ;
 }
 
-function getyear() {
+function plan_getyear() {
     var date = new Date();
     var year = date.getFullYear();
     return year;
 }
 
-function getseason(i) {
+function plan_getseason(i) {
     var date = new Date();
     var year = date.getFullYear();
     var mon = date.getMonth();
@@ -3501,63 +3496,121 @@ function getseason(i) {
     return parseInt(year + (season + i) / 4) + '年 ' + (((season + i) % 4) + 1) + '季度';
 }
 
+// 动态添加 时间配置
 function draw_config() {
     $('.detail-container').empty();
     if (pre_unit_choose == 0) {
-        for (var i = 1; i <= $('#pre_period').val(); i++) {
+        for (var i = 0; i < $('#pre_period').val(); i++) {
             $('.detail-container').append('<div style="width:100%" class="pre_citybox">\n' +
-                '                    <p ><span>' + getmon(i) + '：</span></p>\n' +
-                '                    <input id="' + pre_city_choose + getmon(i) + '_input">\n' +
+                '                    <p ><span>' + plan_getmon(i) + '：</span></p>\n' +
+                '                    <input id="' + pre_city_choose + plan_getmon(i) + '_input">\n' +
                 '                </div>')
         }
     } else if (pre_unit_choose == 1) {
-        for (var i = 1; i <= $('#pre_period').val(); i++) {
+        for (var i = 0; i < $('#pre_period').val(); i++) {
             $('.detail-container').append('<div style="width:100%" class="pre_citybox">\n' +
-                '                    <p ><span>' + getseason(i) + '：</span></p>\n' +
-                '                    <input id="' + pre_city_choose + getseason(i) + '_input">\n' +
+                '                    <p ><span>' + plan_getseason(i) + '：</span></p>\n' +
+                '                    <input id="' + pre_city_choose + plan_getseason(i) + '_input">\n' +
                 '                </div>')
         }
     } else {
-        for (var i = 1; i <= $('#pre_period').val(); i++) {
+        for (var i = 0; i < $('#pre_period').val(); i++) {
             $('.detail-container').append('<div style="width:100%" class="pre_citybox">\n' +
-                '                    <p ><span>' + (getyear() + i) + '年：</span></p>\n' +
-                '                    <input id="' + pre_city_choose + (getyear() + i) + '_input">\n' +
+                '                    <p ><span>' + (plan_getyear() + i) + '年：</span></p>\n' +
+                '                    <input id="' + pre_city_choose + (plan_getyear() + i) + '_input">\n' +
                 '                </div>')
         }
     }
+    $('.detail-container').find("input").eq($('#pre_period').val() - 1).attr('readonly', 'readonly');
 }
 
+function get_gd_city_data(id) {
+    var temp = [];
+    for (var i = 0; i < gd_city.length; i++) {
+        if (gd_city[i].name == id) {
+            temp = gd_city[i].value;
+        }
+    }
+    for (var i = 0; i < $('#pre_period').val(); i++) {
+        $('.detail-container').find('input').eq(i).val(temp[i]);
+    }
+}
+
+function randomNum(minNum, maxNum) {
+    return (Math.random() * (maxNum - minNum) + minNum).toFixed(2);
+
+}
+
+//根据占比进行分配
+function main_all() {
+    var target = $('#广州target').val();
+    // 测试的时候默认生成随机占比数组!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    var zhanbi = [1];
+    for (var i = 1; i <= gd_city.length; i++) {
+        zhanbi.push(randomNum(0.01, 1.5));
+        $('.city-container').find('input').eq(i - 1).val((target * zhanbi[i]).toFixed(2));
+    }
+    for (var i = 0; i < gd_city.length; i++) {
+        var temp = [];
+        var target_temp = target * zhanbi[i];
+        // 这里需要获取上一年，季度，月的数据！！！！！！！！！！！！！！！！！！！!!!!!!
+        var test_mon = 5000;
+        var gap = ((target_temp - test_mon) / $('#pre_period').val()).toFixed(2);
+        for (var j = 0; j < $('#pre_period').val(); j++) {
+            temp.push(test_mon + gap * (j + 1));
+        }
+        gd_city[i].value = temp;
+    }
+}
 
 // 动态添加
+// 默认预测4
+$('#pre_period').val(4);
 $('#gz_click').on('click', function () {
-    $('#pages-div').attr('style', 'visibility: visible');
-    if ($('#pages-div').html() == "") {
-        $('#pages-div').append('<p><span>预测时长：</span></p>\n' +
-            '                <input id="pre_period" type="number" max = "6" min = "1">\n' +
-            '                <button id="" class="skip" style="position:absolute;right: 0;">修改</button>');
-    }
-    $('#pre_period').on('click', function () {
+    if (pre_unit_choose != 0 && pre_unit_choose != 1 && pre_unit_choose != 2) {
+        alert("请选择预测单位");
+    } else {
+        $('#pages-div').attr('style', 'visibility: visible');
+        $('#pre_period').on('click', function () {
+            draw_config();
+            main_all();
+            get_gd_city_data('广州市');
+        });
+        $('.container2').attr('style', 'visibility: visible').find('.pop-up1').eq(0).attr('style', 'visibility: visible');
+        $('.pop-up1').find('h2').eq(0).text('广州计划配置');
+        pre_city_choose = '广州市';
         draw_config();
-    })
-
-    $('.container2').attr('style', 'visibility: visible').find('.pop-up1').eq(0).attr('style', 'visibility: visible');
-    $('.pop-up1').find('h2').eq(0).text('广州计划配置');
-    pre_city_choose = '广州';
-    draw_config();
+        get_gd_city_data('广州市');
+        $('.detail-container input').on('blur', function () {
+            for (var i = 0; i < gd_city.length; i++) {
+                if (gd_city[i].name == pre_city_choose) {
+                    var temp = []
+                    for (var j = 0; j < $('#pre_period').val(); j++) {
+                        temp.push($('.detail-container').find('input').eq(j).val());
+                    }
+                    gd_city[i].value = temp;
+                }
+            }
+        });
+    }
 })
 
 
-
+// 动态添加 城市配置
 $('#pre_all_btn').on('click', function () {
     if ($('#广州target').val() == '') {
         alert("智能分配根据省会计划进行同比分配，请添加省会计划");
+    } else if (pre_unit_choose != 0 && pre_unit_choose != 1 && pre_unit_choose != 2) {
+        alert("请选择预测单位");
+    } else if (typeof ($('#pre_period').val()) == 'undefined') {
+        alert("请进入广州市配置界面设置时长");
     } else {
         $('.city-container').empty();
         for (var i = 1; i < gd_city.length; i++) {
             $('.city-container').append('<div class="pre_citybox">\n' +
                 '                    <p style="cursor: pointer" id="' + gd_city[i].name + '_p"><span>' + gd_city[i].name + '：</span></p>\n' +
                 '                    <input id="' + gd_city[i].name + '_input">\n' +
-                '                </div>')
+                '                </div>');
             // 添加点击事件
             $('#' + gd_city[i].name + '_p').on('click', function (res) {
                 $('#pages-div').attr('style', 'visibility: hidden');
@@ -3565,9 +3618,23 @@ $('#pre_all_btn').on('click', function () {
                 $('.pop-up1').find('h2').eq(0).text(res.currentTarget.innerText.slice(0, -2) + '分行计划配置');
                 pre_city_choose = res.currentTarget.innerText.slice(0, -1);
                 draw_config();
-            })
+                get_gd_city_data(pre_city_choose);
+                $('.detail-container input').on('blur', function () {
+                    for (var i = 0; i < gd_city.length; i++) {
+                        if (gd_city[i].name == pre_city_choose) {
+                            var temp = []
+                            for (var j = 0; j < $('#pre_period').val(); j++) {
+                                temp.push($('.detail-container').find('input').eq(j).val());
+                            }
+                            gd_city[i].value = temp;
+                        }
+                    }
+                });
+            });
+
         }
     }
+    main_all();
 })
 
 
