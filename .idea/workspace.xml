@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aff2d326-5603-4e08-8bef-643b83606324" name="Default Changelist" comment="">
-<<<<<<< HEAD
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/base.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/base.js" afterDir="false" />
-=======
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
->>>>>>> f0d631ec1b1940a4cf3908492ad97e7ed903338c
+      <change beforePath="$PROJECT_DIR$/js/base.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/base.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,16 +13,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-            <state relative-caret-position="514">
-              <caret line="344" column="71" lean-forward="true" selection-start-line="344" selection-start-column="71" selection-end-line="344" selection-end-column="71" />
-=======
-            <state relative-caret-position="515">
-              <caret line="352" column="42" lean-forward="true" selection-start-line="352" selection-start-column="42" selection-end-line="352" selection-end-column="42" />
->>>>>>> f0d631ec1b1940a4cf3908492ad97e7ed903338c
+            <state relative-caret-position="628">
+              <caret line="401" column="41" selection-start-line="401" selection-start-column="41" selection-end-line="401" selection-end-column="41" />
               <folding>
                 <element signature="n#style#0;n#div#1;n#div#1;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -48,26 +39,17 @@
                 <element signature="n#style#0;n#div#6;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#1;n#div#7;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-<<<<<<< HEAD
                 <element signature="n#style#0;n#span#0;n#p#0;n#div#0;n#div#0;n#div#4;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-=======
-                <element signature="n#style#0;n#button#0;n#div#0;n#div#0;n#div#5;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
->>>>>>> f0d631ec1b1940a4cf3908492ad97e7ed903338c
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/base.js">
           <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-            <state relative-caret-position="507">
-              <caret line="3525" column="9" lean-forward="true" selection-start-line="3525" selection-start-column="9" selection-end-line="3525" selection-end-column="9" />
-=======
-            <state relative-caret-position="464">
-              <caret line="3670" column="36" lean-forward="true" selection-start-line="3670" selection-start-column="36" selection-end-line="3670" selection-end-column="36" />
->>>>>>> f0d631ec1b1940a4cf3908492ad97e7ed903338c
+            <state relative-caret-position="310">
+              <caret line="3656" column="7" lean-forward="true" selection-start-line="3656" selection-start-column="7" selection-end-line="3656" selection-end-column="7" />
               <folding>
                 <element signature="n#style#0;n#i#0;n#span#0;n#p#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#span#1;n#p#0;n#!!top" expanded="true" />
@@ -82,10 +64,6 @@
                 <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-<<<<<<< HEAD
-                <element signature="n#style#0;n#button#0;n#!!top" expanded="true" />
-=======
->>>>>>> f0d631ec1b1940a4cf3908492ad97e7ed903338c
                 <element signature="n#style#0;n#p#0;n#div#0;n#!!top" expanded="true" />
               </folding>
             </state>
@@ -95,7 +73,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
+            <state relative-caret-position="628">
               <caret line="1888" column="14" selection-start-line="1888" selection-start-column="14" selection-end-line="1888" selection-end-column="14" />
             </state>
           </provider>
@@ -105,14 +83,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>pages-div</find>
-      <find>span</find>
-      <find>city-con</find>
-      <find>p</find>
-      <find>.pages-div</find>
-      <find>city-</find>
-      <find>预测</find>
-      <find>city</find>
       <find>gdmap</find>
       <find>pre-right2</find>
       <find>pre-right1</find>
@@ -124,7 +94,6 @@
       <find>pop-up</find>
       <find>pre_ana_btn</find>
       <find>container</find>
-      <find>close</find>
       <find>close-pop</find>
       <find>cont-div</find>
       <find>city-containerx</find>
@@ -133,13 +102,17 @@
       <find>pre_citybox</find>
       <find>detail</find>
       <find>pop-up1</find>
-<<<<<<< HEAD
       <find>detail-container</find>
       <find>chart4</find>
-=======
-      <find>chart4</find>
-      <find>detail-container</find>
->>>>>>> f0d631ec1b1940a4cf3908492ad97e7ed903338c
+      <find>close</find>
+      <find>随机</find>
+      <find>blur</find>
+      <find>arealist</find>
+      <find>templist</find>
+      <find>cachicatch</find>
+      <find>jax</find>
+      <find>push</find>
+      <find>ajax</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -161,7 +134,7 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-10" />
     <option name="y" value="-10" />
     <option name="width" value="1940" />
@@ -183,11 +156,6 @@
             <path>
               <item name="myBankWeb" type="b2602c69:ProjectViewProjectNode" />
               <item name="myBankWeb" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="myBankWeb" type="b2602c69:ProjectViewProjectNode" />
-              <item name="myBankWeb" type="462c0819:PsiDirectoryNode" />
               <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -200,12 +168,12 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1564049443215" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../personalfinancial" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1564641734385" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -240,11 +208,16 @@
       <workItem from="1564019869408" duration="555000" />
       <workItem from="1564020743188" duration="21777000" />
       <workItem from="1564363826020" duration="21513000" />
-<<<<<<< HEAD
-      <workItem from="1564447360937" duration="14421000" />
-=======
-      <workItem from="1564447360937" duration="10351000" />
->>>>>>> f0d631ec1b1940a4cf3908492ad97e7ed903338c
+      <workItem from="1564447360937" duration="31063000" />
+      <workItem from="1564532994427" duration="2326000" />
+      <workItem from="1564570776540" duration="6942000" />
+      <workItem from="1564620401756" duration="11680000" />
+      <workItem from="1564641794001" duration="4648000" />
+      <workItem from="1564653619262" duration="11000" />
+      <workItem from="1564662079849" duration="946000" />
+      <workItem from="1564705375207" duration="3307000" />
+      <workItem from="1564716112688" duration="1232000" />
+      <workItem from="1565053708901" duration="297000" />
     </task>
     <task id="LOCAL-00001" summary="test success">
       <created>1563806441086</created>
@@ -253,22 +226,34 @@
       <option name="project" value="LOCAL" />
       <updated>1563806441086</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="解决传输卡顿问题">
+      <created>1564641224840</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1564641224840</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-<<<<<<< HEAD
-    <option name="totallyTimeSpent" value="70478000" />
-=======
-    <option name="totallyTimeSpent" value="66408000" />
->>>>>>> f0d631ec1b1940a4cf3908492ad97e7ed903338c
+    <option name="totallyTimeSpent" value="118509000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="848" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49860334" visible="true" weight="0.18230563" />
-      <window_info id="Structure" order="1" sideWeight="0.50139666" side_tool="true" visible="true" weight="0.18230563" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.71089387" visible="true" weight="0.20643431" />
+      <window_info id="Structure" order="1" sideWeight="0.28910613" side_tool="true" visible="true" weight="0.20643431" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
@@ -280,12 +265,12 @@
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49932975" weight="0.32960895" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49932975" weight="0.32960895" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Terminal" order="10" />
-      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49932975" weight="0.32960895" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50067025" side_tool="true" weight="0.32960895" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -295,6 +280,7 @@
       <window_info anchor="right" id="Capture Analysis" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Database" order="8" />
+      <window_info anchor="right" id="SciView" order="9" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -302,7 +288,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="test success" />
-    <option name="LAST_COMMIT_MESSAGE" value="test success" />
+    <MESSAGE value="解决传输卡顿问题" />
+    <option name="LAST_COMMIT_MESSAGE" value="解决传输卡顿问题" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/test.html">
@@ -314,20 +301,38 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
+        <state relative-caret-position="628">
           <caret line="1888" column="14" selection-start-line="1888" selection-start-column="14" selection-end-line="1888" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/base.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="3656" column="7" lean-forward="true" selection-start-line="3656" selection-start-column="7" selection-end-line="3656" selection-end-column="7" />
+          <folding>
+            <element signature="n#style#0;n#i#0;n#span#0;n#p#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#1;n#p#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#i#0;n#span#0;n#p#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#1;n#p#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#i#0;n#span#0;n#p#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#1;n#p#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#i#0;n#span#0;n#p#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#1;n#p#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#i#0;n#span#0;n#p#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#1;n#p#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-        <state relative-caret-position="514">
-          <caret line="344" column="71" lean-forward="true" selection-start-line="344" selection-start-column="71" selection-end-line="344" selection-end-column="71" />
-=======
-        <state relative-caret-position="515">
-          <caret line="352" column="42" lean-forward="true" selection-start-line="352" selection-start-column="42" selection-end-line="352" selection-end-column="42" />
->>>>>>> f0d631ec1b1940a4cf3908492ad97e7ed903338c
+        <state relative-caret-position="628">
+          <caret line="401" column="41" selection-start-line="401" selection-start-column="41" selection-end-line="401" selection-end-column="41" />
           <folding>
             <element signature="n#style#0;n#div#1;n#div#1;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -349,50 +354,7 @@
             <element signature="n#style#0;n#div#6;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#1;n#div#7;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-<<<<<<< HEAD
             <element signature="n#style#0;n#span#0;n#p#0;n#div#0;n#div#0;n#div#4;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-=======
-            <element signature="n#style#0;n#button#0;n#div#0;n#div#0;n#div#5;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
->>>>>>> f0d631ec1b1940a4cf3908492ad97e7ed903338c
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="1888" column="14" selection-start-line="1888" selection-start-column="14" selection-end-line="1888" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/base.js">
-      <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-        <state relative-caret-position="507">
-          <caret line="3525" column="9" lean-forward="true" selection-start-line="3525" selection-start-column="9" selection-end-line="3525" selection-end-column="9" />
-=======
-        <state relative-caret-position="464">
-          <caret line="3670" column="36" lean-forward="true" selection-start-line="3670" selection-start-column="36" selection-end-line="3670" selection-end-column="36" />
->>>>>>> f0d631ec1b1940a4cf3908492ad97e7ed903338c
-          <folding>
-            <element signature="n#style#0;n#i#0;n#span#0;n#p#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#1;n#p#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#i#0;n#span#0;n#p#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#1;n#p#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#i#0;n#span#0;n#p#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#1;n#p#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#i#0;n#span#0;n#p#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#1;n#p#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#i#0;n#span#0;n#p#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#1;n#p#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-<<<<<<< HEAD
-            <element signature="n#style#0;n#button#0;n#!!top" expanded="true" />
-=======
->>>>>>> f0d631ec1b1940a4cf3908492ad97e7ed903338c
-            <element signature="n#style#0;n#p#0;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
