@@ -3662,7 +3662,8 @@ myChart3.on('mapselectchanged', function (params) {
             if (citys[keys[i]] == true) {
                 selectedCity.push(keys[i]);//被选中的城市集合
             }
-        }
+		}
+	});
     });
 
 /*点击方法区域*/
