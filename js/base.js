@@ -1185,8 +1185,6 @@ var realdata2 = [{"data":[
 				
 ;
 
-
-
 //先写死业务请求的数据 分析部分
 
 //职业
@@ -3013,6 +3011,8 @@ for(var i=0;i<selectedCity.length;i++){
 }
 //先alert,想做什么提示框再考虑，不是很想做
 for(var i=0;i<1;i++){
+console.log(searchcitys)
+console.log(selectedCity)
 if(searchcitys.length ==0){
 	alert("请选择你要查询的城市");
 	break;
@@ -3613,16 +3613,16 @@ var sendajax = function(dtd){
         // nginx 的url http://localhost/proxy/getdata
         url: "http://localhost:8080/hello",
         data: JSON.stringify({
-			"searchcitys":searchcitys,
-			"factor":factor,
-			"startV":startV,
-			"endV":endV
+			"banknames":searchcitys,
+			"business":factor,
+			"starttime":startV,
+			"endtime":endV
 		}),
         type: 'post',
         contentType:'application/json;charset=utf-8',
 		dataType:'text',
 		success:function(res){
-		 console.log(res);
+		 //console.log(res);
 		 arealist = realdata;
 		 dtd.resolve(res);
 		}
@@ -3637,34 +3637,15 @@ myChart3.on('mapselectchanged', function (params) {
     //赋上地点变量
     area = params.batch[0].name;
     area = parsearea(area);
-
-    console.log(area);
-    $.when(wait()).done(function (res) {
-        if (arealist.length == 0) {
-            arealist.push(res);
-
-        } else {
-            //判断area是不是在arealist中
-            for (var i = 0; i < arealist.length; i++) {
-                if (arealist[i].bankname == area) {
-                    flag = '1'
-                    break;
-                }
-            }
-            if (flag == '0') {
-                arealist.push(res);
-            }
-            flag = '0';//重置
-        }
-        var citys = params.batch[0].selected;//全部城市:true/false
-        var keys = Object.keys(citys);//全部城市名
+	var citys = params.batch[0].selected;//全部城市:true/false
+    var keys = Object.keys(citys);//全部城市名
         for (var i = 0; i < keys.length; i++) {
             if (citys[keys[i]] == true) {
                 selectedCity.push(keys[i]);//被选中的城市集合
             }
 		}
-	});
-    });
+   }
+   );
 
 /*点击方法区域*/
 $('.close-pop').on('click', function () {
