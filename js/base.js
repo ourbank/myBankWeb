@@ -3940,11 +3940,38 @@ function randomNum(minNum, maxNum) {
 
 }
 
+// 用于动态获取占比数据
+var wait_scale = function () {
+    var defer = $.Deferred();
+    $.ajax({
+        type: 'post',
+        contentType: "application/x-www-form-urlencoded",
+        dataType: 'json',
+        url: 'http://localhost:9000/getscale',
+        data: {period: 'season',business:'card'},
+        success: function (res) {
+            defer.resolve(res);
+        }
+    });
+    return defer.promise();
+};
+
+function getscale(){
+    var out = [1];
+
+    $.when(wait_scale()).done(function (res){
+        for (var i = 0; i < gd_city.length; i++) {
+
+        }
+    })
+    return out;
+}
+
 //根据占比进行分配
 function main_all() {
     var target = $('#广州target').val();
     // 测试的时候默认生成随机占比数组!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    var zhanbi = [1];
+    var zhanbi = getscale();
     for (var i = 1; i <= gd_city.length; i++) {
         zhanbi.push(randomNum(0.01, 1.5));
         $('.city-container').find('input').eq(i - 1).val((target * zhanbi[i]).toFixed(2));
