@@ -3011,8 +3011,7 @@ for(var i=0;i<selectedCity.length;i++){
 }
 //先alert,想做什么提示框再考虑，不是很想做
 for(var i=0;i<1;i++){
-console.log(searchcitys)
-console.log(selectedCity)
+
 if(searchcitys.length ==0){
 	alert("请选择你要查询的城市");
 	break;
@@ -3041,12 +3040,12 @@ else if(endV == '-1'){
 
     options.legend[0].data = selectedCity;
 	
-	//mark  去getchart4_bicissa修改单年的横坐标
+	
 	options.xAxis[0].data = getChart4_bscissa();
     // 加载数据
 	
     var dataIndex = options.xAxis[0].data;
-	console.log(dataIndex)
+	
     options.series = []; // 先清空
     if (dataIndex[0].indexOf('号') != -1) {
         //点进来在日里面
@@ -3066,10 +3065,10 @@ else if(endV == '-1'){
             options.series[i].name = selectedCity[i];
             options.series[i].type = 'bar';
 
-			//mark 修改  获取那一段 月
+			
             options.series[i].data = getmonth(
                 selectedCity[i].slice(0, selectedCity[i].length - 1) + '分行',
-                curyear);
+                parseInt(startY));
         }
     } else {//点进来在年里面
         for (var i = 0; i < selectedCity.length; i++) {
@@ -3378,16 +3377,27 @@ $('#chart4').on('dblclick', function (params) {
 
     if (dataIndex != null) {
         if (dataIndex[0].indexOf('号') != -1) {
-            //curyear 当前年
-			//mark 获取当前月段横坐标 写个函数
-            options.xAxis[0].data = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
-            for (var i = 0; i < selectedCity.length; i++) {
-			//mark 获取月段的数据，拿下面的再来截取就好了
-                options.series[i].data = getmonth(
+            
+			if(startY == endY){
+				options.xAxis[0].data = getChart4_bscissa();
+				  for (var i = 0; i < selectedCity.length; i++) {
+					options.series[i].data = getmonth(
+                    selectedCity[i].slice(0, selectedCity[i].length - 1) + '分行',
+                    parseInt(startY));
+				}
+			}
+           else{
+				options.xAxis[0].data = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','2月'];
+				  for (var i = 0; i < selectedCity.length; i++) {
+					options.series[i].data = getmonth(
                     selectedCity[i].slice(0, selectedCity[i].length - 1) + '分行',
                     curyear);
-
-            }
+				}
+				
+		   }
+			//console.log(getChart4_bscissa())
+			
+          
 
             options.dataZoom[0].start = 0;
             options.dataZoom[0].end = 100;
@@ -3395,13 +3405,18 @@ $('#chart4').on('dblclick', function (params) {
             myChart4.setOption(options)
         }
         if (dataIndex[0].indexOf('月') != -1) {
-            options.xAxis[0].data = chart4_bscissa;
+			if(startY == endY){
+				alert("操作失败")
+			}
+			else{
+				options.xAxis[0].data = chart4_bscissa;
 			//mark 只有一年数据就不让他跳到这一层
-            for (var i = 0; i < selectedCity.length; i++) {
-                options.series[i].data = getyear(
-                    selectedCity[i].slice(0, selectedCity[i].length - 1) + '分行');
+				for (var i = 0; i < selectedCity.length; i++) {
+						options.series[i].data = getyear(
+						selectedCity[i].slice(0, selectedCity[i].length - 1) + '分行');
 
-            }
+				}
+			}
             options.dataZoom[0].start = 0;
             options.dataZoom[0].end = 100;
             myChart4.clear();
@@ -3431,15 +3446,19 @@ myChart4.getZr().on('click', params => {
             } //点击*月  进入日
             else if (dataIndex[0].indexOf('月') != -1) {
                 // 获取当前点击月份 进入了clickMonth月
-                clickMonth = xIndex + 1;
-				
-               
+                //clickMonth = xIndex + 1;
+				if(startY == endY){
+					 clickMonth = xIndex + parseInt(startM);
+					 
+				}
+				else{
+					clickMonth = xIndex + 1
+				}
                 options.xAxis[0].data = getday(clickMonth + '月');
                 for (var i = 0; i < selectedCity.length; i++) {
-
                     options.series[i].data = getmonthcount(
                         selectedCity[i].slice(0, selectedCity[i].length - 1) + '分行',
-                        curyear, clickMonth);
+                        parseInt(startY), clickMonth);
 
                 }
                 options.dataZoom[0].start = 0;
@@ -3460,7 +3479,6 @@ myChart4.getZr().on('click', params => {
                         selectedCity[i].slice(0, selectedCity[i].length - 1) + '分行',
                         curyear);
                 }
-                console.log(options.series);
                 options.dataZoom[0].start = 0;
                 options.dataZoom[0].end = 100;
                 myChart4.clear();
@@ -3491,21 +3509,7 @@ var area = '';//发送post请求时候的地点参数
 var flag = '0' //判断arealist中是否有刚刚点击的地点数据的标志
 
 
-//发送post请求的方法
-var wait = function () {
-    var defer = $.Deferred();
-    $.ajax({
-        type: 'post',
-        contentType: "application/x-www-form-urlencoded",
-        dataType: 'json',
-        url: 'http://localhost:8080/getdata',
-        data: {bankname: area},
-        success: function (res) {
-            defer.resolve(res);
-        }
-    });
-    return defer.promise();
-};
+
 
 
 //得到某一年，某个月，日的集合  city：**分行
@@ -3514,18 +3518,31 @@ function getmonthcount(city, year, month) { //year：2009  month：6
     month = month + '月'
     var array = [];
     var templist = cachicatch(city); //x
-
-    for (var i = 0; i < templist.data.length; i++) {
-        if (templist.data[i].time == year) {
-            templist = templist.data[i];
-        }
-    }
+	var templist1 = templist;
+	if(startY == endY){
+		templist1 = templist1.data[0].data;
+		//console.log(month)
+		var i= parseInt(startM);//6    678
+		var j = parseInt(endM)+1;//9
+		for(;i<j;i++){
+			if(templist1[i-1].time == month){
+				templist = templist1[i-1];
+			}
+		}
+	}
+    else{
+		for (var i = 0; i < templist.data.length; i++) {
+			if (templist.data[i].time == year) {
+				templist = templist.data[i];
+			}
+		}
     //console.log(templist)
-    for (var i = 0; i < templist.data.length; i++) {
-        if (templist.data[i].time == month) {
-            templist = templist.data[i];
-        }
-    }
+		for (var i = 0; i < templist.data.length; i++) {
+			if (templist.data[i].time == month) {
+				templist = templist.data[i];
+			}
+		}
+	}
     //console.log(templist.data)
     return templist.data;
 }
@@ -3542,19 +3559,29 @@ function arraysum(arr) {
 //得到某个地区某一年的集合(月的集合)
 function getmonth(city, year) {
     year = year + '年'
-
     var array = [];
     var templist = cachicatch(city);
-    for (var i = 0; i < templist.data.length; i++) {
-        if (templist.data[i].time == year) {
-            templist = templist.data[i];
-        }
-    }
-
-    for (var i = 0; i < templist.data.length; i++) {
-        array[i] = arraysum(templist.data[i].data);
-
-    }
+	
+	if(startY == endY){
+		var i= parseInt(startM);
+		var count = parseInt(endM)-i+1;
+		templist = templist.data[0].data;
+		 for(var k=0;k<count;k++){
+			array[k]=arraysum(templist[i-1].data);
+			i++;
+		}
+		
+	}
+	else{
+		for (var i = 0; i < templist.data.length; i++) {
+			if (templist.data[i].time == year) {
+				templist = templist.data[i];
+			}
+		}
+		for (var i = 0; i < templist.data.length; i++) {
+			array[i] = arraysum(templist.data[i].data);
+		}
+	}
     return array;
 
 }
@@ -3597,11 +3624,22 @@ function cachicatch(city) {
     }
 }
 function getChart4_bscissa(){
+    chart4_bscissa = [];
 	var templist = arealist[0];
 	for (var i = 0; i < templist.data.length; i++) {
        chart4_bscissa[i] = templist.data[i].time;
     }
 	
+	if(chart4_bscissa.length==1){
+		chart4_bscissa=[];
+	   templist = templist.data[0].data;
+	   var i= parseInt(startM);
+	   var count = parseInt(endM)-i+1;
+	   for(var k=0;k<count;k++){
+		chart4_bscissa[k]=templist[i-1].time;
+		i++;
+	   }
+	}
 	return chart4_bscissa;
 }
 
@@ -3611,7 +3649,7 @@ var sendajax = function(dtd){
     $.ajax({
 	
         // nginx 的url http://localhost/proxy/getdata
-        url: "http://localhost:8080/hello",
+        url: "http://localhost:8080/getsinglebuss",
         data: JSON.stringify({
 			"banknames":searchcitys,
 			"business":factor,
@@ -3623,7 +3661,7 @@ var sendajax = function(dtd){
 		dataType:'text',
 		success:function(res){
 		 //console.log(res);
-		 arealist = realdata;
+		 arealist = res;
 		 dtd.resolve(res);
 		}
     });
