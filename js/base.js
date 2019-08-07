@@ -3649,7 +3649,7 @@ var sendajax = function(dtd){
     $.ajax({
 	
         // nginx 的url http://localhost/proxy/getdata
-        url: "http://localhost:8080/getsinglebuss",
+        url: "http://localhost:9000/getsinglebuss",
         data: JSON.stringify({
 			"banknames":searchcitys,
 			"business":factor,
