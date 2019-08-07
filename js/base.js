@@ -3005,6 +3005,9 @@ function dateCss() {
 $('#commit').on('click',function(){
 
 var myChart4 = echarts.init(document.getElementById('chart4'));
+var options = myChart4.getOption();
+myChart4.clear();
+myChart4.setOption(options);
 for(var i=0;i<selectedCity.length;i++){
 	searchcitys[i] = parsearea(selectedCity[i]);
 	
@@ -3038,6 +3041,66 @@ else if(endV == '-1'){
 	
 	var options = myChart4.getOption();
 
+	if(factor == '开卡数'){
+		options.yAxis[0]={
+				type: 'value',
+                splitLine: {
+                    show: false,
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: '#fff'
+                    }
+                },
+                name: '开卡数',
+                axisLabel: {formatter: '{value} 张'}
+				};
+		}
+	else if(factor =='贷款数'){
+		options.yAxis[0]={
+				type: 'value',
+                splitLine: {
+                    show: false,
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: '#fff'
+                    }
+                },
+                name: '贷款数',
+                axisLabel: {formatter: '{value} 元'}
+            }
+	}
+	else if(factor =='取款数'){
+		options.yAxis[0]={
+				type: 'value',
+                splitLine: {
+                    show: false,
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: '#fff'
+                    }
+                },
+                name: '取款数',
+                axisLabel: {formatter: '{value} 元'}
+            }
+	}
+	else if(factor =='中间收入'){
+		options.yAxis[0]={
+				type: 'value',
+                splitLine: {
+                    show: false,
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: '#fff'
+                    }
+                },
+                name: '中间收入',
+                axisLabel: {formatter: '{value} 元'}
+            }
+	}
     options.legend[0].data = selectedCity;
 	
 	
@@ -3158,7 +3221,7 @@ function chart4() {
         ],
         yAxis: [
             {
-
+				type: 'value',
                 splitLine: {
                     show: false,
                 },
@@ -3167,10 +3230,10 @@ function chart4() {
                         color: '#fff'
                     }
                 },
-                type: 'value',
-                name: '张',
-                axisLabel: {}
+              
+          
             }
+			
         ],
         series: [
             /*
@@ -3660,9 +3723,9 @@ var sendajax = function(dtd){
         contentType:'application/json;charset=utf-8',
 		dataType:'text',
 		success:function(res){
-		 //console.log(res);
+		 
 		 arealist = res;
-		 dtd.resolve(res);
+		 dtd.resolve();
 		}
     });
 	return dtd;
