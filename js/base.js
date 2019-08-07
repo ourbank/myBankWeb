@@ -3122,7 +3122,7 @@ $('#fil1Btn').on('click', function () {
     }
 })
 
-
+// =====================放大的预测详细图
 var myChartPre = echarts.init(document.getElementById('chart11'));
 
 function chart11() {
@@ -3259,11 +3259,12 @@ function getplan(pre, target) {
     return out;
 }
 
+//----------------首页展示的简单图
 //点击筛选按钮end
+let preSimpleChart = echarts.init(document.getElementById('prechart'));
+
 function chart2() {
     // 基于准备好的dom，初始化echarts实例
-    var myChart = echarts.init(document.getElementById('prechart'));
-    myChart.clear();
     option = {
         title: {
             text: ''
@@ -3327,10 +3328,359 @@ function chart2() {
             // 此处添加
         ]
     };
-    myChart.setOption(option);
+    preSimpleChart.clear();
+    preSimpleChart.setOption(option);
 }
 
 chart2('');
+// 界面加载就去获取默认的业务的预测值
+let wait_default_predict = function () {
+    return new Promise((resolve) => {
+        $.ajax({
+            type: 'post',
+            contentType: "application/x-www-form-urlencoded",
+            dataType: 'json',
+            url: 'http://localhost:9000/getdefaultpredict',
+            success: function (res) {
+                resolve(res);
+            }
+        });//ajax
+    });//promise
+};
+
+async function draw_default_pre() {
+    preSimpleChart.showLoading({text: ''});
+    let res = await wait_default_predict();
+    preSimpleChart.hideLoading();
+}
+
+draw_default_pre()
+
+// value的值代表，该城市的计划值，长度由预测时间长度决定
+// 如[x,x,x,x]，即为当前时间接下去4个时间单位
+var gd_city = [
+    {
+        name: '广州市',
+        value: 0
+    },
+    {
+        name: '韶关市',
+        value: 0
+    },
+    {
+        name: '深圳市',
+        value: 0
+    },
+    {
+        name: '珠海市',
+        value: 0.0
+    },
+    {
+        name: '汕头市',
+        value: 0.0
+    },
+    {
+        name: '佛山市',
+        value: 0.0
+    },
+    {
+        name: '江门市',
+        value: 0.0
+    },
+    {
+        name: '湛江市',
+        value: 0.0
+    },
+    {
+        name: '茂名市',
+        value: 0.0
+    },
+    {
+        name: '肇庆市',
+        value: 0.0
+    },
+    {
+        name: '惠州市',
+        value: 0.0
+    },
+    {
+        name: '梅州市',
+        value: 0.0
+    },
+    {
+        name: '汕尾市',
+        value: 0.0
+    },
+    {
+        name: '河源市',
+        value: 0.0
+    },
+    {
+        name: '阳江市',
+        value: 0.0
+    },
+    {
+        name: '清远市',
+        value: 0.0
+    },
+    {
+        name: '东莞市',
+        value: 0
+    },
+    {
+        name: '中山市',
+        value: 0.0
+    },
+    {
+        name: '潮州市',
+        value: 0.0
+    },
+    {
+        name: '揭阳市',
+        value: 0.0
+    },
+    {
+        name: '云浮市',
+        value: 0.0
+    }]
+
+//变色
+var pre_unit_choose;
+var pre_city_choose;
+$('#1mon').on('click', function () {
+    pre_unit_choose = 0;
+    $('#1mon').attr("style", "background-color: #b104ff;")
+    $('#3mon').attr("style", "")
+    $('#12mon').attr("style", "")
+})
+$('#3mon').on('click', function () {
+    pre_unit_choose = 1;
+    $('#1mon').attr("style", "")
+    $('#3mon').attr("style", "background-color: #b104ff;")
+    $('#12mon').attr("style", "")
+})
+$('#12mon').on('click', function () {
+    pre_unit_choose = 2;
+    $('#1mon').attr("style", "")
+    $('#3mon').attr("style", "")
+    $('#12mon').attr("style", "background-color: #b104ff;")
+})
+
+function plan_getmon(i) {
+    var date = new Date();
+    var year = date.getFullYear();
+    var mon = date.getMonth();
+    return parseInt(year + (mon + i) / 12) + '年 ' + (((mon + i) % 12) + 1) + '月';
+    ;
+}
+
+
+function plan_getyear() {
+    var date = new Date();
+    var year = date.getFullYear();
+    return year;
+}
+
+function plan_getseason(i) {
+    var date = new Date();
+    var year = date.getFullYear();
+    var mon = date.getMonth();
+    var season;
+    if (mon == 1 || mon == 2 || mon == 3) {
+        season = 1;
+    } else if (mon == 4 || mon == 5 || mon == 6) {
+        season = 2;
+    } else if (mon == 7 || mon == 8 || mon == 9) {
+        season = 3;
+    } else {
+        season = 4;
+    }
+    return parseInt(year + (season + i) / 4) + '年 ' + (((season + i) % 4) + 1) + '季度';
+}
+
+// 动态添加 时间配置，只是样式的改变，无涉及数据的传递
+function draw_config() {
+    $('.detail-container').empty();
+    if (pre_unit_choose == 0) {
+        for (var i = 0; i < $('#pre_period').val(); i++) {
+            $('.detail-container').append('<div style="width:100%" class="pre_citybox">\n' +
+                '                    <p ><span>' + plan_getmon(i) + '：</span></p>\n' +
+                '                    <input id="' + pre_city_choose + plan_getmon(i) + '_input">\n' +
+                '                </div>')
+        }
+    } else if (pre_unit_choose == 1) {
+        for (var i = 0; i < $('#pre_period').val(); i++) {
+            $('.detail-container').append('<div style="width:100%" class="pre_citybox">\n' +
+                '                    <p ><span>' + plan_getseason(i) + '：</span></p>\n' +
+                '                    <input id="' + pre_city_choose + plan_getseason(i) + '_input">\n' +
+                '                </div>')
+        }
+    } else {
+        for (var i = 0; i < $('#pre_period').val(); i++) {
+            $('.detail-container').append('<div style="width:100%" class="pre_citybox">\n' +
+                '                    <p ><span>' + (plan_getyear() + i) + '年：</span></p>\n' +
+                '                    <input id="' + pre_city_choose + (plan_getyear() + i) + '_input">\n' +
+                '                </div>')
+        }
+    }
+    $('.detail-container').find("input").eq($('#pre_period').val() - 1).attr('readonly', 'readonly');
+}
+
+// 将gd_city中value的值赋给对应的input
+function get_gd_city_data(id) {
+    var temp = [];
+    for (var i = 0; i < gd_city.length; i++) {
+        if (gd_city[i].name == id) {
+            temp = gd_city[i].value;
+        }
+    }
+    for (var i = 0; i < $('#pre_period').val(); i++) {
+        $('.detail-container').find('input').eq(i).val(temp[i].toFixed(0));
+    }
+}
+
+function randomNum(minNum, maxNum) {
+    return (Math.random() * (maxNum - minNum) + minNum).toFixed(2);
+}
+
+// 用于动态获取占比数据
+let wait_scale = function () {
+    return new Promise((resolve) => {
+        $.ajax({
+            type: 'post',
+            contentType: "application/x-www-form-urlencoded",
+            dataType: 'json',
+            url: 'http://localhost:9000/getscale',
+            data: {period: 'season', business: 'card'},
+            success: function (res) {
+                resolve(res);
+            }
+        });//ajax
+    });//promise
+};
+
+//根据占比(ajax获得)进行分配
+async function main_all() {
+    var target = $('#广州target').val();
+    var res = await wait_scale();
+    var zhanbi = [1];
+    var data = [];
+    var base;
+    for (let i = 0; i < res.length; i++) {
+        if (res[i].bankName == '广州分行') {
+            base = res[i].num;
+            data.push(res[i].num);
+            break;
+        }
+    }
+    for (let i = 1; i < gd_city.length; i++) {
+        for (let j = 0; j < res.length; j++) {
+            if (res[j].bankName == gd_city[i].name.substring(0, gd_city[i].name.indexOf('市')) + '分行') {
+                zhanbi.push(res[j].num / base);
+                data.push(res[j].num);
+                break;
+            }
+            if (j == res.length - 1) {
+                zhanbi.push(0);
+                data.push(0);
+            }
+        }
+    }
+    for (var i = 1; i <= gd_city.length; i++) {
+        $('.city-container').find('input').eq(i - 1).val((target * zhanbi[i]).toFixed(0));
+    }
+    for (var i = 0; i < gd_city.length; i++) {
+        var temp = [];
+        var target_temp = target * zhanbi[i];
+        var test_mon = data[i];
+        var gap = ((target_temp - test_mon) / $('#pre_period').val()).toFixed(2);
+        for (var j = 0; j < $('#pre_period').val(); j++) {
+            temp.push(test_mon + gap * (j + 1));
+        }
+        gd_city[i].value = temp;
+    }
+
+}
+
+// 动态添加
+// 默认预测4
+$('#pre_period').val(4);
+$('#gz_click').on('click', function () {
+    if (pre_unit_choose != 0 && pre_unit_choose != 1 && pre_unit_choose != 2) {
+        alert("请选择预测单位");
+    } else {
+        $('#pages-div').attr('style', 'visibility: visible');
+        // 时间选择的点击事件，增减
+        $('#pre_period').on('click', async function () {
+            draw_config();
+            await main_all();
+            get_gd_city_data('广州市');
+        });
+        $('.container2').attr('style', 'visibility: visible').find('.pop-up1').eq(0).attr('style', 'visibility: visible');
+        $('.pop-up1').find('h2').eq(0).text('广州计划配置');
+        pre_city_choose = '广州市';
+        draw_config();
+        get_gd_city_data('广州市');
+        $('.detail-container input').on('blur', function () {
+            for (var i = 0; i < gd_city.length; i++) {
+                if (gd_city[i].name == pre_city_choose) {
+                    var temp = []
+                    for (var j = 0; j < $('#pre_period').val(); j++) {
+                        temp.push($('.detail-container').find('input').eq(j).val());
+                    }
+                    gd_city[i].value = temp;
+                }
+            }
+        });
+    }
+});
+
+
+// 动态添加 城市配置
+$('#pre_all_btn').on('click', function () {
+    console.log(gd_city)
+    var access = true;
+    if ($('#广州target').val() == '') {
+        alert("智能分配根据省会计划进行同比分配，请添加省会计划");
+    } else if (pre_unit_choose != 0 && pre_unit_choose != 1 && pre_unit_choose != 2) {
+        alert("请选择预测单位");
+    } else if (typeof ($('#pre_period').val()) == 'undefined') {
+        alert("请进入广州市配置界面设置时长");
+    } else if (gd_city[0].value != 0) {
+        access = confirm("智能分配会覆盖掉手动修改的值，是否继续")
+    }
+    if (access == true) {
+        $('.city-container').empty();
+        for (var i = 1; i < gd_city.length; i++) {
+            $('.city-container').append('<div class="pre_citybox">\n' +
+                '                    <p style="cursor: pointer" id="' + gd_city[i].name + '_p"><span>' + gd_city[i].name + '：</span></p>\n' +
+                '                    <input id="' + gd_city[i].name + '_input">\n' +
+                '                </div>');
+            // 添加点击事件
+            $('#' + gd_city[i].name + '_p').on('click', function (res) {
+                $('#pages-div').attr('style', 'visibility: hidden');
+                $('.container2').attr('style', 'visibility: visible').find('.pop-up1').eq(0).attr('style', 'visibility: visible');
+                $('.pop-up1').find('h2').eq(0).text(res.currentTarget.innerText.slice(0, -2) + '分行计划配置');
+                pre_city_choose = res.currentTarget.innerText.slice(0, -1);
+                draw_config();
+                get_gd_city_data(pre_city_choose);
+                $('.detail-container input').on('blur', function () {
+                    for (var i = 0; i < gd_city.length; i++) {
+                        if (gd_city[i].name == pre_city_choose) {
+                            var temp = []
+                            for (var j = 0; j < $('#pre_period').val(); j++) {
+                                temp.push($('.detail-container').find('input').eq(j).val());
+                            }
+                            gd_city[i].value = temp;
+                        }
+                    }
+                });
+            });
+
+        }
+        main_all();
+    }
+})
 //------------指标预测end---------------
 
 /* =========================地图模块图表============================*/
@@ -3893,50 +4243,36 @@ var endTime = {
 laydate(startTime);
 laydate(endTime);
 
-
 //点击时间选择器的时候更改样式
 $('#endTime').on('click', function () {
     dateCss();
-
 })
 //不知道是什么先不删
 $('#end').on('click', function () {
     dateCss();
-
 })
 
 
 //更改日期插件的样式
 function dateCss() {
     var arr = $('#laydate_box').attr('style').split(';');
-
     var cssStr =
         'position:absolute;right:0;';
     for (var i = 0; i < arr.length; i++) {
-
         if (arr[i].indexOf('top') != -1) {
             cssStr += arr[i];
         }
     }
-
     $('#laydate_box').attr('style', cssStr);
 }
 
 //开始发送啦
-$('#commit').on('click', function () {
-    console.log('我来了')
-
-
+$('#commit').on('click', async function () {
     var myChart4 = echarts.init(document.getElementById('chart4'));
-    var options = myChart4.getOption();
-    myChart4.clear();
-    myChart4.setOption(options);
     for (var i = 0; i < selectedCity.length; i++) {
         searchcitys[i] = parsearea(selectedCity[i]);
-
     }
     for (var i = 0; i < 1; i++) {
-
         if (searchcitys.length == 0) {
             alert("请选择你要查询的城市");
             break;
@@ -3951,109 +4287,107 @@ $('#commit').on('click', function () {
             break;
         }
     }
-
-    $.when(sendajax(dtd)).done(function () {
-        var options = myChart4.getOption();
-        if (factor == '开卡数') {
-            options.yAxis[0] = {
-                type: 'value',
-                splitLine: {
-                    show: false,
-                },
-                axisLine: {
-                    lineStyle: {
-                        color: '#fff'
-                    }
-                },
-                name: '开卡数',
-                axisLabel: {formatter: '{value} 张'}
-            };
-        } else if (factor == '贷款数') {
-            options.yAxis[0] = {
-                type: 'value',
-                splitLine: {
-                    show: false,
-                },
-                axisLine: {
-                    lineStyle: {
-                        color: '#fff'
-                    }
-                },
-                name: '贷款数',
-                axisLabel: {formatter: '{value} 元'}
-            }
-        } else if (factor == '取款数') {
-            options.yAxis[0] = {
-                type: 'value',
-                splitLine: {
-                    show: false,
-                },
-                axisLine: {
-                    lineStyle: {
-                        color: '#fff'
-                    }
-                },
-                name: '取款数',
-                axisLabel: {formatter: '{value} 元'}
-            }
-        } else if (factor == '中间收入') {
-            options.yAxis[0] = {
-                type: 'value',
-                splitLine: {
-                    show: false,
-                },
-                axisLine: {
-                    lineStyle: {
-                        color: '#fff'
-                    }
-                },
-                name: '中间收入',
-                axisLabel: {formatter: '{value} 元'}
-            }
+    await sendajax();
+    var options = myChart4.getOption();
+    if (factor == '开卡数') {
+        options.yAxis[0] = {
+            type: 'value',
+            splitLine: {
+                show: false,
+            },
+            axisLine: {
+                lineStyle: {
+                    color: '#fff'
+                }
+            },
+            name: '开卡数/张',
+            axisLabel: {formatter: '{value} '}
+        };
+    } else if (factor == '贷款数') {
+        options.yAxis[0] = {
+            type: 'value',
+            splitLine: {
+                show: false,
+            },
+            axisLine: {
+                lineStyle: {
+                    color: '#fff'
+                }
+            },
+            name: '贷款数/元',
+            axisLabel: {formatter: '{value} '}
         }
-        options.legend[0].data = selectedCity;
-
-
-        options.xAxis[0].data = getChart4_bscissa();
-        // 加载数据
-
-        var dataIndex = options.xAxis[0].data;
-
-        options.series = []; // 先清空
-        if (dataIndex[0].indexOf('号') != -1) {
-            //点进来在日里面
-            for (var i = 0; i < selectedCity.length; i++) {
-                options.series.push({name: '', type: '', data: ''});
-                options.series[i].name = selectedCity[i];
-                options.series[i].type = 'bar';
-
-                options.series[i].data = getmonthcount(
-                    selectedCity[i].slice(0, selectedCity[i].length - 1) + '分行',
-                    curyear, clickMonth);
-            }
-            //点进来在月里面
-        } else if (dataIndex[0].indexOf('月') != -1) {
-            for (var i = 0; i < selectedCity.length; i++) {
-                options.series.push({name: '', type: '', data: ''});
-                options.series[i].name = selectedCity[i];
-                options.series[i].type = 'bar';
-
-
-                options.series[i].data = getmonth(
-                    selectedCity[i].slice(0, selectedCity[i].length - 1) + '分行',
-                    parseInt(startY));
-            }
-        } else {//点进来在年里面
-            for (var i = 0; i < selectedCity.length; i++) {
-                options.series.push({name: '', type: '', data: ''});
-                options.series[i].name = selectedCity[i];
-                options.series[i].type = 'bar';
-                options.series[i].data = getyear(selectedCity[i].slice(0, selectedCity[i].length - 1) + '分行');
-            }
+    } else if (factor == '取款数/元') {
+        options.yAxis[0] = {
+            type: 'value',
+            splitLine: {
+                show: false,
+            },
+            axisLine: {
+                lineStyle: {
+                    color: '#fff'
+                }
+            },
+            name: '取款数',
+            axisLabel: {formatter: '{value} '}
         }
-        myChart4.clear();
-        myChart4.setOption(options);
-    });
+    } else if (factor == '中间收入/元') {
+        options.yAxis[0] = {
+            type: 'value',
+            splitLine: {
+                show: false,
+            },
+            axisLine: {
+                lineStyle: {
+                    color: '#fff'
+                }
+            },
+            name: '中间收入',
+            axisLabel: {formatter: '{value} '}
+        }
+    }
+    options.legend[0].data = selectedCity;
+
+
+    options.xAxis[0].data = getChart4_bscissa();
+    // 加载数据
+
+    var dataIndex = options.xAxis[0].data;
+
+    options.series = []; // 先清空
+    if (dataIndex[0].indexOf('号') != -1) {
+        //点进来在日里面
+        for (var i = 0; i < selectedCity.length; i++) {
+            options.series.push({name: '', type: '', data: ''});
+            options.series[i].name = selectedCity[i];
+            options.series[i].type = 'bar';
+
+            options.series[i].data = getmonthcount(
+                selectedCity[i].slice(0, selectedCity[i].length - 1) + '分行',
+                curyear, clickMonth);
+        }
+        //点进来在月里面
+    } else if (dataIndex[0].indexOf('月') != -1) {
+        for (var i = 0; i < selectedCity.length; i++) {
+            options.series.push({name: '', type: '', data: ''});
+            options.series[i].name = selectedCity[i];
+            options.series[i].type = 'bar';
+
+
+            options.series[i].data = getmonth(
+                selectedCity[i].slice(0, selectedCity[i].length - 1) + '分行',
+                parseInt(startY));
+        }
+    } else {//点进来在年里面
+        for (var i = 0; i < selectedCity.length; i++) {
+            options.series.push({name: '', type: '', data: ''});
+            options.series[i].name = selectedCity[i];
+            options.series[i].type = 'bar';
+            options.series[i].data = getyear(selectedCity[i].slice(0, selectedCity[i].length - 1) + '分行');
+        }
+    }
+    myChart4.clear();
+    myChart4.setOption(options);
 })
 
 
@@ -4061,7 +4395,6 @@ $('#commit').on('click', function () {
 
 /* =========================核心查询图表============================*/
 var myChart4 = echarts.init(document.getElementById('chart4'));
-
 //xAxis
 function chart4() {
     // 基于准备好的dom，初始化echarts实例
@@ -4606,28 +4939,25 @@ function getChart4_bscissa() {
     return chart4_bscissa;
 }
 
-var dtd = $.Deferred();//新建一个deferred对象
 var sendajax = function () {
-    //发送post请求的方法
-    $.ajax({
-        // nginx 的url http://localhost/proxy/getdata
-        url: "http://localhost:9000/getsinglebuss",
-        data: JSON.stringify({
-            "banknames": searchcitys,
-            "business": factor,
-            "starttime": startV,
-            "endtime": endV
-        }),
-        async:false,
-        type: 'post',
-        contentType: 'application/json;charset=utf-8',
-        success: function (res) {
-            arealist= [];
-            arealist = res;
-            dtd.resolve();
-        }
+    return new Promise((resolve) => {
+        $.ajax({
+            // nginx 的url http://localhost/proxy/getdata
+            url: "http://localhost:9000/getsinglebuss",
+            data: JSON.stringify({
+                "banknames": searchcitys,
+                "business": factor,
+                "starttime": startV,
+                "endtime": endV
+            }),
+            type: 'post',
+            contentType: 'application/json;charset=utf-8',
+            success: function (res) {
+                arealist = res;
+                resolve();
+            }
+        });
     });
-    return dtd.promise();
 }
 
 
@@ -4755,335 +5085,6 @@ $('.savehistory').on('click', function () {
 //
 // })
 
-// value的值代表，该城市的计划值，长度由预测时间长度决定
-// 如[x,x,x,x]，即为当前时间接下去4个时间单位
-var gd_city = [
-    {
-        name: '广州市',
-        value: 0
-    },
-    {
-        name: '韶关市',
-        value: 0
-    },
-    {
-        name: '深圳市',
-        value: 0
-    },
-    {
-        name: '珠海市',
-        value: 0.0
-    },
-    {
-        name: '汕头市',
-        value: 0.0
-    },
-    {
-        name: '佛山市',
-        value: 0.0
-    },
-    {
-        name: '江门市',
-        value: 0.0
-    },
-    {
-        name: '湛江市',
-        value: 0.0
-    },
-    {
-        name: '茂名市',
-        value: 0.0
-    },
-    {
-        name: '肇庆市',
-        value: 0.0
-    },
-    {
-        name: '惠州市',
-        value: 0.0
-    },
-    {
-        name: '梅州市',
-        value: 0.0
-    },
-    {
-        name: '汕尾市',
-        value: 0.0
-    },
-    {
-        name: '河源市',
-        value: 0.0
-    },
-    {
-        name: '阳江市',
-        value: 0.0
-    },
-    {
-        name: '清远市',
-        value: 0.0
-    },
-    {
-        name: '东莞市',
-        value: 0
-    },
-    {
-        name: '中山市',
-        value: 0.0
-    },
-    {
-        name: '潮州市',
-        value: 0.0
-    },
-    {
-        name: '揭阳市',
-        value: 0.0
-    },
-    {
-        name: '云浮市',
-        value: 0.0
-    }]
-
-//变色
-var pre_unit_choose;
-var pre_city_choose;
-$('#1mon').on('click', function () {
-    pre_unit_choose = 0;
-    $('#1mon').attr("style", "background-color: #b104ff;")
-    $('#3mon').attr("style", "")
-    $('#12mon').attr("style", "")
-})
-$('#3mon').on('click', function () {
-    pre_unit_choose = 1;
-    $('#1mon').attr("style", "")
-    $('#3mon').attr("style", "background-color: #b104ff;")
-    $('#12mon').attr("style", "")
-})
-$('#12mon').on('click', function () {
-    pre_unit_choose = 2;
-    $('#1mon').attr("style", "")
-    $('#3mon').attr("style", "")
-    $('#12mon').attr("style", "background-color: #b104ff;")
-})
-
-function plan_getmon(i) {
-    var date = new Date();
-    var year = date.getFullYear();
-    var mon = date.getMonth();
-    return parseInt(year + (mon + i) / 12) + '年 ' + (((mon + i) % 12) + 1) + '月';
-    ;
-}
-
-
-function plan_getyear() {
-    var date = new Date();
-    var year = date.getFullYear();
-    return year;
-}
-
-function plan_getseason(i) {
-    var date = new Date();
-    var year = date.getFullYear();
-    var mon = date.getMonth();
-    var season;
-    if (mon == 1 || mon == 2 || mon == 3) {
-        season = 1;
-    } else if (mon == 4 || mon == 5 || mon == 6) {
-        season = 2;
-    } else if (mon == 7 || mon == 8 || mon == 9) {
-        season = 3;
-    } else {
-        season = 4;
-    }
-    return parseInt(year + (season + i) / 4) + '年 ' + (((season + i) % 4) + 1) + '季度';
-}
-
-// 动态添加 时间配置，只是样式的改变，无涉及数据的传递
-function draw_config() {
-    $('.detail-container').empty();
-    if (pre_unit_choose == 0) {
-        for (var i = 0; i < $('#pre_period').val(); i++) {
-            $('.detail-container').append('<div style="width:100%" class="pre_citybox">\n' +
-                '                    <p ><span>' + plan_getmon(i) + '：</span></p>\n' +
-                '                    <input id="' + pre_city_choose + plan_getmon(i) + '_input">\n' +
-                '                </div>')
-        }
-    } else if (pre_unit_choose == 1) {
-        for (var i = 0; i < $('#pre_period').val(); i++) {
-            $('.detail-container').append('<div style="width:100%" class="pre_citybox">\n' +
-                '                    <p ><span>' + plan_getseason(i) + '：</span></p>\n' +
-                '                    <input id="' + pre_city_choose + plan_getseason(i) + '_input">\n' +
-                '                </div>')
-        }
-    } else {
-        for (var i = 0; i < $('#pre_period').val(); i++) {
-            $('.detail-container').append('<div style="width:100%" class="pre_citybox">\n' +
-                '                    <p ><span>' + (plan_getyear() + i) + '年：</span></p>\n' +
-                '                    <input id="' + pre_city_choose + (plan_getyear() + i) + '_input">\n' +
-                '                </div>')
-        }
-    }
-    $('.detail-container').find("input").eq($('#pre_period').val() - 1).attr('readonly', 'readonly');
-}
-
-// 将gd_city中value的值赋给对应的input
-function get_gd_city_data(id) {
-    var temp = [];
-    for (var i = 0; i < gd_city.length; i++) {
-        if (gd_city[i].name == id) {
-            temp = gd_city[i].value;
-        }
-    }
-    for (var i = 0; i < $('#pre_period').val(); i++) {
-        $('.detail-container').find('input').eq(i).val(temp[i].toFixed(0));
-    }
-}
-
-function randomNum(minNum, maxNum) {
-    return (Math.random() * (maxNum - minNum) + minNum).toFixed(2);
-
-}
-
-// 用于动态获取占比数据
-var wait_scale = function () {
-    var defer = $.Deferred();
-    $.ajax({
-        type: 'post',
-        contentType: "application/x-www-form-urlencoded",
-        dataType: 'json',
-        url: 'http://localhost:9000/getscale',
-        data: {period: 'season', business: 'card'},
-        async:false,
-        success: function (res) {
-            defer.resolve(res);
-        }
-    });
-    return defer.promise();
-};
-
-//根据占比(ajax获得)进行分配
-function main_all() {
-    var target = $('#广州target').val();
-    $.when(wait_scale()).done(function (res) {
-        var zhanbi = [1];
-        var data = [];
-        var base;
-        for (let i = 0; i < res.length; i++) {
-            if (res[i].bankName == '广州分行') {
-                base = res[i].num;
-                data.push(res[i].num);
-                break;
-            }
-        }
-        for (let i = 1; i < gd_city.length; i++) {
-            for (let j = 0; j < res.length; j++) {
-                if (res[j].bankName == gd_city[i].name.substring(0, gd_city[i].name.indexOf('市')) + '分行') {
-                    zhanbi.push(res[j].num / base);
-                    data.push(res[j].num);
-                    break;
-                }
-                if( j == res.length - 1){
-                    zhanbi.push(0);
-                    data.push(0);
-                }
-            }
-        }
-        for (var i = 1; i <= gd_city.length; i++) {
-            $('.city-container').find('input').eq(i - 1).val((target * zhanbi[i]).toFixed(0));
-        }
-        for (var i = 0; i < gd_city.length; i++) {
-            var temp = [];
-            var target_temp = target * zhanbi[i];
-            var test_mon = data[i];
-            var gap = ((target_temp - test_mon) / $('#pre_period').val()).toFixed(2);
-            for (var j = 0; j < $('#pre_period').val(); j++) {
-                temp.push(test_mon + gap * (j + 1));
-            }
-            gd_city[i].value = temp;
-        }
-    });
-}
-
-// 动态添加
-// 默认预测4
-$('#pre_period').val(4);
-$('#gz_click').on('click', function () {
-    if (pre_unit_choose != 0 && pre_unit_choose != 1 && pre_unit_choose != 2) {
-        alert("请选择预测单位");
-    } else {
-        $('#pages-div').attr('style', 'visibility: visible');
-        // 时间选择的点击事件，增减
-        $('#pre_period').on('click', function () {
-            draw_config();
-            main_all();
-            get_gd_city_data('广州市');
-        });
-        $('.container2').attr('style', 'visibility: visible').find('.pop-up1').eq(0).attr('style', 'visibility: visible');
-        $('.pop-up1').find('h2').eq(0).text('广州计划配置');
-        pre_city_choose = '广州市';
-        draw_config();
-        get_gd_city_data('广州市');
-        $('.detail-container input').on('blur', function () {
-            for (var i = 0; i < gd_city.length; i++) {
-                if (gd_city[i].name == pre_city_choose) {
-                    var temp = []
-                    for (var j = 0; j < $('#pre_period').val(); j++) {
-                        temp.push($('.detail-container').find('input').eq(j).val());
-                    }
-                    gd_city[i].value = temp;
-                }
-            }
-        });
-    }
-})
-
-
-// 动态添加 城市配置
-$('#pre_all_btn').on('click', function () {
-    console.log(gd_city)
-    var access = true;
-    if ($('#广州target').val() == '') {
-        alert("智能分配根据省会计划进行同比分配，请添加省会计划");
-    } else if (pre_unit_choose != 0 && pre_unit_choose != 1 && pre_unit_choose != 2) {
-        alert("请选择预测单位");
-    } else if (typeof ($('#pre_period').val()) == 'undefined') {
-        alert("请进入广州市配置界面设置时长");
-    } else if(gd_city[0].value != 0){
-        access = confirm("智能分配会覆盖掉手动修改的值，是否继续")
-    }
-    if(access == true)
-    {
-        $('.city-container').empty();
-        for (var i = 1; i < gd_city.length; i++) {
-            $('.city-container').append('<div class="pre_citybox">\n' +
-                '                    <p style="cursor: pointer" id="' + gd_city[i].name + '_p"><span>' + gd_city[i].name + '：</span></p>\n' +
-                '                    <input id="' + gd_city[i].name + '_input">\n' +
-                '                </div>');
-            // 添加点击事件
-            $('#' + gd_city[i].name + '_p').on('click', function (res) {
-                $('#pages-div').attr('style', 'visibility: hidden');
-                $('.container2').attr('style', 'visibility: visible').find('.pop-up1').eq(0).attr('style', 'visibility: visible');
-                $('.pop-up1').find('h2').eq(0).text(res.currentTarget.innerText.slice(0, -2) + '分行计划配置');
-                pre_city_choose = res.currentTarget.innerText.slice(0, -1);
-                draw_config();
-                get_gd_city_data(pre_city_choose);
-                $('.detail-container input').on('blur', function () {
-                    for (var i = 0; i < gd_city.length; i++) {
-                        if (gd_city[i].name == pre_city_choose) {
-                            var temp = []
-                            for (var j = 0; j < $('#pre_period').val(); j++) {
-                                temp.push($('.detail-container').find('input').eq(j).val());
-                            }
-                            gd_city[i].value = temp;
-                        }
-                    }
-                });
-            });
-
-        }
-        main_all();
-    }
-})
-
 
 // websocket 相关代码
 // 默认加载websocket服务
@@ -5091,34 +5092,34 @@ function connect() {
     var socket = new SockJS('http://localhost:9000/socket');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
-        console.log('Connected:' + frame);
+        //console.log('Connected:' + frame);
         // 订阅hello事件
         stompClient.subscribe('/topic/say', function (response) {
             showResponse(JSON.parse(response.body).responseMessage);
         });
         // 订阅定时任务
         stompClient.subscribe('/topic/callback', function (response) {
-            console.log(response);
+            //console.log(response);
             showCallback(response.body);
         });
     });
 }
 
-connect();
+//connect();
 
 $(window).on('unload', function () {
     if (stompClient != null) {
         stompClient.disconnect();
     }
-    console.log('Disconnected');
+    //console.log('Disconnected');
 });
 
 function showResponse(message) {
-    console.log(message);
+    //console.log(message);
     //$("#").html(message);
 }
 
 function showCallback(message) {
-    console.log(message);
+    //console.log(message);
     //$("#").html(message);
 }

@@ -17,11 +17,13 @@
     <script type="text/javascript" src="js/stomp.min.js"></script>
     <script type="text/javascript" src="js/sockjs.min.js"></script>
 	<script type="text/javascript" src="js/DatePicker.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
     <title>ICBC个金运营管理平台</title>
 </head>
 
 <body style="visibility: hidden;">
+
 <div class="container-flex" id="wholepage" tabindex="0" hidefocus="true">
     <div class="box-left" >
         <div class="left-top">
@@ -422,6 +424,30 @@
         // }
         //
         // myTotalprice();
+
+        // var temp;
+        // function wait_predict_data() {
+        //      return new Promise((resolve, reject) => {
+        //         $.ajax({
+        //             type: 'post',
+        //             contentType: "application/x-www-form-urlencoded",
+        //             url: 'http://localhost:9000/getdefaultpredict',
+        //             success: function (res) {
+        //                 temp = res;
+        //                 resolve()
+        //             }
+        //         });
+        //     })
+        // }
+        //
+        // async function test(){
+        //     await wait_predict_data();
+        //     console.log(temp);
+        // }
+        //
+        // test();
+
+
     });
 
 </script>
